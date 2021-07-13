@@ -11,6 +11,7 @@ package Vistas;
  */
 
 import BD.Conexion;
+import Clases.Jugador;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -21,6 +22,7 @@ public class Principal extends javax.swing.JFrame {
 
     static Principal padre;
     static AltaJugador aj;
+    static DetallesJugador dj;
     //AltaContratacion altaCon;
     //Contrataciones con;
 
@@ -41,10 +43,13 @@ public class Principal extends javax.swing.JFrame {
         jDialog1 = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        mNuevaCon = new javax.swing.JMenu();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        mContrataciones = new javax.swing.JMenu();
+        mSocios = new javax.swing.JMenu();
+        mSVer = new javax.swing.JMenuItem();
+        mAgregar = new javax.swing.JMenu();
+        mSAJugador = new javax.swing.JMenuItem();
+        mSAComun = new javax.swing.JMenuItem();
+        mActividades = new javax.swing.JMenu();
+        mAAgregar = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -70,31 +75,51 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
-        mNuevaCon.setBackground(new java.awt.Color(255, 255, 255));
-        mNuevaCon.setText("Socios");
-        mNuevaCon.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        mSocios.setBackground(new java.awt.Color(255, 255, 255));
+        mSocios.setText("Socios");
+        mSocios.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
-        jMenu1.setBackground(new java.awt.Color(255, 255, 255));
-        jMenu1.setText("jMenu1");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-
-        jMenuItem1.setBackground(new java.awt.Color(255, 255, 255));
-        jMenuItem1.setText("jMenuItem1");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mSVer.setText("Ver");
+        mSVer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mSVerActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        mSocios.add(mSVer);
 
-        mNuevaCon.add(jMenu1);
+        mAgregar.setBackground(new java.awt.Color(255, 255, 255));
+        mAgregar.setText("Agregar");
+        mAgregar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
-        jMenuBar1.add(mNuevaCon);
+        mSAJugador.setBackground(new java.awt.Color(255, 255, 255));
+        mSAJugador.setText("Jugador");
+        mSAJugador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mSAJugadorActionPerformed(evt);
+            }
+        });
+        mAgregar.add(mSAJugador);
 
-        mContrataciones.setBackground(new java.awt.Color(255, 255, 255));
-        mContrataciones.setText("Contrataciones");
-        mContrataciones.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jMenuBar1.add(mContrataciones);
+        mSAComun.setText("Común");
+        mSAComun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mSAComunActionPerformed(evt);
+            }
+        });
+        mAgregar.add(mSAComun);
+
+        mSocios.add(mAgregar);
+
+        jMenuBar1.add(mSocios);
+
+        mActividades.setBackground(new java.awt.Color(255, 255, 255));
+        mActividades.setText("Actividades");
+        mActividades.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        mAAgregar.setText("Agregar");
+        mActividades.add(mAAgregar);
+
+        jMenuBar1.add(mActividades);
 
         setJMenuBar(jMenuBar1);
 
@@ -106,24 +131,63 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void mSAJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSAJugadorActionPerformed
         // TODO add your handling code here:
-        aj = new AltaJugador();
+        /*
+        aj = new AltaJugador(this);
         aj.setVisible(true);
         jPanel1.removeAll();
         jPanel1.add(aj);
         //jPanel1.setVisible(true);
         jPanel1.repaint();
         jPanel1.revalidate();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+        */
+        AbrirAltaJugador(new AltaJugador(this));
+    }//GEN-LAST:event_mSAJugadorActionPerformed
 
+    private void mSAComunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSAComunActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mSAComunActionPerformed
 
+    private void mSVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSVerActionPerformed
+        // TODO add your handling code here:
+        
+        
+        AbrirDetallesJugador(new DetallesJugador(this,Conexion.getInstance().getJugadores().get(0)));
+    }//GEN-LAST:event_mSVerActionPerformed
+
+    public static void AbrirAltaJugador(AltaJugador alJu){
+        aj = alJu;
+        aj.setVisible(true);
+        jPanel1.removeAll();
+        jPanel1.add(aj);
+        //jPanel1.setVisible(true);
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }
+    
+    public static void AbrirDetallesJugador(DetallesJugador djp){
+        dj = djp;
+        dj.setVisible(true);
+        System.out.println("En la funcion estática");
+        jPanel1.removeAll();
+        jPanel1.add(dj);
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }
+    
+    /*public static void Abrir(Object vista){
+        jPanel1.removeAll();
+        jPanel1.add((jPanel) vista);
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }*/
     
     /*public static void AbrirContrataciones(Contrataciones ctras){
         contrataciones = ctras;
@@ -132,7 +196,6 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.add(contrataciones);
         jPanel1.repaint();
         jPanel1.revalidate();
-        
     }*/
     public static void vaciarVista(){
         jPanel1.removeAll();
@@ -176,11 +239,14 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog jDialog1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private static javax.swing.JPanel jPanel1;
-    private javax.swing.JMenu mContrataciones;
-    private javax.swing.JMenu mNuevaCon;
+    private javax.swing.JMenuItem mAAgregar;
+    private javax.swing.JMenu mActividades;
+    private javax.swing.JMenu mAgregar;
+    private javax.swing.JMenuItem mSAComun;
+    private javax.swing.JMenuItem mSAJugador;
+    private javax.swing.JMenuItem mSVer;
+    private javax.swing.JMenu mSocios;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,6 +5,7 @@
  */
 package BD;
 
+import Clases.Jugador;
 import Clases.Socio;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -89,6 +90,21 @@ public class Conexion {
         try {
             //lista = em.createNativeQuery("SELECT * FROM Socio", Socio.class).getResultList();
             lista = em.createQuery("SELECT s FROM Socio s", Socio.class).getResultList();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
+        return lista;
+    }
+    
+    public List<Jugador> getJugadores(){
+        EntityManager em = getEntity();
+        List<Jugador> lista = null;
+        em.getTransaction().begin();
+        try {
+            //lista = em.createNativeQuery("SELECT * FROM Socio", Socio.class).getResultList();
+            lista = em.createQuery("SELECT j FROM Jugador j", Jugador.class).getResultList(); //Jugador va con la J mayúscula sino no anda
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
