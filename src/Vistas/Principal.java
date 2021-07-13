@@ -157,9 +157,6 @@ public class Principal extends javax.swing.JFrame {
 
     private void mSVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSVerActionPerformed
         // TODO add your handling code here:
-        
-        
-        AbrirDetallesJugador(new DetallesJugador(this,Conexion.getInstance().getJugadores().get(0)));
     }//GEN-LAST:event_mSVerActionPerformed
 
     public static void AbrirAltaJugador(AltaJugador alJu){
