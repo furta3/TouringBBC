@@ -13,59 +13,49 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author nacho
  */
 @Entity
-public class Horario implements Serializable {
-
-    @ManyToMany(mappedBy = "horarios")
-    private List<SocioActividad> socioActividadHorario;
-
+public class SocioActividad implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String dia;
-    private String hora;
-    private int duracion;
-
     @ManyToOne
-    private Actividad actividad;
+    private Socio socios;
+    @ManyToOne
+    private Actividad actividades;
 
-    public Actividad getActividad(){
-        return actividad;
-    }
-    
-    public void setActividad(Actividad actividad){
-        this.actividad = actividad;
-    }
-    
-    public int getDuracion() {
-        return duracion;
+    @ManyToMany
+    private List<Horario> horarios;
+
+    public Socio getSocios() {
+        return socios;
     }
 
-    public void setDuracion(int duracion) {
-        this.duracion = duracion;
+    public void setSocios(Socio socios) {
+        this.socios = socios;
     }
 
-    public String getDia() {
-        return dia;
+    public Actividad getActividades() {
+        return actividades;
     }
 
-    public void setDia(String dia) {
-        this.dia = dia;
+    public void setActividades(Actividad actividades) {
+        this.actividades = actividades;
     }
 
-    public String getHora() {
-        return hora;
+    public List<Horario> getHorarios() {
+        return horarios;
     }
 
-    public void setHora(String hora) {
-        this.hora = hora;
+    public void setHorarios(List<Horario> horarios) {
+        this.horarios = horarios;
     }
 
     public Long getId() {
@@ -86,10 +76,10 @@ public class Horario implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Horario)) {
+        if (!(object instanceof SocioActividad)) {
             return false;
         }
-        Horario other = (Horario) object;
+        SocioActividad other = (SocioActividad) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -98,7 +88,7 @@ public class Horario implements Serializable {
 
     @Override
     public String toString() {
-        return dia;
+        return "Clases.SocioActividad[ id=" + id + " ]";
     }
     
 }

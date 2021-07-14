@@ -22,6 +22,9 @@ import javax.persistence.OneToMany;
 @Entity
 public class Actividad implements Serializable {
 
+    @OneToMany(mappedBy = "actividades")
+    private List<SocioActividad> socios;
+
     private static final long serialVersionUID = 1L;
     @Id
     private String nombre;

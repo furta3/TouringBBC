@@ -7,12 +7,15 @@ package Clases;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -22,8 +25,13 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Socio extends PersonaBBC implements Serializable {
 
+    @OneToMany(mappedBy = "socios")
+    private List<SocioActividad> actividades;
+
     private String tipo;
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaIngreso;
+
 
     public Date getFechaIngreso() {
         return fechaIngreso;

@@ -5,6 +5,7 @@
  */
 package BD;
 
+import Clases.Actividad;
 import Clases.Jugador;
 import Clases.Socio;
 import com.mysql.cj.Session;
@@ -120,6 +121,21 @@ public class Conexion {
         try {
             //lista = em.createNativeQuery("SELECT * FROM Socio", Socio.class).getResultList();
             lista = em.createQuery("SELECT j FROM Jugador j", Jugador.class).getResultList(); //Jugador va con la J mayúscula sino no anda
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
+        return lista;
+    }
+    
+    public List<Actividad> getActividades(){
+        EntityManager em = getEntity();
+        List<Actividad> lista = null;
+        em.getTransaction().begin();
+        try {
+            //lista = em.createNativeQuery("SELECT * FROM Socio", Socio.class).getResultList();
+            lista = em.createQuery("SELECT a FROM Actividad a", Actividad.class).getResultList(); //Jugador va con la J mayúscula sino no anda
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();

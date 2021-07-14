@@ -6,6 +6,7 @@
 package Vistas;
 
 import Clases.Jugador;
+import Clases.Socio;
 
 /**
  *
@@ -17,11 +18,11 @@ public class DetallesSocio extends javax.swing.JPanel {
      * Creates new form GUIABMSocios
      */
     Principal main;
-    Jugador jr;
-    public DetallesSocio(Principal main, Jugador jr) {
+    Socio s;
+    public DetallesSocio(Principal main, Socio s) {
         initComponents();
         this.main = main;
-        this.jr  = jr;
+        this.s  = s;
     }
 
     /**
@@ -63,6 +64,7 @@ public class DetallesSocio extends javax.swing.JPanel {
         btnBorrarPago = new javax.swing.JButton();
         lCarnet1 = new javax.swing.JLabel();
         dcFechaIngreso = new com.toedter.calendar.JDateChooser();
+        btnActualizar1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -181,6 +183,14 @@ public class DetallesSocio extends javax.swing.JPanel {
         lCarnet1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lCarnet1.setText("Fecha ingreso:");
 
+        btnActualizar1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnActualizar1.setText("Asociar actividad");
+        btnActualizar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -188,9 +198,12 @@ public class DetallesSocio extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(177, 177, 177)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnActualizar)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnActualizar)
+                        .addGap(51, 51, 51)
+                        .addComponent(btnActualizar1))
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                 .addComponent(btnAgregarPago)
                 .addGap(18, 18, 18)
                 .addComponent(btnBorrarPago)
@@ -276,9 +289,10 @@ public class DetallesSocio extends javax.swing.JPanel {
                                     .addComponent(btnAgregarActividad)
                                     .addComponent(btnBorrarActividad))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnActualizar)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnActualizar)
+                                .addComponent(btnActualizar1))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnAgregarPago)
                                 .addComponent(btnBorrarPago)))
@@ -340,9 +354,16 @@ public class DetallesSocio extends javax.swing.JPanel {
             evt.consume();
     }//GEN-LAST:event_tfCIKeyPressed
 
+    private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar1ActionPerformed
+        // TODO add your handling code here:
+        AsociarActividad asac = new AsociarActividad(main,s);
+        main.AbrirAsociarActividad(asac);
+    }//GEN-LAST:event_btnActualizar1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnActualizar1;
     private javax.swing.JButton btnAgregarActividad;
     private javax.swing.JButton btnAgregarPago;
     private javax.swing.JButton btnBorrarActividad;

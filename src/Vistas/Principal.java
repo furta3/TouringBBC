@@ -24,6 +24,7 @@ public class Principal extends javax.swing.JFrame {
     static AltaJugador aj;
     static AltaActividad aa;
     static DetallesSocio dj;
+    static AsociarActividad asac;
     //AltaContratacion altaCon;
     //Contrataciones con;
 
@@ -202,6 +203,15 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.revalidate();
     }//GEN-LAST:event_mAAgregarActionPerformed
 
+    public static void AbrirAsociarActividad(AsociarActividad alJu){
+        asac = alJu;
+        asac.setVisible(true);
+        jPanel1.removeAll();
+        jPanel1.add(asac);
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }
+    
     public static void AbrirAltaJugador(AltaJugador alJu){
         aj = alJu;
         aj.setVisible(true);

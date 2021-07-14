@@ -4,6 +4,8 @@
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
     <class>Clases.Actividad</class>
     <class>Clases.Horario</class>
+    <class>Clases.SocioActividad</class>
+    <class>Clases.PersonaBBC</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/TouringBBC?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
