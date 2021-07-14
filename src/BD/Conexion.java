@@ -7,6 +7,7 @@ package BD;
 
 import Clases.Jugador;
 import Clases.Socio;
+import com.mysql.cj.Session;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -47,7 +48,21 @@ public class Conexion {
         }
     }
     
-        public void refresh(Object object) {
+    /*public void save(Object object) {
+        EntityManager em = getEntity();
+        em.getTransaction().begin();
+        Session sessionOne = em.openSession();
+        sessionOne.beginTransaction();
+        try {
+            Long id = (Long) em.save(object);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
+    }*/
+    
+    public void refresh(Object object) {
         EntityManager em = getEntity();
         em.getTransaction().begin();
         try {

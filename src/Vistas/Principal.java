@@ -22,6 +22,7 @@ public class Principal extends javax.swing.JFrame {
 
     static Principal padre;
     static AltaJugador aj;
+    static AltaActividad aa;
     static DetallesJugador dj;
     //AltaContratacion altaCon;
     //Contrataciones con;
@@ -43,6 +44,8 @@ public class Principal extends javax.swing.JFrame {
         jDialog1 = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        mIInicio = new javax.swing.JMenuItem();
         mSocios = new javax.swing.JMenu();
         mSVer = new javax.swing.JMenuItem();
         mAgregar = new javax.swing.JMenu();
@@ -73,11 +76,26 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.CardLayout());
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
-        jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jMenu1.setText("Principal");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+
+        mIInicio.setText("Inicio");
+        mIInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mIInicioActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mIInicio);
+
+        jMenuBar1.add(jMenu1);
 
         mSocios.setBackground(new java.awt.Color(255, 255, 255));
         mSocios.setText("Socios");
-        mSocios.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         mSVer.setText("Ver");
         mSVer.addActionListener(new java.awt.event.ActionListener() {
@@ -89,7 +107,6 @@ public class Principal extends javax.swing.JFrame {
 
         mAgregar.setBackground(new java.awt.Color(255, 255, 255));
         mAgregar.setText("Agregar");
-        mAgregar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         mSAJugador.setBackground(new java.awt.Color(255, 255, 255));
         mSAJugador.setText("Jugador");
@@ -114,9 +131,18 @@ public class Principal extends javax.swing.JFrame {
 
         mActividades.setBackground(new java.awt.Color(255, 255, 255));
         mActividades.setText("Actividades");
-        mActividades.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        mActividades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mActividadesActionPerformed(evt);
+            }
+        });
 
         mAAgregar.setText("Agregar");
+        mAAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mAAgregarActionPerformed(evt);
+            }
+        });
         mActividades.add(mAAgregar);
 
         jMenuBar1.add(mActividades);
@@ -139,15 +165,6 @@ public class Principal extends javax.swing.JFrame {
 
     private void mSAJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSAJugadorActionPerformed
         // TODO add your handling code here:
-        /*
-        aj = new AltaJugador(this);
-        aj.setVisible(true);
-        jPanel1.removeAll();
-        jPanel1.add(aj);
-        //jPanel1.setVisible(true);
-        jPanel1.repaint();
-        jPanel1.revalidate();
-        */
         AbrirAltaJugador(new AltaJugador(this));
     }//GEN-LAST:event_mSAJugadorActionPerformed
 
@@ -159,12 +176,37 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_mSVerActionPerformed
 
+    private void mActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mActividadesActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_mActividadesActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void mIInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mIInicioActionPerformed
+        // TODO add your handling code here:
+        vaciarVista();
+    }//GEN-LAST:event_mIInicioActionPerformed
+
+    private void mAAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAAgregarActionPerformed
+        // TODO add your handling code here:
+        System.out.println("Hola? en action");
+        aa = new AltaActividad(this);
+        aa.setVisible(true);
+        jPanel1.removeAll();
+        jPanel1.add(aa);
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }//GEN-LAST:event_mAAgregarActionPerformed
+
     public static void AbrirAltaJugador(AltaJugador alJu){
         aj = alJu;
         aj.setVisible(true);
         jPanel1.removeAll();
         jPanel1.add(aj);
-        //jPanel1.setVisible(true);
         jPanel1.repaint();
         jPanel1.revalidate();
     }
@@ -172,7 +214,6 @@ public class Principal extends javax.swing.JFrame {
     public static void AbrirDetallesJugador(DetallesJugador djp){
         dj = djp;
         dj.setVisible(true);
-        System.out.println("En la funcion estática");
         jPanel1.removeAll();
         jPanel1.add(dj);
         jPanel1.repaint();
@@ -236,11 +277,13 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog jDialog1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private static javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem mAAgregar;
     private javax.swing.JMenu mActividades;
     private javax.swing.JMenu mAgregar;
+    private javax.swing.JMenuItem mIInicio;
     private javax.swing.JMenuItem mSAComun;
     private javax.swing.JMenuItem mSAJugador;
     private javax.swing.JMenuItem mSVer;
