@@ -6,6 +6,7 @@
 package Clases;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +23,15 @@ import javax.persistence.InheritanceType;
 public class Socio extends PersonaBBC implements Serializable {
 
     private String tipo;
+    private Date fechaIngreso;
+
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
 
     public String getTipo() {
         return tipo;

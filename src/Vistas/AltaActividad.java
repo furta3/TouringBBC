@@ -268,6 +268,8 @@ public class AltaActividad extends javax.swing.JPanel {
             h.setHora(tfHora.getText());
             h.setDuracion((int) sDuracion.getValue());
             
+            //Conexion.getInstance().persist(h);
+            
             DefaultTableModel mdl = (DefaultTableModel) tHorarios.getModel();
             Object[] fila = new Object[5];
             fila[0] = h;
@@ -288,15 +290,20 @@ public class AltaActividad extends javax.swing.JPanel {
             a.setVigente(true);
             Conexion.getInstance().persist(a);
             
-            List<Horario>  horarios = new ArrayList<Horario>();
+            List<Horario> horarios = new ArrayList<Horario>();
             for(int f = 0; f < tHorarios.getRowCount(); f++){
                 Horario h = (Horario) tHorarios.getValueAt(f, 0);
+                h.setActividad(a);
                 Conexion.getInstance().persist(h);
-                Conexion.getInstance().refresh(h);
-                horarios.add(h);
             }
-            a.setHorarios(horarios);
-            Conexion.getInstance().merge(a);
+            
+            tfNombre.setText("");
+            sCosto.setValue(0);
+            sDuracion.setValue(0);
+            tfHora.setText("");
+            cbDia.setSelectedIndex(0);
+            DefaultTableModel mdl = (DefaultTableModel) tHorarios.getModel();
+            mdl.setRowCount(0);
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 

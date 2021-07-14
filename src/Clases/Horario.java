@@ -30,6 +30,14 @@ public class Horario implements Serializable {
     private String hora;
     private int duracion;
 
+    public Actividad getActividad(){
+        return actividad;
+    }
+    
+    public void setActividad(Actividad actividad){
+        this.actividad = actividad;
+    }
+    
     public int getDuracion() {
         return duracion;
     }

@@ -7,7 +7,9 @@ package Clases;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +27,7 @@ public class Actividad implements Serializable {
     private String nombre;
     private int costo;
     private boolean vigente;
-    @OneToMany(mappedBy = "actividad")
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy = "actividad")
     private List<Horario> horarios;
 
     public boolean isVigente() {

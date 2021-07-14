@@ -23,7 +23,7 @@ public class Principal extends javax.swing.JFrame {
     static Principal padre;
     static AltaJugador aj;
     static AltaActividad aa;
-    static DetallesJugador dj;
+    static DetallesSocio dj;
     //AltaContratacion altaCon;
     //Contrataciones con;
 
@@ -211,7 +211,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.revalidate();
     }
     
-    public static void AbrirDetallesJugador(DetallesJugador djp){
+    public static void AbrirDetallesJugador(DetallesSocio djp){
         dj = djp;
         dj.setVisible(true);
         jPanel1.removeAll();
