@@ -90,7 +90,8 @@ public class SocioActividad implements Serializable {
     public String toString() {
         String dias  = "";
         for(int f = 0; f<horarios.size();f++){
-            dias += ",";
+            if(f!=0)
+                dias += ",";
             dias += horarios.get(f).getDia();
         }
         return dias;

@@ -8,6 +8,7 @@ package BD;
 import Clases.Actividad;
 import Clases.Jugador;
 import Clases.Socio;
+import Clases.SocioActividad;
 import com.mysql.cj.Session;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -136,6 +137,21 @@ public class Conexion {
         try {
             //lista = em.createNativeQuery("SELECT * FROM Socio", Socio.class).getResultList();
             lista = em.createQuery("SELECT a FROM Actividad a", Actividad.class).getResultList(); //Jugador va con la J mayúscula sino no anda
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
+        return lista;
+    }
+    
+    public List<SocioActividad> getActAsociadas(String ci){
+        EntityManager em = getEntity();
+        List<SocioActividad> lista = null;
+        em.getTransaction().begin();
+        try {
+            //lista = em.createNativeQuery("SELECT * FROM Socio", Socio.class).getResultList();
+            lista = em.createQuery("SELECT a FROM SocioActividad a WHERE socios_ci="+ci, SocioActividad.class).getResultList(); //Jugador va con la J mayúscula sino no anda
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
