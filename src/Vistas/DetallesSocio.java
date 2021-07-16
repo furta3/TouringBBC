@@ -24,6 +24,10 @@ public class DetallesSocio extends javax.swing.JPanel {
         this.main = main;
         this.s  = s;
     }
+    
+    public void load(){
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

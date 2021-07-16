@@ -88,7 +88,12 @@ public class SocioActividad implements Serializable {
 
     @Override
     public String toString() {
-        return "Clases.SocioActividad[ id=" + id + " ]";
+        String dias  = "";
+        for(int f = 0; f<horarios.size();f++){
+            dias += ",";
+            dias += horarios.get(f).getDia();
+        }
+        return dias;
     }
     
 }
