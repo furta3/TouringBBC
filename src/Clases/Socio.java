@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
@@ -25,12 +26,31 @@ import javax.persistence.Temporal;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Socio extends PersonaBBC implements Serializable {
 
+    @ManyToMany(mappedBy = "socios")
+    private List<Cuota> cuotas;
+
     @OneToMany(mappedBy = "socios")
     private List<SocioActividad> actividades;
 
     private String tipo;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaIngreso;
+
+    public List<Cuota> getCuotas() {
+        return cuotas;
+    }
+
+    public void setCuotas(List<Cuota> cuotas) {
+        this.cuotas = cuotas;
+    }
+
+    public List<SocioActividad> getActividades() {
+        return actividades;
+    }
+
+    public void setActividades(List<SocioActividad> actividades) {
+        this.actividades = actividades;
+    }
 
 
     public Date getFechaIngreso() {

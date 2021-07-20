@@ -21,7 +21,7 @@ public class Principal extends javax.swing.JFrame {
 
 
     static Principal padre;
-    static AltaJugador aj;
+    static AltaSocio aj;
     static AltaActividad aa;
     static DetallesSocio dj;
     static AsociarActividad asac;
@@ -49,11 +49,11 @@ public class Principal extends javax.swing.JFrame {
         mIInicio = new javax.swing.JMenuItem();
         mSocios = new javax.swing.JMenu();
         mSVer = new javax.swing.JMenuItem();
-        mAgregar = new javax.swing.JMenu();
-        mSAJugador = new javax.swing.JMenuItem();
-        mSAComun = new javax.swing.JMenuItem();
+        mSASocio = new javax.swing.JMenuItem();
         mActividades = new javax.swing.JMenu();
         mAAgregar = new javax.swing.JMenuItem();
+        mCuotas = new javax.swing.JMenu();
+        mCAgregar = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -106,27 +106,14 @@ public class Principal extends javax.swing.JFrame {
         });
         mSocios.add(mSVer);
 
-        mAgregar.setBackground(new java.awt.Color(255, 255, 255));
-        mAgregar.setText("Agregar");
-
-        mSAJugador.setBackground(new java.awt.Color(255, 255, 255));
-        mSAJugador.setText("Jugador");
-        mSAJugador.addActionListener(new java.awt.event.ActionListener() {
+        mSASocio.setBackground(new java.awt.Color(255, 255, 255));
+        mSASocio.setText("Agregar");
+        mSASocio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mSAJugadorActionPerformed(evt);
+                mSASocioActionPerformed(evt);
             }
         });
-        mAgregar.add(mSAJugador);
-
-        mSAComun.setText("Común");
-        mSAComun.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mSAComunActionPerformed(evt);
-            }
-        });
-        mAgregar.add(mSAComun);
-
-        mSocios.add(mAgregar);
+        mSocios.add(mSASocio);
 
         jMenuBar1.add(mSocios);
 
@@ -148,6 +135,18 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(mActividades);
 
+        mCuotas.setText("Cuotas");
+
+        mCAgregar.setText("Agregar");
+        mCAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mCAgregarActionPerformed(evt);
+            }
+        });
+        mCuotas.add(mCAgregar);
+
+        jMenuBar1.add(mCuotas);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,24 +157,11 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void mSAJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSAJugadorActionPerformed
-        // TODO add your handling code here:
-        AbrirAltaJugador(new AltaJugador(this));
-    }//GEN-LAST:event_mSAJugadorActionPerformed
-
-    private void mSAComunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSAComunActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mSAComunActionPerformed
-
-    private void mSVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSVerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_mSVerActionPerformed
 
     private void mActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mActividadesActionPerformed
         // TODO add your handling code here:
@@ -203,6 +189,24 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.revalidate();
     }//GEN-LAST:event_mAAgregarActionPerformed
 
+    private void mSASocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSASocioActionPerformed
+        // TODO add your handling code here:
+        AbrirAltaJugador(new AltaSocio(this));
+    }//GEN-LAST:event_mSASocioActionPerformed
+
+    private void mSVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSVerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mSVerActionPerformed
+
+    private void mCAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mCAgregarActionPerformed
+        // TODO add your handling code here:
+        AltaCuota ac = new AltaCuota(this);
+        jPanel1.removeAll();
+        jPanel1.add(ac);
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }//GEN-LAST:event_mCAgregarActionPerformed
+
     public static void AbrirAsociarActividad(AsociarActividad alJu){
         asac = alJu;
         asac.setVisible(true);
@@ -212,7 +216,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.revalidate();
     }
     
-    public static void AbrirAltaJugador(AltaJugador alJu){
+    public static void AbrirAltaJugador(AltaSocio alJu){
         aj = alJu;
         aj.setVisible(true);
         jPanel1.removeAll();
@@ -292,10 +296,10 @@ public class Principal extends javax.swing.JFrame {
     private static javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem mAAgregar;
     private javax.swing.JMenu mActividades;
-    private javax.swing.JMenu mAgregar;
+    private javax.swing.JMenuItem mCAgregar;
+    private javax.swing.JMenu mCuotas;
     private javax.swing.JMenuItem mIInicio;
-    private javax.swing.JMenuItem mSAComun;
-    private javax.swing.JMenuItem mSAJugador;
+    private javax.swing.JMenuItem mSASocio;
     private javax.swing.JMenuItem mSVer;
     private javax.swing.JMenu mSocios;
     // End of variables declaration//GEN-END:variables

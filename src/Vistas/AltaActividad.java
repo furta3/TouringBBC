@@ -56,6 +56,7 @@ public class AltaActividad extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         btnQuitar = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N

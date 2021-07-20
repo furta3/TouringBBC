@@ -6,6 +6,8 @@
     <class>Clases.Horario</class>
     <class>Clases.SocioActividad</class>
     <class>Clases.PersonaBBC</class>
+    <class>Clases.Cuota</class>
+    <class>Clases.Socio</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/TouringBBC?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
