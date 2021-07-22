@@ -7,6 +7,7 @@ package Vistas;
 
 import BD.Conexion;
 import Clases.Cuota;
+import java.util.Date;
 
 /**
  *
@@ -19,6 +20,7 @@ public class AltaCuota extends javax.swing.JPanel {
      */
     public AltaCuota(Principal main) {
         initComponents();
+        dcFecha.setDate(new Date());
     }
 
     /**
@@ -155,10 +157,18 @@ public class AltaCuota extends javax.swing.JPanel {
         c.setFecha(dcFecha.getDate());
         c.setDescripcion(taDesc.getText());
         c.setFrecuencia(cbFrec.getSelectedItem().toString());
+        c.setVigente(true);
         Conexion.getInstance().persist(c);
         
+        limpiar();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    public void limpiar(){
+        dcFecha.setDate(new Date());
+        tfNombre.setText("");
+        tfMonto.setText("");
+        taDesc.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

@@ -6,12 +6,15 @@
 package Vistas;
 
 import BD.Conexion;
+import Clases.Actividad;
+import Clases.Cuota;
 import Clases.Jugador;
 import Clases.Socio;
 import Clases.SocioActividad;
 import java.util.Iterator;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
-import Vistas.socio_panels.*;
 
 /**
  *
@@ -72,9 +75,19 @@ public class DetallesSocio extends javax.swing.JPanel {
         btnBorrarActividad = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tActividades = new javax.swing.JTable();
-        pPagos = new javax.swing.JPanel();
         pCuotas = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tCuotas = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        btnActualizar1 = new javax.swing.JButton();
+        cbCuotas = new javax.swing.JComboBox<>();
+        btnActualizar2 = new javax.swing.JButton();
+        btnActualizar3 = new javax.swing.JButton();
+        pPagos = new javax.swing.JPanel();
         pFamilia = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tActividades1 = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
         lPlantel1 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
 
@@ -153,11 +166,11 @@ public class DetallesSocio extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 433, Short.MAX_VALUE)
+            .addGap(0, 453, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
+            .addGap(0, 454, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Inicio", jPanel1);
@@ -204,7 +217,7 @@ public class DetallesSocio extends javax.swing.JPanel {
             .addGroup(pActividadesLayout.createSequentialGroup()
                 .addGroup(pActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pActividadesLayout.createSequentialGroup()
-                        .addGap(0, 23, Short.MAX_VALUE)
+                        .addGap(0, 40, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pActividadesLayout.createSequentialGroup()
                         .addGap(117, 117, 117)
@@ -234,41 +247,160 @@ public class DetallesSocio extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Actividades", pActividades);
 
-        javax.swing.GroupLayout pPagosLayout = new javax.swing.GroupLayout(pPagos);
-        pPagos.setLayout(pPagosLayout);
-        pPagosLayout.setHorizontalGroup(
-            pPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 433, Short.MAX_VALUE)
-        );
-        pPagosLayout.setVerticalGroup(
-            pPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
-        );
+        pCuotas.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTabbedPane1.addTab("Pagos", pPagos);
+        tCuotas.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        tCuotas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Fecha", "Nombre", "Descipción", "Monto"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tCuotas);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setText("Cuotas");
+
+        btnActualizar1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnActualizar1.setText("Eliminar");
+        btnActualizar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizar1ActionPerformed(evt);
+            }
+        });
+
+        cbCuotas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnActualizar2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnActualizar2.setText("Nueva");
+        btnActualizar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizar2ActionPerformed(evt);
+            }
+        });
+
+        btnActualizar3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnActualizar3.setText("Agregar");
+        btnActualizar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizar3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pCuotasLayout = new javax.swing.GroupLayout(pCuotas);
         pCuotas.setLayout(pCuotasLayout);
         pCuotasLayout.setHorizontalGroup(
             pCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 433, Short.MAX_VALUE)
+            .addGroup(pCuotasLayout.createSequentialGroup()
+                .addGroup(pCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pCuotasLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(pCuotasLayout.createSequentialGroup()
+                        .addGap(170, 170, 170)
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(pCuotasLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(btnActualizar3)
+                .addGap(18, 18, 18)
+                .addGroup(pCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnActualizar2)
+                    .addGroup(pCuotasLayout.createSequentialGroup()
+                        .addComponent(cbCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47)
+                        .addComponent(btnActualizar1)))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         pCuotasLayout.setVerticalGroup(
             pCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
+            .addGroup(pCuotasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addGroup(pCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizar3)
+                    .addComponent(btnActualizar1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnActualizar2)
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cuotas", pCuotas);
+
+        javax.swing.GroupLayout pPagosLayout = new javax.swing.GroupLayout(pPagos);
+        pPagos.setLayout(pPagosLayout);
+        pPagosLayout.setHorizontalGroup(
+            pPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 453, Short.MAX_VALUE)
+        );
+        pPagosLayout.setVerticalGroup(
+            pPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 454, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Pagos", pPagos);
+
+        tActividades1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        tActividades1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Apellido", "Nacimiento", "Rol"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tActividades1);
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setText("Familiares");
 
         javax.swing.GroupLayout pFamiliaLayout = new javax.swing.GroupLayout(pFamilia);
         pFamilia.setLayout(pFamiliaLayout);
         pFamiliaLayout.setHorizontalGroup(
             pFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 433, Short.MAX_VALUE)
+            .addGroup(pFamiliaLayout.createSequentialGroup()
+                .addGap(196, 196, 196)
+                .addComponent(jLabel10)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFamiliaLayout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52))
         );
         pFamiliaLayout.setVerticalGroup(
             pFamiliaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pFamiliaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(284, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Familia", pFamilia);
@@ -327,9 +459,9 @@ public class DetallesSocio extends javax.swing.JPanel {
                     .addComponent(dcFechaIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lCarnet1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfCI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(tfCI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -398,6 +530,8 @@ public class DetallesSocio extends javax.swing.JPanel {
                 loadAct();
                 break;
             case 2:
+                loadCuotas();
+                loadCB();
                 break;
             case 3:
                 break;
@@ -405,6 +539,22 @@ public class DetallesSocio extends javax.swing.JPanel {
                 break;
         }
     }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActualizar1ActionPerformed
+
+    private void btnActualizar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar3ActionPerformed
+        // TODO add your handling code here:
+        s.getCuotas().add( (Cuota) cbCuotas.getSelectedItem());
+        cbCuotas.removeItem(cbCuotas.getSelectedItem());
+        loadCuotas();
+    }//GEN-LAST:event_btnActualizar3ActionPerformed
+
+    private void btnActualizar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar2ActionPerformed
+        // TODO add your handling code here:
+        main.AbrirAltaCuota(new AltaCuota(main));
+    }//GEN-LAST:event_btnActualizar2ActionPerformed
 
     public void loadAct(){
         Iterator<SocioActividad> it = Conexion.getInstance().getActAsociadas( Integer.toString(s.getCi())).iterator();
@@ -421,25 +571,62 @@ public class DetallesSocio extends javax.swing.JPanel {
             //}
         }
     }
+    
+    public void loadCuotas(){
+        Iterator<Cuota> it = s.getCuotas().iterator();
+        DefaultTableModel mdl = (DefaultTableModel) tCuotas.getModel();
+        mdl.setRowCount(0);
+        while (it.hasNext()) {
+            Cuota sa = it.next();
+            if (s.isVigente()) {  
+                Object[] fila = new Object[4];
+                fila[0] = sa.getFecha();
+                fila[1] = sa;
+                fila[2] = sa.getDescripcion();
+                fila[3] = sa.getMonto();
+                mdl.addRow(fila); 
+            }
+        }
+    }
+    
+    public void loadCB(){
+        List<Cuota> act;
+        act = Conexion.getInstance().getCuotas();
+        DefaultComboBoxModel dcm = new DefaultComboBoxModel();
+        for(Cuota cliente: act){
+            //if(cliente.isVigente()){
+                dcm.addElement(cliente);
+            //}
+        }
+        cbCuotas.setModel(dcm);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnActualizar1;
+    private javax.swing.JButton btnActualizar2;
+    private javax.swing.JButton btnActualizar3;
     private javax.swing.JButton btnAgregarActividad;
     private javax.swing.JButton btnBorrarActividad;
+    private javax.swing.JComboBox<String> cbCuotas;
     private com.toedter.calendar.JDateChooser dcCarnetHab;
     private com.toedter.calendar.JDateChooser dcFechaIngreso;
     private com.toedter.calendar.JDateChooser dcFechaNac;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lCarnet;
     private javax.swing.JLabel lCarnet1;
@@ -450,6 +637,8 @@ public class DetallesSocio extends javax.swing.JPanel {
     private javax.swing.JPanel pFamilia;
     private javax.swing.JPanel pPagos;
     private javax.swing.JTable tActividades;
+    private javax.swing.JTable tActividades1;
+    private javax.swing.JTable tCuotas;
     private javax.swing.JTextField tfApellido;
     private javax.swing.JTextField tfCI;
     private javax.swing.JTextField tfDireccion;

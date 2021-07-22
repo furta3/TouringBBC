@@ -25,6 +25,7 @@ public class Principal extends javax.swing.JFrame {
     static AltaActividad aa;
     static DetallesSocio dj;
     static AsociarActividad asac;
+    static AltaCuota ac;
     //AltaContratacion altaCon;
     //Contrataciones con;
 
@@ -200,11 +201,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void mCAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mCAgregarActionPerformed
         // TODO add your handling code here:
-        AltaCuota ac = new AltaCuota(this);
-        jPanel1.removeAll();
-        jPanel1.add(ac);
-        jPanel1.repaint();
-        jPanel1.revalidate();
+        AbrirAltaCuota(new AltaCuota(this));
+        
     }//GEN-LAST:event_mCAgregarActionPerformed
 
     public static void AbrirAsociarActividad(AsociarActividad alJu){
@@ -230,6 +228,14 @@ public class Principal extends javax.swing.JFrame {
         dj.setVisible(true);
         jPanel1.removeAll();
         jPanel1.add(dj);
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }
+    
+    public static void AbrirAltaCuota(AltaCuota acv){
+        ac = acv;
+        jPanel1.removeAll();
+        jPanel1.add(ac);
         jPanel1.repaint();
         jPanel1.revalidate();
     }

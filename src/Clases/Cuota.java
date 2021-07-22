@@ -34,6 +34,15 @@ public class Cuota implements Serializable {
     private String frecuencia;
     @ManyToMany
     private List<Socio> socios;
+    private boolean vigente;
+
+    public boolean isVigente() {
+        return vigente;
+    }
+
+    public void setVigente(boolean vigente) {
+        this.vigente = vigente;
+    }
 
     public Date getFecha() {
         return fecha;
@@ -113,7 +122,7 @@ public class Cuota implements Serializable {
 
     @Override
     public String toString() {
-        return "Clases.Cuota[ id=" + id + " ]";
+        return nombre;
     }
     
 }
