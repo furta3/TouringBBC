@@ -31,6 +31,14 @@ public class Familia implements Serializable {
         return id;
     }
 
+    public List<Socio> getSocios() {
+        return socios;
+    }
+
+    public void setSocios(List<Socio> socios) {
+        this.socios = socios;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

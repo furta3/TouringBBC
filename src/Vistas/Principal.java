@@ -26,6 +26,7 @@ public class Principal extends javax.swing.JFrame {
     static DetallesSocio dj;
     static AsociarActividad asac;
     static AltaCuota ac;
+    static VerSocios vs;
     //AltaContratacion altaCon;
     //Contrataciones con;
 
@@ -45,6 +46,7 @@ public class Principal extends javax.swing.JFrame {
 
         jDialog1 = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mIInicio = new javax.swing.JMenuItem();
@@ -68,7 +70,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Buriano Fotograía Digital");
+        setTitle("Touring BBC");
         setBackground(new java.awt.Color(36, 36, 36));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         setIconImage(getIconImage());
@@ -76,6 +78,8 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new java.awt.CardLayout());
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resursos/logo-web-touring.png"))); // NOI18N
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -154,11 +158,18 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 880, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 663, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -192,11 +203,12 @@ public class Principal extends javax.swing.JFrame {
 
     private void mSASocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSASocioActionPerformed
         // TODO add your handling code here:
-        AbrirAltaJugador(new AltaSocio(this));
+        AbrirAltaSocio(new AltaSocio(this,null));
     }//GEN-LAST:event_mSASocioActionPerformed
 
     private void mSVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSVerActionPerformed
         // TODO add your handling code here:
+        AbrirVerSocios(new VerSocios(this));
     }//GEN-LAST:event_mSVerActionPerformed
 
     private void mCAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mCAgregarActionPerformed
@@ -205,6 +217,15 @@ public class Principal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mCAgregarActionPerformed
 
+    public static void AbrirVerSocios(VerSocios vsv){
+        vs = vsv;
+        vs.setVisible(true);
+        jPanel1.removeAll();
+        jPanel1.add(vs);
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }
+    
     public static void AbrirAsociarActividad(AsociarActividad alJu){
         asac = alJu;
         asac.setVisible(true);
@@ -214,7 +235,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.revalidate();
     }
     
-    public static void AbrirAltaJugador(AltaSocio alJu){
+    public static void AbrirAltaSocio(AltaSocio alJu){
         aj = alJu;
         aj.setVisible(true);
         jPanel1.removeAll();
@@ -297,6 +318,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog jDialog1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private static javax.swing.JPanel jPanel1;

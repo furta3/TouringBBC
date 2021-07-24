@@ -39,6 +39,23 @@ public class Socio extends PersonaBBC implements Serializable {
     private String tipo;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaIngreso;
+    private String rol;
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public Familia getFamilia() {
+        return familia;
+    }
+
+    public void setFamilia(Familia familia) {
+        this.familia = familia;
+    }
 
     public List<Cuota> getCuotas() {
         return cuotas;
