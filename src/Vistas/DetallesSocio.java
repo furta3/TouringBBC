@@ -10,6 +10,7 @@ import Clases.Actividad;
 import Clases.Cuota;
 import Clases.Familia;
 import Clases.Jugador;
+import Clases.RolFamiliar;
 import Clases.Socio;
 import Clases.SocioActividad;
 import java.util.ArrayList;
@@ -37,7 +38,16 @@ public class DetallesSocio extends javax.swing.JPanel {
     }
     
     public void load(){
-
+        dcFechaIngreso.setDate(s.getFechaIngreso());
+        tfCI.setText(String.valueOf(s.getCi()));
+        tfNombre.setText(s.getNombre());
+        tfApellido.setText(s.getApellido());
+        tfPlantel.setText("no se si es jugador");
+        tfTelefono.setText(s.getTelefono());
+        tfDireccion.setText(s.getDireccion());
+        dcFechaNac.setDate(s.getFechaNac());
+        dcCarnetHab.setDate(null);
+        
     }
 
     /**
@@ -49,7 +59,7 @@ public class DetallesSocio extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnActualizar = new javax.swing.JButton();
+        tfCI = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         tfNombre = new javax.swing.JTextField();
@@ -66,9 +76,9 @@ public class DetallesSocio extends javax.swing.JPanel {
         dcCarnetHab = new com.toedter.calendar.JDateChooser();
         lPlantel = new javax.swing.JLabel();
         tfPlantel = new javax.swing.JTextField();
-        tfCI = new javax.swing.JTextField();
         lCarnet1 = new javax.swing.JLabel();
         dcFechaIngreso = new com.toedter.calendar.JDateChooser();
+        btnActualizar = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         pActividades = new javax.swing.JPanel();
@@ -100,8 +110,17 @@ public class DetallesSocio extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
 
-        btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btnActualizar.setText("Actualizar");
+        tfCI.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        tfCI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfCIActionPerformed(evt);
+            }
+        });
+        tfCI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfCIKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Socio");
@@ -145,20 +164,11 @@ public class DetallesSocio extends javax.swing.JPanel {
 
         tfPlantel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
-        tfCI.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        tfCI.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfCIActionPerformed(evt);
-            }
-        });
-        tfCI.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tfCIKeyPressed(evt);
-            }
-        });
-
         lCarnet1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lCarnet1.setText("Fecha ingreso:");
+
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnActualizar.setText("Actualizar");
 
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -457,7 +467,6 @@ public class DetallesSocio extends javax.swing.JPanel {
         lPlantel1.setText("Rol de Familia:");
 
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Principal", "Miembro" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -693,7 +702,7 @@ public class DetallesSocio extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser dcCarnetHab;
     private com.toedter.calendar.JDateChooser dcFechaIngreso;
     private com.toedter.calendar.JDateChooser dcFechaNac;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<RolFamiliar> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
