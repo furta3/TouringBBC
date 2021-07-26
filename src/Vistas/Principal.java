@@ -34,10 +34,11 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
+        this.setIconImage(new ImageIcon(getClass().getResource("/Recursos/touringIco.png")).getImage());
         Conexion.getInstance();
         this.padre = this;
-        ImageIcon icono = new ImageIcon("src/Images/ico.png");
-        this.setIconImage(icono.getImage());
+        //ImageIcon icono = new ImageIcon("src/Images/ico.png");
+        //this.setIconImage(icono.getImage());
     }
 
     @SuppressWarnings("unchecked")
@@ -72,8 +73,6 @@ public class Principal extends javax.swing.JFrame {
         setTitle("Touring BBC");
         setBackground(new java.awt.Color(36, 36, 36));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        setIconImage(getIconImage());
-        setIconImages(getIconImages());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new java.awt.CardLayout());

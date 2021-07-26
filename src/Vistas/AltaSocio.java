@@ -11,6 +11,7 @@ import Clases.Jugador;
 import Clases.Socio;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -32,6 +33,9 @@ public class AltaSocio extends javax.swing.JPanel {
         this.f = f;
         if(f!=null)
             cargarFamiliares();
+        dcFechaIngreso.setDate(new Date());
+        dcCarnetHab.enable(false);
+        tfPlantel.enable(false);
     }
     
     public void cargarFamiliares(){
@@ -160,6 +164,11 @@ public class AltaSocio extends javax.swing.JPanel {
         checkJ.setBackground(new java.awt.Color(255, 255, 255));
         checkJ.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         checkJ.setText("Jugador");
+        checkJ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkJActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setText("Familiares");
@@ -430,6 +439,18 @@ public class AltaSocio extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void checkJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkJActionPerformed
+        // TODO add your handling code here:
+        if(checkJ.isSelected()){
+            dcCarnetHab.enable(true);
+            tfPlantel.enable(true);
+        }
+        else{
+            dcCarnetHab.enable(false);
+            tfPlantel.enable(false);
+        }
+    }//GEN-LAST:event_checkJActionPerformed
 
     public void limpiar(){
         tfNombre.setText("");

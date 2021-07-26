@@ -13,6 +13,7 @@ public abstract class Actividad_ {
 	public static volatile SingularAttribute<Actividad, Integer> costo;
 	public static volatile SingularAttribute<Actividad, Boolean> vigente;
 	public static volatile SingularAttribute<Actividad, String> nombre;
+	public static volatile ListAttribute<Actividad, SocioActividad> socios;
 
 }
 
