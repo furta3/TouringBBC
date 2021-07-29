@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -21,6 +22,9 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Cuota implements Serializable {
+
+    @OneToOne(mappedBy = "cuota")
+    private TipoSocio tipoSocio;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -35,6 +39,14 @@ public class Cuota implements Serializable {
     @ManyToMany
     private List<Socio> socios;
     private boolean vigente;
+
+    public TipoSocio getTipoSocio() {
+        return tipoSocio;
+    }
+
+    public void setTipoSocio(TipoSocio tipoSocio) {
+        this.tipoSocio = tipoSocio;
+    }
 
     public boolean isVigente() {
         return vigente;

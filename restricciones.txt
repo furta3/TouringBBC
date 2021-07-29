@@ -1,0 +1,44 @@
+Restricciones para Turing BBC java
+
+AltaSocio:
+	verificar ci
+	verificar fecha nac
+	verificar cant familiares antes de hacer el alta
+	hacer el ABM planteles
+
+DetallesSocio:
+	mostrar el tipo
+	mostrar datos de jugador
+	
+
+AltaFuncionario:
+	que sea una herencia de socio, y hago una resta para mostrar los socios
+
+
+////////////////CARGAR TABLA///////////////////
+Conexion.getInstance().refresh(f);
+Iterator<Socio> it = f.getSocios().iterator();
+DefaultTableModel mdl = (DefaultTableModel) tFamiliares.getModel();
+mdl.setRowCount(0);
+while (it.hasNext()) {
+	Socio s = it.next();
+	if (s.isVigente()) {  
+		Object[] fila = new Object[4];
+		fila[0] = s;
+		fila[1] = s.getApellido();
+		fila[2] = s.getFechaNac();
+		fila[3] = s.getRol();
+		mdl.addRow(fila); 
+	}
+}
+
+//////////////CARGAR COMBOBOX////////////////
+List<TipoSocio> ts;
+ts = Conexion.getInstance().getTiposSocios();
+DefaultComboBoxModel dcm = new DefaultComboBoxModel();
+for(TipoSocio tipo: ts){
+	if(tipo.isVigente()){
+		dcm.addElement(tipo);
+	}
+}
+cbTipoSocio.setModel(dcm);

@@ -29,10 +29,6 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -64,7 +60,6 @@
                               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="checkJ" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="lCarnet" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
@@ -75,6 +70,7 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="tfPlantel" min="-2" pref="155" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="cbTipoSocio" alignment="1" min="-2" pref="155" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
@@ -95,6 +91,13 @@
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="726" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -162,9 +165,12 @@
                   <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbFamilia" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="16" max="32767" attributes="0"/>
-              <Component id="checkJ" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbTipoSocio" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="dcCarnetHab" min="-2" max="-2" attributes="0"/>
                   <Component id="lCarnet" min="-2" max="-2" attributes="0"/>
@@ -328,20 +334,6 @@
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="dcFechaIngreso">
     </Component>
-    <Component class="javax.swing.JCheckBox" name="checkJ">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="12" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Jugador"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkJActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -411,6 +403,9 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="cbFamilia">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="0"/>
+        </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="2">
             <StringItem index="0" value="Principal"/>
@@ -432,6 +427,33 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cbTipoSocio">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="0"/>
+        </Property>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="5">
+            <StringItem index="0" value="Com&#xfa;n"/>
+            <StringItem index="1" value="Jugador"/>
+            <StringItem index="2" value="Vitalicio"/>
+            <StringItem index="3" value="Contribuyente"/>
+            <StringItem index="4" value=" "/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel12">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="12" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Tipo socio:"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

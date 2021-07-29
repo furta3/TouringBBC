@@ -10,6 +10,7 @@ import Clases.Cuota;
 import Clases.Jugador;
 import Clases.Socio;
 import Clases.SocioActividad;
+import Clases.TipoSocio;
 import com.mysql.cj.Session;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -176,4 +177,18 @@ public class Conexion {
         return lista;
     }
     
+    public List<TipoSocio> getTiposSocios(){
+        EntityManager em = getEntity();
+        List<TipoSocio> lista = null;
+        em.getTransaction().begin();
+        try {
+            //lista = em.createNativeQuery("SELECT * FROM Socio", Socio.class).getResultList();
+            lista = em.createQuery("SELECT a FROM TipoSocio a ", TipoSocio.class).getResultList();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
+        return lista;
+    }
 }

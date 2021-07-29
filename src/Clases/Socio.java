@@ -36,10 +36,10 @@ public class Socio extends PersonaBBC implements Serializable {
     @OneToMany(mappedBy = "socios")
     private List<SocioActividad> actividades;
 
-    private String tipo;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaIngreso;
     private String rol;
+    private TipoSocio tipo;
 
     public String getRol() {
         return rol;
@@ -82,11 +82,11 @@ public class Socio extends PersonaBBC implements Serializable {
         this.fechaIngreso = fechaIngreso;
     }
 
-    public String getTipo() {
+    public TipoSocio getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoSocio tipo) {
         this.tipo = tipo;
     }
     

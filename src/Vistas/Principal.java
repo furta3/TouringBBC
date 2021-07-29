@@ -27,9 +27,7 @@ public class Principal extends javax.swing.JFrame {
     static AsociarActividad asac;
     static AltaCuota ac;
     static VerSocios vs;
-    //AltaContratacion altaCon;
-    //Contrataciones con;
-
+    static AbmTipoSocios ats;
     
     public Principal() {
         initComponents();
@@ -53,6 +51,7 @@ public class Principal extends javax.swing.JFrame {
         mSocios = new javax.swing.JMenu();
         mSVer = new javax.swing.JMenuItem();
         mSASocio = new javax.swing.JMenuItem();
+        mSTipos = new javax.swing.JMenuItem();
         mActividades = new javax.swing.JMenu();
         mAAgregar = new javax.swing.JMenuItem();
         mCuotas = new javax.swing.JMenu();
@@ -115,6 +114,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mSocios.add(mSASocio);
+
+        mSTipos.setText("Tipos");
+        mSTipos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mSTiposActionPerformed(evt);
+            }
+        });
+        mSocios.add(mSTipos);
 
         jMenuBar1.add(mSocios);
 
@@ -206,6 +213,20 @@ public class Principal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mCAgregarActionPerformed
 
+    private void mSTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSTiposActionPerformed
+        // TODO add your handling code here:
+        AbrirAbmTiposSocios(new AbmTipoSocios());
+    }//GEN-LAST:event_mSTiposActionPerformed
+
+    public static void AbrirAbmTiposSocios(AbmTipoSocios atsv){
+        ats = atsv;
+        ats.setVisible(true);
+        jPanel1.removeAll();
+        jPanel1.add(ats);
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }
+    
     public static void AbrirVerSocios(VerSocios vsv){
         vs = vsv;
         vs.setVisible(true);
@@ -316,6 +337,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu mCuotas;
     private javax.swing.JMenuItem mIInicio;
     private javax.swing.JMenuItem mSASocio;
+    private javax.swing.JMenuItem mSTipos;
     private javax.swing.JMenuItem mSVer;
     private javax.swing.JMenu mSocios;
     // End of variables declaration//GEN-END:variables

@@ -6,14 +6,17 @@
 package Vistas;
 
 import BD.Conexion;
+import Clases.Actividad;
 import Clases.Familia;
 import Clases.Jugador;
 import Clases.Socio;
+import Clases.TipoSocio;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -34,8 +37,15 @@ public class AltaSocio extends javax.swing.JPanel {
         if(f!=null)
             cargarFamiliares();
         dcFechaIngreso.setDate(new Date());
-        dcCarnetHab.enable(false);
-        tfPlantel.enable(false);
+        List<TipoSocio> ts;
+        ts = Conexion.getInstance().getTiposSocios();
+        DefaultComboBoxModel dcm = new DefaultComboBoxModel();
+        for(TipoSocio tipo: ts){
+            if(tipo.isVigente()){
+                dcm.addElement(tipo);
+            }
+        }
+        cbTipoSocio.setModel(dcm);
     }
     
     public void cargarFamiliares(){
@@ -86,13 +96,14 @@ public class AltaSocio extends javax.swing.JPanel {
         tfCI = new javax.swing.JTextField();
         lCarnet1 = new javax.swing.JLabel();
         dcFechaIngreso = new com.toedter.calendar.JDateChooser();
-        checkJ = new javax.swing.JCheckBox();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tFamiliares = new javax.swing.JTable();
         jLabel11 = new javax.swing.JLabel();
         cbFamilia = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
+        cbTipoSocio = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -161,15 +172,6 @@ public class AltaSocio extends javax.swing.JPanel {
         lCarnet1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lCarnet1.setText("Fecha ingreso:");
 
-        checkJ.setBackground(new java.awt.Color(255, 255, 255));
-        checkJ.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        checkJ.setText("Jugador");
-        checkJ.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkJActionPerformed(evt);
-            }
-        });
-
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setText("Familiares");
 
@@ -198,6 +200,7 @@ public class AltaSocio extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel11.setText("Rol familiar:");
 
+        cbFamilia.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         cbFamilia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Principal", "Miembro" }));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -207,6 +210,12 @@ public class AltaSocio extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
+
+        cbTipoSocio.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        cbTipoSocio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Común", "Jugador", "Vitalicio", "Contribuyente", " " }));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel12.setText("Tipo socio:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -219,9 +228,6 @@ public class AltaSocio extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(93, 93, 93)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -248,7 +254,6 @@ public class AltaSocio extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jButton1)
                                 .addGap(79, 79, 79))
-                            .addComponent(checkJ)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(lCarnet)
                                 .addGap(48, 48, 48)
@@ -256,7 +261,8 @@ public class AltaSocio extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(lPlantel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfPlantel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tfPlantel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbTipoSocio, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
@@ -270,7 +276,12 @@ public class AltaSocio extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(215, 215, 215)
                                 .addComponent(jButton2)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12))
+                        .addContainerGap(726, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -320,9 +331,11 @@ public class AltaSocio extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(cbFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(checkJ)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(cbTipoSocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dcCarnetHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lCarnet))
@@ -352,8 +365,8 @@ public class AltaSocio extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-
-        if(checkJ.isSelected()){
+         
+        if(cbTipoSocio.getSelectedItem().toString().equals("Jugador")){
             Jugador j = new Jugador();
             j.setNombre(tfNombre.getText());
             j.setApellido(tfApellido.getText());
@@ -362,7 +375,7 @@ public class AltaSocio extends javax.swing.JPanel {
             j.setFechaNac(dcFechaNac.getDate());
             j.setTelefono(tfTelefono.getText());
             j.setFechaIngreso(dcFechaIngreso.getDate());
-            j.setTipo("Jugador");
+            j.setTipo((TipoSocio)cbTipoSocio.getSelectedItem());
             j.setVigente(true);
             j.setCarnetHabilitante(dcCarnetHab.getDate());
             j.setPlantel(tfPlantel.getText());
@@ -377,7 +390,7 @@ public class AltaSocio extends javax.swing.JPanel {
                 
             Conexion.getInstance().persist(j);
             
-            if(f==null){
+            if(f==null){//FALTA VERIFICAR LA CANTIDAD DE MIEMBROS
                 f = new Familia();
                 List<Socio> ls = new ArrayList<Socio>();
                 ls.add(j);
@@ -401,7 +414,7 @@ public class AltaSocio extends javax.swing.JPanel {
             j.setFechaNac(dcFechaNac.getDate());
             j.setTelefono(tfTelefono.getText());
             j.setFechaIngreso(dcFechaIngreso.getDate());
-            j.setTipo("Común");
+            j.setTipo((TipoSocio)cbTipoSocio.getSelectedItem());
             j.setVigente(true);
             j.setRol(cbFamilia.getSelectedItem().toString());
             if(f!=null){
@@ -415,7 +428,7 @@ public class AltaSocio extends javax.swing.JPanel {
                 
             Conexion.getInstance().persist(j);
             
-            if(f==null){
+            if(f==null){ //FALTA VERIFICAR LA CANTIDAD DE MIEMBROS
                 f = new Familia();
                 List<Socio> ls = new ArrayList<Socio>();
                 ls.add(j);
@@ -430,8 +443,6 @@ public class AltaSocio extends javax.swing.JPanel {
                 Conexion.getInstance().merge(j);
             }
         }
-        
-
         cargarFamiliares();
         limpiar();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -439,18 +450,6 @@ public class AltaSocio extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void checkJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkJActionPerformed
-        // TODO add your handling code here:
-        if(checkJ.isSelected()){
-            dcCarnetHab.enable(true);
-            tfPlantel.enable(true);
-        }
-        else{
-            dcCarnetHab.enable(false);
-            tfPlantel.enable(false);
-        }
-    }//GEN-LAST:event_checkJActionPerformed
 
     public void limpiar(){
         tfNombre.setText("");
@@ -467,7 +466,7 @@ public class AltaSocio extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbFamilia;
-    private javax.swing.JCheckBox checkJ;
+    private javax.swing.JComboBox<String> cbTipoSocio;
     private com.toedter.calendar.JDateChooser dcCarnetHab;
     private com.toedter.calendar.JDateChooser dcFechaIngreso;
     private com.toedter.calendar.JDateChooser dcFechaNac;
@@ -476,6 +475,7 @@ public class AltaSocio extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
