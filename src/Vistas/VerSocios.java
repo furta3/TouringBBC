@@ -21,19 +21,37 @@ public class VerSocios extends javax.swing.JPanel {
      * Creates new form PanelVacio
      */
     Principal main;
+    Iterator<Socio> it;
     public VerSocios(Principal main) {
         initComponents();
         this.main=main;
+        
+        it = Conexion.getInstance().getSocios().iterator();
         cargarSocios();
     }
     
     public void cargarSocios(){
-        Iterator<Socio> it = Conexion.getInstance().getSocios().iterator();
         DefaultTableModel mdl = (DefaultTableModel) tSocios.getModel();
         mdl.setRowCount(0);
         while (it.hasNext()) {
             Socio s = it.next();
             if (s.isVigente()) {  
+                Object[] fila = new Object[4];
+                fila[0] = s.getCi();
+                fila[1] = s;
+                fila[2] = s.getApellido();
+                fila[3] = s.getTelefono();
+                mdl.addRow(fila); 
+            }
+        }
+    }
+    
+    public void buscarSocios(String buscar){
+        DefaultTableModel mdl = (DefaultTableModel) tSocios.getModel();
+        mdl.setRowCount(0);
+        while (it.hasNext()) {
+            Socio s = it.next();
+            if (s.isVigente() && (s.getNombre().contains(buscar) || s.getApellido().contains(buscar) || s.getCi() == Integer.parseInt(buscar))) {  
                 Object[] fila = new Object[4];
                 fila[0] = s.getCi();
                 fila[1] = s;
@@ -62,6 +80,11 @@ public class VerSocios extends javax.swing.JPanel {
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         tfBuscar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        tfBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfBuscarKeyPressed(evt);
+            }
+        });
 
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnBuscar.setText("Buscar");
@@ -140,6 +163,14 @@ public class VerSocios extends javax.swing.JPanel {
             main.AbrirDetallesJugador(dj);
         }
     }//GEN-LAST:event_tSociosMousePressed
+
+    private void tfBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarKeyPressed
+        // TODO add your handling code here:
+        if(tfBuscar.getText().equals(""))
+            cargarSocios();
+        else
+            buscarSocios(tfBuscar.getText());
+    }//GEN-LAST:event_tfBuscarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

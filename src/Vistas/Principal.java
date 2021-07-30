@@ -28,6 +28,7 @@ public class Principal extends javax.swing.JFrame {
     static AltaCuota ac;
     static VerSocios vs;
     static AbmTipoSocios ats;
+    Inicio i = new Inicio();
     
     public Principal() {
         initComponents();
@@ -35,6 +36,7 @@ public class Principal extends javax.swing.JFrame {
         this.setIconImage(new ImageIcon(getClass().getResource("/Recursos/touringIco.png")).getImage());
         Conexion.getInstance();
         this.padre = this;
+        AbrirInicio();
         //ImageIcon icono = new ImageIcon("src/Images/ico.png");
         //this.setIconImage(icono.getImage());
     }
@@ -183,7 +185,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void mIInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mIInicioActionPerformed
         // TODO add your handling code here:
-        vaciarVista();
+        AbrirInicio();
     }//GEN-LAST:event_mIInicioActionPerformed
 
     private void mAAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAAgregarActionPerformed
@@ -218,6 +220,13 @@ public class Principal extends javax.swing.JFrame {
         AbrirAbmTiposSocios(new AbmTipoSocios());
     }//GEN-LAST:event_mSTiposActionPerformed
 
+    public void AbrirInicio(){
+        jPanel1.removeAll();
+        jPanel1.add(i);
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }
+    
     public static void AbrirAbmTiposSocios(AbmTipoSocios atsv){
         ats = atsv;
         ats.setVisible(true);

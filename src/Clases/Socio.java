@@ -39,6 +39,7 @@ public class Socio extends PersonaBBC implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaIngreso;
     private String rol;
+    @ManyToOne
     private TipoSocio tipo;
 
     public String getRol() {

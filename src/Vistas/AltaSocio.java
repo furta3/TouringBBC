@@ -34,8 +34,11 @@ public class AltaSocio extends javax.swing.JPanel {
         initComponents();
         this.main = main;
         this.f = f;
-        if(f!=null)
+        if(f!=null){
             cargarFamiliares();
+            cbFamilia.setSelectedIndex(1);
+        }
+            
         dcFechaIngreso.setDate(new Date());
         List<TipoSocio> ts;
         ts = Conexion.getInstance().getTiposSocios();
@@ -65,7 +68,12 @@ public class AltaSocio extends javax.swing.JPanel {
             }
         }
     }
-    
+    public void jugador(boolean b){
+        lCarnet.setVisible(b);
+        dcCarnetHab.setVisible(b);
+        lPlantel.setVisible(b);
+        tfPlantel.setVisible(b);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -213,6 +221,11 @@ public class AltaSocio extends javax.swing.JPanel {
 
         cbTipoSocio.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         cbTipoSocio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Común", "Jugador", "Vitalicio", "Contribuyente", " " }));
+        cbTipoSocio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoSocioActionPerformed(evt);
+            }
+        });
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel12.setText("Tipo socio:");
@@ -343,9 +356,9 @@ public class AltaSocio extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lPlantel)
                     .addComponent(tfPlantel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -374,6 +387,7 @@ public class AltaSocio extends javax.swing.JPanel {
             j.setDireccion(tfDireccion.getText());
             j.setFechaNac(dcFechaNac.getDate());
             j.setTelefono(tfTelefono.getText());
+            j.setRol(cbFamilia.getSelectedItem().toString());
             j.setFechaIngreso(dcFechaIngreso.getDate());
             j.setTipo((TipoSocio)cbTipoSocio.getSelectedItem());
             j.setVigente(true);
@@ -450,6 +464,14 @@ public class AltaSocio extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void cbTipoSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoSocioActionPerformed
+        // TODO add your handling code here:
+        if(cbTipoSocio.getSelectedItem().toString().equals("Jugador"))
+            jugador(true);
+        else
+            jugador(false);
+    }//GEN-LAST:event_cbTipoSocioActionPerformed
 
     public void limpiar(){
         tfNombre.setText("");

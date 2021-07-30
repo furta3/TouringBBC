@@ -13,6 +13,7 @@ import Clases.Jugador;
 import Clases.RolFamiliar;
 import Clases.Socio;
 import Clases.SocioActividad;
+import Clases.TipoSocio;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -47,9 +48,32 @@ public class DetallesSocio extends javax.swing.JPanel {
         tfDireccion.setText(s.getDireccion());
         dcFechaNac.setDate(s.getFechaNac());
         dcCarnetHab.setDate(null);
-        
+        cargarTipos();
+        cbTipoSocio.setSelectedItem(s.getTipo());
+        if(!s.getTipo().toString().equals("Jugador"))
+            jugador(false);
+        if(s.getRol().equals("Miembro"))
+            cbRol.setSelectedIndex(1);
     }
-
+    
+    public void jugador(boolean b){
+        lCarnet.setVisible(b);
+        dcCarnetHab.setVisible(b);
+        lPlantel.setVisible(b);
+        tfPlantel.setVisible(b);
+    }
+    
+    public void cargarTipos(){
+        List<TipoSocio> ts;
+        ts = Conexion.getInstance().getTiposSocios();
+        DefaultComboBoxModel dcm = new DefaultComboBoxModel();
+        for(TipoSocio tipo: ts){
+                if(tipo.isVigente()){
+                        dcm.addElement(tipo);
+                }
+        }
+        cbTipoSocio.setModel(dcm);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,9 +138,9 @@ public class DetallesSocio extends javax.swing.JPanel {
         jComboBox4 = new javax.swing.JComboBox<>();
         jComboBox5 = new javax.swing.JComboBox<>();
         lPlantel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbRol = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cbTipoSocio = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -180,6 +204,11 @@ public class DetallesSocio extends javax.swing.JPanel {
 
         btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -461,6 +490,8 @@ public class DetallesSocio extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Familia", pFamilia);
 
+        pPagos.setBackground(new java.awt.Color(255, 255, 255));
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -558,12 +589,18 @@ public class DetallesSocio extends javax.swing.JPanel {
         lPlantel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lPlantel1.setText("Rol de Familia:");
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        cbRol.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        cbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Principal", "Miembro" }));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel11.setText("Tipo:");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTipoSocio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTipoSocio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoSocioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -583,7 +620,7 @@ public class DetallesSocio extends javax.swing.JPanel {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel11)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(cbTipoSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(lPlantel)
@@ -602,7 +639,7 @@ public class DetallesSocio extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lPlantel1)
                                 .addGap(45, 45, 45)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cbRol, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
@@ -661,11 +698,11 @@ public class DetallesSocio extends javax.swing.JPanel {
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lPlantel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbTipoSocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dcCarnetHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -748,6 +785,33 @@ public class DetallesSocio extends javax.swing.JPanel {
         main.AbrirAltaSocio(new AltaSocio(main,s.getFamilia()));
     }//GEN-LAST:event_btnActualizar6ActionPerformed
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        s.setFechaIngreso(dcFechaIngreso.getDate());
+        s.setNombre(tfNombre.getText());
+        s.setApellido(tfApellido.getText());
+        s.setTelefono(tfTelefono.getText());
+        s.setFechaNac(dcFechaNac.getDate());
+        s.setRol(cbRol.getSelectedItem().toString());
+        s.setTipo((TipoSocio)cbTipoSocio.getSelectedItem());
+        if(cbTipoSocio.getSelectedItem().toString().equals("Jugador")){
+            Jugador j = (Jugador) s ;
+            j.setCarnetHabilitante(dcCarnetHab.getDate());
+            j.setPlantel(tfPlantel.getText());
+            Conexion.getInstance().merge(j);
+        }
+        else
+            Conexion.getInstance().merge(s);
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void cbTipoSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoSocioActionPerformed
+        // TODO add your handling code here:
+        if(cbTipoSocio.getSelectedItem().toString().equals("Jugador"))
+            jugador(true);
+        else
+            jugador(false);
+    }//GEN-LAST:event_cbTipoSocioActionPerformed
+
     public void loadAct(){
         Iterator<SocioActividad> it = Conexion.getInstance().getActAsociadas( Integer.toString(s.getCi())).iterator();
         DefaultTableModel mdl = (DefaultTableModel) tActividades.getModel();
@@ -826,12 +890,12 @@ public class DetallesSocio extends javax.swing.JPanel {
     private javax.swing.JButton btnBorrarActividad;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JComboBox<String> cbCuotas;
+    private javax.swing.JComboBox<String> cbRol;
+    private javax.swing.JComboBox<String> cbTipoSocio;
     private com.toedter.calendar.JDateChooser dcCarnetHab;
     private com.toedter.calendar.JDateChooser dcFechaIngreso;
     private com.toedter.calendar.JDateChooser dcFechaNac;
-    private javax.swing.JComboBox<RolFamiliar> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
     private javax.swing.JLabel jLabel1;
