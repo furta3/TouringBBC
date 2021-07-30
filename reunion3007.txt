@@ -1,0 +1,13 @@
+jugador:
+ci
+vencimiento ci
+carnet hab
+
+	tipo (carnet adolescente,carnet niño,ficha medica)
+	fecha ven.
+plantel: categoria (abm)
+carnet jugador liga
+
+informe de vencimiento de jugadores, por plantel
+baja de familias
+	separaciones

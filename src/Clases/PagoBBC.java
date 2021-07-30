@@ -19,7 +19,7 @@ import javax.persistence.Temporal;
  * @author nacho
  */
 @Entity
-public class Pago implements Serializable {
+public class PagoBBC implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -73,10 +73,10 @@ public class Pago implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pago)) {
+        if (!(object instanceof PagoBBC)) {
             return false;
         }
-        Pago other = (Pago) object;
+        PagoBBC other = (PagoBBC) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -85,7 +85,7 @@ public class Pago implements Serializable {
 
     @Override
     public String toString() {
-        return "Clases.Pago[ id=" + id + " ]";
+        return Integer.toString(monto);
     }
     
 }

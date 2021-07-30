@@ -21,7 +21,15 @@ import javax.persistence.OneToMany;
 public class Familia implements Serializable {
 
     @OneToMany(mappedBy = "familia")
-    private List<Pago> pagos;
+    private List<PagoBBC> pagos;
+
+    public List<PagoBBC> getPagos() {
+        return pagos;
+    }
+
+    public void setPagos(List<PagoBBC> pagos) {
+        this.pagos = pagos;
+    }
 
     private static final long serialVersionUID = 1L;
     @Id

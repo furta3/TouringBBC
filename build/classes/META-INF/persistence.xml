@@ -10,7 +10,7 @@
     <class>Clases.Socio</class>
     <class>Clases.Familia</class>
     <class>Clases.TipoSocio</class>
-    <class>Clases.Pago</class>
+    <class>Clases.PagoBBC</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/TouringBBC?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

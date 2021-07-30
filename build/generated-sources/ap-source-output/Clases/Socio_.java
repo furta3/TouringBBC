@@ -11,7 +11,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class Socio_ extends Clases.PersonaBBC_ {
 
 	public static volatile SingularAttribute<Socio, Date> fechaIngreso;
-	public static volatile SingularAttribute<Socio, String> tipo;
+	public static volatile SingularAttribute<Socio, TipoSocio> tipo;
 	public static volatile ListAttribute<Socio, SocioActividad> actividades;
 	public static volatile ListAttribute<Socio, Cuota> cuotas;
 	public static volatile SingularAttribute<Socio, Familia> familia;
