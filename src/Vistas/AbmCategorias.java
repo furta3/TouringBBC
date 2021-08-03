@@ -5,57 +5,19 @@
  */
 package Vistas;
 
-import BD.Conexion;
-import Clases.Cuota;
-import Clases.TipoSocio;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author nacho
  */
-public class AbmTipoSocios extends javax.swing.JPanel {
+public class AbmCategorias extends javax.swing.JPanel {
 
     /**
      * Creates new form PanelVacio
      */
-    TipoSocio TipoSeleccionado;
-    public AbmTipoSocios() {
+    public AbmCategorias() {
         initComponents();
-        cargarTipos();
     }
-    
-    public void cargarTipos(){
-        Iterator<TipoSocio> it = Conexion.getInstance().getTiposSocios().iterator();
-        DefaultTableModel mdl = (DefaultTableModel) tTipos.getModel();
-        mdl.setRowCount(0);
-        while (it.hasNext()) {
-            TipoSocio s = it.next();
-            if (s.isVigente()) {  
-                Object[] fila = new Object[3];
-                fila[0] = s;
-                mdl.addRow(fila); 
-            }
-        }
-    }
-    
-    /*
-    public void cargarCuotas(){
-        List<Cuota> ts;
-        ts = Conexion.getInstance().getCuotas();
-        DefaultComboBoxModel dcm = new DefaultComboBoxModel();
-        for(Cuota tipo: ts){
-                if(tipo.isVigente()){
-                        dcm.addElement(tipo);
-                }
-        }
-        cbCuotas.setModel(dcm);
-    }
-    */
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,23 +27,16 @@ public class AbmTipoSocios extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tTipos = new javax.swing.JTable();
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
         tfNombre = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("Tipos de Socio");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel2.setText("Nombre:");
 
         tTipos.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         tTipos.setModel(new javax.swing.table.DefaultTableModel(
@@ -131,6 +86,12 @@ public class AbmTipoSocios extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel1.setText("Categorías");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel2.setText("Nombre:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -174,21 +135,9 @@ public class AbmTipoSocios extends javax.swing.JPanel {
                             .addComponent(btnEliminar)
                             .addComponent(btnAgregar)
                             .addComponent(btnModificar))))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-
-        TipoSocio ts = new TipoSocio();
-        ts.setNombre(tfNombre.getText());
-        ts.setVigente(true);
-        Conexion.getInstance().persist(ts);
-        
-        tfNombre.setText("");
-        cargarTipos();
-        limpiar();
-    }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void tTiposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tTiposMousePressed
         // TODO add your handling code here:
@@ -198,16 +147,17 @@ public class AbmTipoSocios extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tTiposMousePressed
 
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
-        if(TipoSeleccionado != null){
-            TipoSeleccionado.setNombre(tfNombre.getText());
-            Conexion.getInstance().merge(TipoSeleccionado);
-            cargarTipos();
-            limpiar();
-        }
-        
-    }//GEN-LAST:event_btnModificarActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+
+        TipoSocio ts = new TipoSocio();
+        ts.setNombre(tfNombre.getText());
+        ts.setVigente(true);
+        Conexion.getInstance().persist(ts);
+
+        tfNombre.setText("");
+        cargarTipos();
+        limpiar();
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
@@ -219,10 +169,17 @@ public class AbmTipoSocios extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    public void limpiar(){
-        tfNombre.setText("");
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+        if(TipoSeleccionado != null){
+            TipoSeleccionado.setNombre(tfNombre.getText());
+            Conexion.getInstance().merge(TipoSeleccionado);
+            cargarTipos();
+            limpiar();
+        }
 
-    }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

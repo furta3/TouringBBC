@@ -6,31 +6,27 @@
 package Clases;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
 
 /**
  *
  * @author nacho
  */
 @Entity
-public class TipoSocio implements Serializable {
+public class Categoria implements Serializable {
 
-    @OneToMany(mappedBy = "tipo")
-    private List<Socio> socios;
+    @OneToMany(mappedBy = "plantel")
+    private List<Jugador> jugadores;
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String nombre;
 
     public String getNombre() {
@@ -40,16 +36,7 @@ public class TipoSocio implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    private boolean vigente;
 
-    public boolean isVigente() {
-        return vigente;
-    }
-
-    public void setVigente(boolean vigente) {
-        this.vigente = vigente;
-    }
-    
     public Long getId() {
         return id;
     }
@@ -68,10 +55,10 @@ public class TipoSocio implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TipoSocio)) {
+        if (!(object instanceof Categoria)) {
             return false;
         }
-        TipoSocio other = (TipoSocio) object;
+        Categoria other = (Categoria) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -80,7 +67,7 @@ public class TipoSocio implements Serializable {
 
     @Override
     public String toString() {
-        return nombre;
+        return "Clases.Categoria[ id=" + id + " ]";
     }
     
 }

@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -19,9 +21,30 @@ import javax.persistence.Id;
 @Entity
 public class Jugador extends Socio implements Serializable {
 
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date carnetHabilitante;
-    private String plantel;
+    @ManyToOne
+    private Categoria plantel;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date venCi;//vecnimiento de la cédula
+    private String tipoCarnet;
 
+    public Date getVenCi() {
+        return venCi;
+    }
+
+    public void setVenCi(Date venCi) {
+        this.venCi = venCi;
+    }
+
+    public String getTipoCarnet() {
+        return tipoCarnet;
+    }
+
+    public void setTipoCarnet(String tipoCarnet) {
+        this.tipoCarnet = tipoCarnet;
+    }
+    
     public Date getCarnetHabilitante() {
         return carnetHabilitante;
     }
@@ -30,11 +53,11 @@ public class Jugador extends Socio implements Serializable {
         this.carnetHabilitante = carnetHabilitante;
     }
 
-    public String getPlantel() {
+    public Categoria getPlantel() {
         return plantel;
     }
 
-    public void setPlantel(String Plantel) {
+    public void setPlantel(Categoria Plantel) {
         this.plantel = Plantel;
     }
     
@@ -43,5 +66,4 @@ public class Jugador extends Socio implements Serializable {
     public String toString() {
         return super.getNombre();//en la tabla socios me muestra este toString, siendo que listo los socios para llenar la tabla
     }
-    
 }
