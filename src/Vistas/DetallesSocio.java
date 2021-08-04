@@ -62,8 +62,6 @@ public class DetallesSocio extends javax.swing.JPanel {
             //tfPlantel.setText(j.getPlantel());
         }
             
-        if(s.getRol().equals("Miembro"))
-            cbRol.setSelectedIndex(1);
     }
     
     public void jugador(boolean b){
