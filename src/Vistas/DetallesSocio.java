@@ -59,7 +59,7 @@ public class DetallesSocio extends javax.swing.JPanel {
         else{
             Jugador j = (Jugador) s;
             dcCarnetHab.setDate(j.getCarnetHabilitante());
-            tfPlantel.setText(j.getPlantel());
+            //tfPlantel.setText(j.getPlantel());
         }
             
         if(s.getRol().equals("Miembro"))
@@ -817,7 +817,7 @@ public class DetallesSocio extends javax.swing.JPanel {
         if(cbTipoSocio.getSelectedItem().toString().equals("Jugador")){
             Jugador j = (Jugador) s ;
             j.setCarnetHabilitante(dcCarnetHab.getDate());
-            j.setPlantel(tfPlantel.getText());
+            //j.setPlantel(tfPlantel.getText());
             Conexion.getInstance().merge(j);
         }
         else

@@ -6,6 +6,7 @@
 package BD;
 
 import Clases.Actividad;
+import Clases.Categoria;
 import Clases.Cuota;
 import Clases.Jugador;
 import Clases.Socio;
@@ -185,6 +186,21 @@ public class Conexion {
         try {
             //lista = em.createNativeQuery("SELECT * FROM Socio", Socio.class).getResultList();
             lista = em.createQuery("SELECT a FROM TipoSocio a ", TipoSocio.class).getResultList();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
+        return lista;
+    }
+    
+    public List<Categoria> getCategorias(){
+        EntityManager em = getEntity();
+        List<Categoria> lista = null;
+        em.getTransaction().begin();
+        try {
+            //lista = em.createNativeQuery("SELECT * FROM Socio", Socio.class).getResultList();
+            lista = em.createQuery("SELECT a FROM Categoria a ", Categoria.class).getResultList();
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();

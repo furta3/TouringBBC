@@ -23,15 +23,24 @@ import javax.persistence.Temporal;
 @Entity
 public class TipoSocio implements Serializable {
 
-    @OneToMany(mappedBy = "tipo")
-    private List<Socio> socios;
+    
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    private boolean vigente;
     private String nombre;
+    @OneToMany(mappedBy = "tipo")
+    private List<Socio> socios;
+
+    public List<Socio> getSocios() {
+        return socios;
+    }
+
+    public void setSocios(List<Socio> socios) {
+        this.socios = socios;
+    }
 
     public String getNombre() {
         return nombre;
@@ -40,7 +49,6 @@ public class TipoSocio implements Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    private boolean vigente;
 
     public boolean isVigente() {
         return vigente;
@@ -49,7 +57,7 @@ public class TipoSocio implements Serializable {
     public void setVigente(boolean vigente) {
         this.vigente = vigente;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -82,5 +90,5 @@ public class TipoSocio implements Serializable {
     public String toString() {
         return nombre;
     }
-    
+
 }

@@ -22,10 +22,6 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Cuota implements Serializable {
-
-    @OneToOne(mappedBy = "cuota")
-    private TipoSocio tipoSocio;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,14 +35,6 @@ public class Cuota implements Serializable {
     @ManyToMany
     private List<Socio> socios;
     private boolean vigente;
-
-    public TipoSocio getTipoSocio() {
-        return tipoSocio;
-    }
-
-    public void setTipoSocio(TipoSocio tipoSocio) {
-        this.tipoSocio = tipoSocio;
-    }
 
     public boolean isVigente() {
         return vigente;

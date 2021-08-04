@@ -10,7 +10,9 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class Jugador_ extends Clases.Socio_ {
 
 	public static volatile SingularAttribute<Jugador, Date> carnetHabilitante;
-	public static volatile SingularAttribute<Jugador, String> plantel;
+	public static volatile SingularAttribute<Jugador, Date> venCi;
+	public static volatile SingularAttribute<Jugador, String> tipoCarnet;
+	public static volatile SingularAttribute<Jugador, Categoria> plantel;
 
 }
 

@@ -5,6 +5,12 @@
  */
 package Vistas;
 
+import BD.Conexion;
+import Clases.Categoria;
+import Clases.TipoSocio;
+import java.util.Iterator;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author nacho
@@ -14,8 +20,10 @@ public class AbmCategorias extends javax.swing.JPanel {
     /**
      * Creates new form PanelVacio
      */
+    Categoria cat;
     public AbmCategorias() {
         initComponents();
+        cargarCat();
     }
 
     /**
@@ -142,39 +150,55 @@ public class AbmCategorias extends javax.swing.JPanel {
     private void tTiposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tTiposMousePressed
         // TODO add your handling code here:
         if(tTipos.getSelectedRowCount()==1){
-            TipoSeleccionado = (TipoSocio) tTipos.getValueAt(tTipos.getSelectedRow(), 0);
-            tfNombre.setText(TipoSeleccionado.getNombre());
+            cat = (Categoria) tTipos.getValueAt(tTipos.getSelectedRow(), 0);
+            tfNombre.setText(cat.getNombre());
         }
     }//GEN-LAST:event_tTiposMousePressed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
-        TipoSocio ts = new TipoSocio();
+        Categoria ts = new Categoria();
         ts.setNombre(tfNombre.getText());
         ts.setVigente(true);
         Conexion.getInstance().persist(ts);
 
         tfNombre.setText("");
-        cargarTipos();
+        cargarCat();
         limpiar();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    public void cargarCat(){
+        Iterator<Categoria> it = Conexion.getInstance().getCategorias().iterator();
+        DefaultTableModel mdl = (DefaultTableModel) tTipos.getModel();
+        mdl.setRowCount(0);
+        while (it.hasNext()) {
+            Categoria s = it.next();
+            if (s.isVigente()) {  
+                Object[] fila = new Object[1];
+                fila[0] = s;
+                mdl.addRow(fila); 
+            }
+        }
+    }
+    public void limpiar(){
+        tfNombre.setText("");
+    }
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        if(TipoSeleccionado != null){
-            TipoSeleccionado.setVigente(false);
-            Conexion.getInstance().merge(TipoSeleccionado);
-            cargarTipos();
+        if(cat != null){
+            cat.setVigente(false);
+            Conexion.getInstance().merge(cat);
+            cargarCat();
             limpiar();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        if(TipoSeleccionado != null){
-            TipoSeleccionado.setNombre(tfNombre.getText());
-            Conexion.getInstance().merge(TipoSeleccionado);
-            cargarTipos();
+        if(cat != null){
+            cat.setNombre(tfNombre.getText());
+            Conexion.getInstance().merge(cat);
+            cargarCat();
             limpiar();
         }
 

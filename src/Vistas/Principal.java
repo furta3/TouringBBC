@@ -54,6 +54,7 @@ public class Principal extends javax.swing.JFrame {
         mSVer = new javax.swing.JMenuItem();
         mSASocio = new javax.swing.JMenuItem();
         mSTipos = new javax.swing.JMenuItem();
+        mSCategorias = new javax.swing.JMenuItem();
         mActividades = new javax.swing.JMenu();
         mAAgregar = new javax.swing.JMenuItem();
         mCuotas = new javax.swing.JMenu();
@@ -124,6 +125,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mSocios.add(mSTipos);
+
+        mSCategorias.setText("Categorías");
+        mSCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mSCategoriasActionPerformed(evt);
+            }
+        });
+        mSocios.add(mSCategorias);
 
         jMenuBar1.add(mSocios);
 
@@ -220,6 +229,17 @@ public class Principal extends javax.swing.JFrame {
         AbrirAbmTiposSocios(new AbmTipoSocios());
     }//GEN-LAST:event_mSTiposActionPerformed
 
+    private void mSCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSCategoriasActionPerformed
+        // TODO add your handling code here:
+        AbrirAbmCategorias(new AbmCategorias());
+    }//GEN-LAST:event_mSCategoriasActionPerformed
+
+    public void AbrirAbmCategorias(AbmCategorias a){
+        jPanel1.removeAll();
+        jPanel1.add(a);
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }
     public void AbrirInicio(){
         jPanel1.removeAll();
         jPanel1.add(i);
@@ -346,6 +366,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu mCuotas;
     private javax.swing.JMenuItem mIInicio;
     private javax.swing.JMenuItem mSASocio;
+    private javax.swing.JMenuItem mSCategorias;
     private javax.swing.JMenuItem mSTipos;
     private javax.swing.JMenuItem mSVer;
     private javax.swing.JMenu mSocios;

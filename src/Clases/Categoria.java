@@ -28,6 +28,23 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nombre;
+    private boolean vigente;
+
+    public List<Jugador> getJugadores() {
+        return jugadores;
+    }
+
+    public void setJugadores(List<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
+
+    public boolean isVigente() {
+        return vigente;
+    }
+
+    public void setVigente(boolean vigente) {
+        this.vigente = vigente;
+    }
 
     public String getNombre() {
         return nombre;
@@ -67,7 +84,7 @@ public class Categoria implements Serializable {
 
     @Override
     public String toString() {
-        return "Clases.Categoria[ id=" + id + " ]";
+        return nombre;
     }
     
 }

@@ -7,6 +7,7 @@ package Vistas;
 
 import BD.Conexion;
 import Clases.Actividad;
+import Clases.Categoria;
 import Clases.Cuota;
 import Clases.Familia;
 import Clases.Jugador;
@@ -70,6 +71,15 @@ public class AltaSocio extends javax.swing.JPanel {
         }
         cbCuotas.setModel(dcm2);
     
+        List<Categoria> cat;
+        cat = Conexion.getInstance().getCategorias();
+        DefaultComboBoxModel dcm3 = new DefaultComboBoxModel();
+        for(Categoria tipo: cat){
+                if(tipo.isVigente()){
+                        dcm3.addElement(tipo);
+                }
+        }
+        cbCuotas.setModel(dcm3);
     }
     
     public void cargarFamiliares(){
@@ -93,11 +103,18 @@ public class AltaSocio extends javax.swing.JPanel {
             cbFamilia.enable(true);
         */
     }
+    
+    public void addFamiliar(Socio a){
+        DefaultTableModel mdl = (DefaultTableModel) tFamiliares.getModel();
+        Object[] fila = new Object[4];
+        fila[0] = a;
+        fila[1] = a.getApellido();
+        fila[2] = a.getFechaNac();
+        fila[3] = a.getRol();
+        mdl.addRow(fila); 
+    }
     public void jugador(boolean b){
-        lCarnet.setVisible(b);
-        dcCarnetHab.setVisible(b);
-        lPlantel.setVisible(b);
-        tfPlantel.setVisible(b);
+        
     }
 
     /**
@@ -132,7 +149,6 @@ public class AltaSocio extends javax.swing.JPanel {
         checkJ = new javax.swing.JCheckBox();
         panelJugador = new javax.swing.JPanel();
         lPlantel = new javax.swing.JLabel();
-        tfPlantel = new javax.swing.JTextField();
         panelC = new javax.swing.JPanel();
         dcCarnetHab = new com.toedter.calendar.JDateChooser();
         cbTipoCarnet = new javax.swing.JComboBox<>();
@@ -140,11 +156,13 @@ public class AltaSocio extends javax.swing.JPanel {
         lVenCarnet = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         dcFechaNac1 = new com.toedter.calendar.JDateChooser();
+        cbCat = new javax.swing.JComboBox<>();
         panelFamilia = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tFamiliares = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         checkF = new javax.swing.JCheckBox();
+        btnConfirmar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setToolTipText("");
@@ -238,13 +256,11 @@ public class AltaSocio extends javax.swing.JPanel {
 
         panelJugador.setBackground(new java.awt.Color(255, 255, 255));
         panelJugador.setBorder(javax.swing.BorderFactory.createTitledBorder("Jugador"));
-        panelJugador.setToolTipText("Jugador");
+        panelJugador.setToolTipText("");
         panelJugador.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         lPlantel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lPlantel.setText("Plantel:");
-
-        tfPlantel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         panelC.setBackground(new java.awt.Color(255, 255, 255));
         panelC.setBorder(javax.swing.BorderFactory.createTitledBorder("Carnet Habilitante"));
@@ -279,7 +295,7 @@ public class AltaSocio extends javax.swing.JPanel {
                 .addGroup(panelCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbTipoCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dcCarnetHab, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         panelCLayout.setVerticalGroup(
             panelCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,6 +316,13 @@ public class AltaSocio extends javax.swing.JPanel {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel14.setText("Ven. Cédula:");
 
+        cbCat.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        cbCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelJugadorLayout = new javax.swing.GroupLayout(panelJugador);
         panelJugador.setLayout(panelJugadorLayout);
         panelJugadorLayout.setHorizontalGroup(
@@ -308,16 +331,17 @@ public class AltaSocio extends javax.swing.JPanel {
                 .addGap(25, 25, 25)
                 .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(panelJugadorLayout.createSequentialGroup()
-                            .addGap(21, 21, 21)
-                            .addComponent(lPlantel)
-                            .addGap(72, 72, 72)
-                            .addComponent(tfPlantel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelJugadorLayout.createSequentialGroup()
-                            .addGap(21, 21, 21)
-                            .addComponent(jLabel14)
-                            .addGap(45, 45, 45)
+                    .addGroup(panelJugadorLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelJugadorLayout.createSequentialGroup()
+                                .addComponent(jLabel14)
+                                .addGap(45, 45, 45))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelJugadorLayout.createSequentialGroup()
+                                .addComponent(lPlantel)
+                                .addGap(72, 72, 72)))
+                        .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dcFechaNac1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -327,7 +351,7 @@ public class AltaSocio extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lPlantel)
-                    .addComponent(tfPlantel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dcFechaNac1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -339,6 +363,7 @@ public class AltaSocio extends javax.swing.JPanel {
 
         panelFamilia.setBackground(new java.awt.Color(255, 255, 255));
         panelFamilia.setBorder(javax.swing.BorderFactory.createTitledBorder("Familiares"));
+        panelFamilia.setToolTipText("");
 
         tFamiliares.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         tFamiliares.setModel(new javax.swing.table.DefaultTableModel(
@@ -413,6 +438,14 @@ public class AltaSocio extends javax.swing.JPanel {
             }
         });
 
+        btnConfirmar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnConfirmar.setText("Confirmar alta");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -422,44 +455,46 @@ public class AltaSocio extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(93, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(lCarnet1)
-                            .addGap(35, 35, 35)
-                            .addComponent(dcFechaIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(btnAgregar)
-                            .addGap(80, 80, 80))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel8)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel9)
-                                .addComponent(jLabel12)
-                                .addComponent(jLabel13))
-                            .addGap(53, 53, 53)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cbCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(tfCI, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfApellido, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfTelefono, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfDireccion, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dcFechaNac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbTipoSocio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addComponent(checkJ))
-                    .addComponent(checkF))
+                .addContainerGap(88, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lCarnet1)
+                                .addGap(35, 35, 35)
+                                .addComponent(dcFechaIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel13))
+                                .addGap(53, 53, 53)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(tfCI, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(tfApellido, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(tfTelefono, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(tfDireccion, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(dcFechaNac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(tfNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cbTipoSocio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(checkJ))
+                        .addComponent(checkF))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnConfirmar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAgregar)))
                 .addGap(96, 96, 96)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelJugador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(71, Short.MAX_VALUE))
+                    .addComponent(panelFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, 366, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -495,15 +530,16 @@ public class AltaSocio extends javax.swing.JPanel {
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dcFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
+                            .addComponent(jLabel9)))
+                    .addComponent(panelJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(11, 11, 11)
                                 .addComponent(cbTipoSocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(74, 74, 74)
-                                .addComponent(btnAgregar))
+                                .addComponent(cbCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
                                 .addComponent(jLabel12)
@@ -513,12 +549,14 @@ public class AltaSocio extends javax.swing.JPanel {
                                 .addComponent(checkJ)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(checkF)))
-                        .addContainerGap(30, Short.MAX_VALUE))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAgregar)
+                            .addComponent(btnConfirmar)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(11, 11, 11)
+                        .addComponent(panelFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(25, 25, 25))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -552,9 +590,29 @@ public class AltaSocio extends javax.swing.JPanel {
             j.setTipo((TipoSocio)cbTipoSocio.getSelectedItem());
             j.setVigente(true);
             j.setCarnetHabilitante(dcCarnetHab.getDate());
-            j.setPlantel(tfPlantel.getText());
-            j.setRol(cbFamilia.getSelectedItem().toString());
-            if(cbFamilia.getSelectedIndex()==1){
+            j.setPlantel((Categoria) cbCat.getSelectedItem());
+            
+            //j.setRol(cbFamilia.getSelectedItem().toString());
+            if(checkF.isSelected() && f==null){
+                Conexion.getInstance().persist(j);
+                f = new Familia();
+                List<Socio> ls = new ArrayList<Socio>();
+                ls.add(j);
+                f.setSocios(ls);
+                Conexion.getInstance().persist(f);
+                j.setFamilia(f);
+                Conexion.getInstance().merge(j);
+                Conexion.getInstance().refresh(j);
+                addFamiliar(j);
+            }
+            else{
+                f.getSocios().add(j);
+                j.setFamilia(f);
+                Conexion.getInstance().merge(j);
+                Conexion.getInstance().refresh(j);
+                addFamiliar(j);
+            }
+            /*if(cbFamilia.getSelectedIndex()==1){
                 Conexion.getInstance().refresh(f);
                 if(f.getSocios().size()<4){// es un número variable
                     j.setFamilia(f);
@@ -573,24 +631,8 @@ public class AltaSocio extends javax.swing.JPanel {
                 j.setFamilia(f);
                 Conexion.getInstance().merge(j);
                 Conexion.getInstance().refresh(j);
-            }
-                
-            /*Conexion.getInstance().persist(j);
-            
-            if(f==null){//FALTA VERIFICAR LA CANTIDAD DE MIEMBROS
-                f = new Familia();
-                List<Socio> ls = new ArrayList<Socio>();
-                ls.add(j);
-                f.setSocios(ls);
-                Conexion.getInstance().persist(f);
-                j.setFamilia(f);
-                Conexion.getInstance().merge(j);
-                Conexion.getInstance().refresh(j);
-            }
-            else{
-                j.setFamilia(f);
-                Conexion.getInstance().merge(j);
             }*/
+                
         }
         else{
             Socio j = new Socio();
@@ -604,6 +646,27 @@ public class AltaSocio extends javax.swing.JPanel {
             j.setTipo((TipoSocio)cbTipoSocio.getSelectedItem());
             j.setVigente(true);
             
+            if(checkF.isSelected() && f==null){
+                Conexion.getInstance().persist(j);
+                f = new Familia();
+                List<Socio> ls = new ArrayList<Socio>();
+                ls.add(j);
+                f.setSocios(ls);
+                Conexion.getInstance().persist(f);
+                j.setFamilia(f);
+                Conexion.getInstance().merge(j);
+                Conexion.getInstance().refresh(j);
+                addFamiliar(j);
+            }
+            else{
+                f.getSocios().add(j);
+                j.setFamilia(f);
+                Conexion.getInstance().merge(j);
+                Conexion.getInstance().refresh(j);
+                addFamiliar(j);
+            }
+            
+            /*
             if(f!=null){
                 Conexion.getInstance().refresh(f);
                 if(f.getSocios().size()<4){// es un número variable
@@ -624,34 +687,9 @@ public class AltaSocio extends javax.swing.JPanel {
                 Conexion.getInstance().merge(j);
                 Conexion.getInstance().refresh(j);
 
-            }
-            /*if(f!=null){
-                Conexion.getInstance().refresh(f);
-                if(f.getSocios().size()<4){// es un número variable
-                    j.setFamilia(f);
-                }
-                else
-                    System.out.println("Familia llena");
-            }
-                
-            Conexion.getInstance().persist(j);
-            
-            if(f==null){ //FALTA VERIFICAR LA CANTIDAD DE MIEMBROS
-                f = new Familia();
-                List<Socio> ls = new ArrayList<Socio>();
-                ls.add(j);
-                f.setSocios(ls);
-                Conexion.getInstance().persist(f);
-                j.setFamilia(f);
-                Conexion.getInstance().merge(j);
-                Conexion.getInstance().refresh(j);
-            }
-            else{
-                j.setFamilia(f);
-                Conexion.getInstance().merge(j);
             }*/
+
         }
-        cargarFamiliares();
         limpiar();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -684,10 +722,15 @@ public class AltaSocio extends javax.swing.JPanel {
 
     private void checkJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkJActionPerformed
         // TODO add your handling code here:
-        if(checkJ.isSelected())
-            panelJugador.setEnabled(true);
-        else
-            panelJugador.setEnabled(false);
+        if(checkJ.isSelected()){
+            for(Component component : panelJugador.getComponents()) {
+                component.setEnabled(false);
+            }
+        }
+        else{
+            panelJugador.setVisible(false);
+        }
+            
     }//GEN-LAST:event_checkJActionPerformed
 
     private void cbTipoCarnetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoCarnetActionPerformed
@@ -697,17 +740,37 @@ public class AltaSocio extends javax.swing.JPanel {
     private void checkFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkFActionPerformed
         // TODO add your handling code here:
         if(checkF.isSelected())
-            panelFamilia.setEnabled(true);
+            panelFamilia.setVisible(true);
         else
-            panelFamilia.setEnabled(false);
+            panelFamilia.setVisible(false);
     }//GEN-LAST:event_checkFActionPerformed
+
+    private void cbCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCatActionPerformed
+
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+        // TODO add your handling code here:
+        for(int i=0;i<tFamiliares.getRowCount();i++){
+            try {
+                //  Block of code to try
+                Jugador ju = (Jugador) tFamiliares.getValueAt(i, 0);
+                System.out.println("convertido a jugador");
+            }
+            catch(Exception e) {
+                //  Block of code to handle errors
+                Socio so = (Socio) tFamiliares.getValueAt(i, 0);
+                System.out.println("convertido a socio");
+            }
+        }
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
     public void limpiar(){
         tfNombre.setText("");
         tfApellido.setText("");
         tfDireccion.setText("");
         tfTelefono.setText("");
-        tfPlantel.setText("");
+        //tfPlantel.setText("");
         tfCI.setText("");
         dcFechaNac.setDate(null);
         dcCarnetHab.setDate(null);
@@ -751,6 +814,8 @@ public class AltaSocio extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnConfirmar;
+    private javax.swing.JComboBox<String> cbCat;
     private javax.swing.JComboBox<String> cbCuotas;
     private javax.swing.JComboBox<String> cbTipoCarnet;
     private javax.swing.JComboBox<String> cbTipoSocio;
@@ -784,7 +849,6 @@ public class AltaSocio extends javax.swing.JPanel {
     private javax.swing.JTextField tfCI;
     private javax.swing.JTextField tfDireccion;
     private javax.swing.JTextField tfNombre;
-    private javax.swing.JTextField tfPlantel;
     private javax.swing.JTextField tfTelefono;
     // End of variables declaration//GEN-END:variables
 }
