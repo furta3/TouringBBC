@@ -17,7 +17,6 @@ public abstract class Cuota_ {
 	public static volatile SingularAttribute<Cuota, Boolean> vigente;
 	public static volatile SingularAttribute<Cuota, Long> id;
 	public static volatile SingularAttribute<Cuota, String> nombre;
-	public static volatile SingularAttribute<Cuota, TipoSocio> tipoSocio;
 	public static volatile ListAttribute<Cuota, Socio> socios;
 
 }

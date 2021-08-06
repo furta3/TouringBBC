@@ -36,9 +36,6 @@ public class AltaSocio extends javax.swing.JPanel {
     Socio sel;
     public AltaSocio(Principal main, Familia f) {
         initComponents();
-        //panelJugador.setVisible(false);
-        panelJugador.setEnabled(false);
-        panelFamilia.setEnabled(false);
         this.main = main;
         this.f = f;
         if(f!=null){
@@ -71,7 +68,7 @@ public class AltaSocio extends javax.swing.JPanel {
                 }
         }
         cbCuotas.setModel(dcm2);
-        cbCuotas.setModel(dcm2);
+        cbCuotas2.setModel(dcm2);
         List<Categoria> cat;
         cat = Conexion.getInstance().getCategorias();
         DefaultComboBoxModel dcm3 = new DefaultComboBoxModel();
@@ -606,25 +603,6 @@ public class AltaSocio extends javax.swing.JPanel {
             j.setCarnetHabilitante(dcCarnetHab.getDate());
             j.setPlantel((Categoria) cbCat.getSelectedItem());
 
-            /*if(checkF.isSelected() && f==null){
-                //Conexion.getInstance().persist(j);
-                f = new Familia();
-                List<Socio> ls = new ArrayList<Socio>();
-                ls.add(j);
-                f.setSocios(ls);
-                //Conexion.getInstance().persist(f);
-                j.setFamilia(f);
-                //Conexion.getInstance().merge(j);
-                //Conexion.getInstance().refresh(j);
-
-            }
-            else{
-                f.getSocios().add(j);
-                j.setFamilia(f);
-                //Conexion.getInstance().merge(j);
-                //Conexion.getInstance().refresh(j);
-
-            }*/
             addFamiliar(j);
                 
                 
@@ -641,38 +619,18 @@ public class AltaSocio extends javax.swing.JPanel {
             j.setTipo((TipoSocio)cbTipoSocio.getSelectedItem());
             j.setVigente(true);
 
-            /*if(checkF.isSelected() && f==null){
-                //Conexion.getInstance().persist(j);
-                f = new Familia();
-                List<Socio> ls = new ArrayList<Socio>();
-                ls.add(j);
-                f.setSocios(ls);
-                //Conexion.getInstance().persist(f);
-                j.setFamilia(f);
-                //Conexion.getInstance().merge(j);
-                //Conexion.getInstance().refresh(j);
-
-            }
-            else{
-                f.getSocios().add(j);
-                j.setFamilia(f);
-                //Conexion.getInstance().merge(j);
-                //Conexion.getInstance().refresh(j);
-
-            }*/
             addFamiliar(j);
         }
-        
-        
+
         limpiar();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        if(sel != null){
-            sel.setFamilia(null);
-            Conexion.getInstance().merge(sel);
-            cargarFamiliares();
+        if(tFamiliares.getSelectedRowCount()==1){
+            DefaultTableModel mdl = (DefaultTableModel) tFamiliares.getModel();
+            mdl.removeRow(tFamiliares.getSelectedRow());
+            //cargarFamiliares();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -682,8 +640,21 @@ public class AltaSocio extends javax.swing.JPanel {
 
     private void tFamiliaresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tFamiliaresMouseClicked
         // TODO add your handling code here:
-        if(tFamiliares.getSelectedRowCount()==1)
+        if(tFamiliares.getSelectedRowCount()==1){
             sel = (Socio) tFamiliares.getValueAt(tFamiliares.getSelectedRow(), 0);
+            
+            if((boolean) tFamiliares.getValueAt(tFamiliares.getSelectedRow(), 3)){
+                for(int i=0; i < tFamiliares.getRowCount();i++){
+                    if(i ==tFamiliares.getSelectedRow())
+                        tFamiliares.setValueAt(true, i, 3);
+                    else
+                        tFamiliares.setValueAt(false, i, 3);
+                }
+                
+            }
+        }
+            
+        
     }//GEN-LAST:event_tFamiliaresMouseClicked
 
     private void cbCuotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCuotasActionPerformed
@@ -710,31 +681,50 @@ public class AltaSocio extends javax.swing.JPanel {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
-        List<Socio> ls = new ArrayList<Socio>();
+        //List<Socio> ls = new ArrayList<Socio>();
+        if(f==null){
+            f = new Familia();
+            //f.setSocios(ls);
+            Conexion.getInstance().persist(f);
+        }
         
         for(int i=0;i<tFamiliares.getRowCount();i++){
             if(tFamiliares.getValueAt(i, 0).getClass() == Socio.class){
                 Socio so = (Socio) tFamiliares.getValueAt(i, 0);
+                so.setFamilia(f);
+                so.setRol((boolean)tFamiliares.getValueAt(i, 3));
+                
                 System.out.println("convertido a socio");
+                //Conexion.getInstance().persist(so);
+                if((boolean)tFamiliares.getValueAt(i, 3)){
+                    so.setCuotas(new ArrayList<Cuota>());
+                    so.getCuotas().add( (Cuota) cbCuotas2.getSelectedItem());
+                    System.out.println("cuota para este socio "+so.getNombre());
+                }
                 Conexion.getInstance().persist(so);
-                ls.add(so);
+                       
+                //Conexion.getInstance().merge(so);
+                //ls.add(so);
             }
             else{
                 Jugador ju = (Jugador) tFamiliares.getValueAt(i, 0);
+                ju.setFamilia(f);
+                ju.setRol((boolean)tFamiliares.getValueAt(i, 3));
+                
                 System.out.println("convertido a jugador");
-                Conexion.getInstance().persist(ju);
-                ls.add(ju);
+                //Conexion.getInstance().persist(ju);
+                if((boolean)tFamiliares.getValueAt(i, 3)){
+                    ju.setCuotas(new ArrayList<Cuota>());
+                    ju.getCuotas().add( (Cuota) cbCuotas2.getSelectedItem());
+                    System.out.println("cuota para este jugador "+ju.getNombre());
+                    
+                }
+                Conexion.getInstance().persist(ju);    
+                //Conexion.getInstance().merge(ju);
+                //ls.add(ju);
             }
         }
-        if(f==null){
-            f = new Familia();
-            f.setSocios(ls);
-            Conexion.getInstance().persist(f);
-        }
-        else{
-            f.getSocios().addAll(ls);
-            Conexion.getInstance().merge(f);
-        }
+        
         System.out.println("OK");
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
@@ -759,6 +749,7 @@ public class AltaSocio extends javax.swing.JPanel {
         tFamiliares.setEnabled(b);
         btnConfirmar.setVisible(b);
         btnCancelar.setVisible(b);
+        cbCuotas.setEnabled(!b);
     }
     public void limpiar(){
         tfNombre.setText("");

@@ -15,7 +15,7 @@ public abstract class Socio_ extends Clases.PersonaBBC_ {
 	public static volatile ListAttribute<Socio, SocioActividad> actividades;
 	public static volatile ListAttribute<Socio, Cuota> cuotas;
 	public static volatile SingularAttribute<Socio, Familia> familia;
-	public static volatile SingularAttribute<Socio, String> rol;
+	public static volatile SingularAttribute<Socio, Boolean> rol;
 
 }
 

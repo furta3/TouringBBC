@@ -786,7 +786,7 @@ public class DetallesSocio extends javax.swing.JPanel {
         // TODO add your handling code here:
         s.getCuotas().add( (Cuota) cbCuotas.getSelectedItem());
         cbCuotas.removeItem(cbCuotas.getSelectedItem());
-        loadCuotas();
+        //loadCuotas();
     }//GEN-LAST:event_btnActualizar3ActionPerformed
 
     private void btnActualizar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar2ActionPerformed
@@ -810,7 +810,7 @@ public class DetallesSocio extends javax.swing.JPanel {
         s.setApellido(tfApellido.getText());
         s.setTelefono(tfTelefono.getText());
         s.setFechaNac(dcFechaNac.getDate());
-        s.setRol(cbRol.getSelectedItem().toString());
+        //s.setRol(cbRol.getSelectedItem().toString());
         s.setTipo((TipoSocio)cbTipoSocio.getSelectedItem());
         if(cbTipoSocio.getSelectedItem().toString().equals("Jugador")){
             Jugador j = (Jugador) s ;

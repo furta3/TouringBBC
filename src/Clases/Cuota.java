@@ -8,6 +8,7 @@ package Clases;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,7 +33,7 @@ public class Cuota implements Serializable {
     private String nombre;
     private int monto;
     private String frecuencia;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Socio> socios;
     private boolean vigente;
 

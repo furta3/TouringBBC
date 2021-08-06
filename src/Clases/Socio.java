@@ -8,7 +8,9 @@ package Clases;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +32,7 @@ public class Socio extends PersonaBBC implements Serializable {
     @ManyToOne
     private Familia familia;
 
-    @ManyToMany(mappedBy = "socios")
+    @ManyToMany(mappedBy = "socios", cascade = CascadeType.ALL)
     private List<Cuota> cuotas;
 
     @OneToMany(mappedBy = "socios")
@@ -38,15 +40,15 @@ public class Socio extends PersonaBBC implements Serializable {
 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaIngreso;
-    private String rol;
+    private boolean rol;
     @ManyToOne
     private TipoSocio tipo;
 
-    public String getRol() {
+    public boolean getRol() {
         return rol;
     }
 
-    public void setRol(String rol) {
+    public void setRol(boolean rol) {
         this.rol = rol;
     }
 

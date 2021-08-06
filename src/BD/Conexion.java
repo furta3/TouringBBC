@@ -14,6 +14,7 @@ import Clases.SocioActividad;
 import Clases.TipoSocio;
 import com.mysql.cj.Session;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -25,6 +26,10 @@ import javax.persistence.Persistence;
  */
 public class Conexion {
     public static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+    public static Object sdf(Date fecha) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     private Conexion() {
     }
     
