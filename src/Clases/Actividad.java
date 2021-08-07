@@ -30,8 +30,16 @@ public class Actividad implements Serializable {
     private String nombre;
     private int costo;
     private boolean vigente;
-    @OneToMany(mappedBy = "actividad")
+    @OneToMany(mappedBy = "actividad",cascade = CascadeType.ALL)
     private List<Horario> horarios;
+
+    public List<SocioActividad> getSocios() {
+        return socios;
+    }
+
+    public void setSocios(List<SocioActividad> socios) {
+        this.socios = socios;
+    }
 
     public boolean isVigente() {
         return vigente;

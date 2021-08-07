@@ -44,6 +44,7 @@ public class AbmCategorias extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         tTipos.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N

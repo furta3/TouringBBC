@@ -15,7 +15,12 @@ AltaFuncionario:
 	que sea una herencia de socio, y hago una resta para mostrar los socios
 
 
-////////////////CARGAR TABLA///////////////////
+//////////////////cuadros de dialogo para confirmacion://///////////////
+meto un jdialog y puedo usar una funcion desde el jdialgo ya 
+que pertenece al jpanel padre
+
+
+////////////////CARGAR TABLA////////////////////////////////////////////
 Conexion.getInstance().refresh(f);
 Iterator<Socio> it = f.getSocios().iterator();
 DefaultTableModel mdl = (DefaultTableModel) tFamiliares.getModel();

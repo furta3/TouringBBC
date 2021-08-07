@@ -61,7 +61,7 @@ public class DetallesSocio extends javax.swing.JPanel {
             dcCarnetHab.setDate(j.getCarnetHabilitante());
             //tfPlantel.setText(j.getPlantel());
         }
-            
+        loadAct();
     }
     
     public void jugador(boolean b){
@@ -112,7 +112,6 @@ public class DetallesSocio extends javax.swing.JPanel {
         dcFechaIngreso = new com.toedter.calendar.JDateChooser();
         btnActualizar = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
         pActividades = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         btnAgregarActividad = new javax.swing.JButton();
@@ -145,6 +144,7 @@ public class DetallesSocio extends javax.swing.JPanel {
         jComboBox4 = new javax.swing.JComboBox<>();
         jComboBox5 = new javax.swing.JComboBox<>();
         sMonto = new javax.swing.JSpinner();
+        jPanel1 = new javax.swing.JPanel();
         lPlantel1 = new javax.swing.JLabel();
         cbRol = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
@@ -223,21 +223,6 @@ public class DetallesSocio extends javax.swing.JPanel {
                 jTabbedPane1StateChanged(evt);
             }
         });
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 462, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 454, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Inicio", jPanel1);
 
         pActividades.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -603,6 +588,21 @@ public class DetallesSocio extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Pagos", pPagos);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 462, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 454, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Inicio", jPanel1);
+
         lPlantel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lPlantel1.setText("Rol de Familia:");
 
@@ -759,11 +759,13 @@ public class DetallesSocio extends javax.swing.JPanel {
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         // TODO add your handling code here:
-        switch (jTabbedPane1.getSelectedIndex()){
+        if(s != null){
+            switch (jTabbedPane1.getSelectedIndex()){
             case 0: 
+                loadAct();
                 break;
             case 1:
-                loadAct();
+                
                 break;
             case 2:
                 loadCuotas();
@@ -775,7 +777,9 @@ public class DetallesSocio extends javax.swing.JPanel {
             case 4:
                 cargarPagos();
                 break;
+            }
         }
+        
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar1ActionPerformed

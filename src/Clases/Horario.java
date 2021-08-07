@@ -32,6 +32,23 @@ public class Horario implements Serializable {
     private String dia;
     private String hora;
     private int duracion;
+    private boolean vigente;
+
+    public List<SocioActividad> getSocioActividadHorario() {
+        return socioActividadHorario;
+    }
+
+    public void setSocioActividadHorario(List<SocioActividad> socioActividadHorario) {
+        this.socioActividadHorario = socioActividadHorario;
+    }
+
+    public boolean isVigente() {
+        return vigente;
+    }
+
+    public void setVigente(boolean vigente) {
+        this.vigente = vigente;
+    }
 
     @ManyToOne
     private Actividad actividad;

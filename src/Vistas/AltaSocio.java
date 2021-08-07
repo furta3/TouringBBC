@@ -696,12 +696,18 @@ public class AltaSocio extends javax.swing.JPanel {
                 
                 System.out.println("convertido a socio");
                 //Conexion.getInstance().persist(so);
+                
                 if((boolean)tFamiliares.getValueAt(i, 3)){
                     so.setCuotas(new ArrayList<Cuota>());
-                    so.getCuotas().add( (Cuota) cbCuotas2.getSelectedItem());
+                    Cuota cuota = (Cuota) cbCuotas2.getSelectedItem();
+                    if(cuota.getSocios()!=null){
+                        cuota.getSocios().add(so);
+                    }
+                    so.getCuotas().add(cuota);
+                    Conexion.getInstance().merge(cuota);
                     System.out.println("cuota para este socio "+so.getNombre());
                 }
-                Conexion.getInstance().persist(so);
+                //Conexion.getInstance().persist(so);
                        
                 //Conexion.getInstance().merge(so);
                 //ls.add(so);

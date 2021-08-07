@@ -268,6 +268,7 @@ public class AltaActividad extends javax.swing.JPanel {
             h.setDia(cbDia.getSelectedItem().toString());
             h.setHora(tfHora.getText());
             h.setDuracion((int) sDuracion.getValue());
+            h.setVigente(true);
             
             //Conexion.getInstance().persist(h);
             

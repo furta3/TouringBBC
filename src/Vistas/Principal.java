@@ -29,6 +29,8 @@ public class Principal extends javax.swing.JFrame {
     static VerSocios vs;
     static AbmTipoSocios ats;
     Inicio i = new Inicio();
+    static VerActividades vact;
+    static DetallesActividad da;
     
     public Principal() {
         initComponents();
@@ -56,6 +58,7 @@ public class Principal extends javax.swing.JFrame {
         mSTipos = new javax.swing.JMenuItem();
         mSCategorias = new javax.swing.JMenuItem();
         mActividades = new javax.swing.JMenu();
+        mAVer = new javax.swing.JMenuItem();
         mAAgregar = new javax.swing.JMenuItem();
         mCuotas = new javax.swing.JMenu();
         mCAgregar = new javax.swing.JMenuItem();
@@ -144,6 +147,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        mAVer.setText("Ver");
+        mAVer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mAVerActionPerformed(evt);
+            }
+        });
+        mActividades.add(mAVer);
+
         mAAgregar.setText("Agregar");
         mAAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -199,7 +210,6 @@ public class Principal extends javax.swing.JFrame {
 
     private void mAAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAAgregarActionPerformed
         // TODO add your handling code here:
-        System.out.println("Hola? en action");
         aa = new AltaActividad(this);
         aa.setVisible(true);
         jPanel1.removeAll();
@@ -234,6 +244,26 @@ public class Principal extends javax.swing.JFrame {
         AbrirAbmCategorias(new AbmCategorias());
     }//GEN-LAST:event_mSCategoriasActionPerformed
 
+    private void mAVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAVerActionPerformed
+        // TODO add your handling code here:
+        vact=new VerActividades(this);
+        AbrirVerActividades();
+    }//GEN-LAST:event_mAVerActionPerformed
+    
+    public static void AbrirDetallesActividad(DetallesActividad dav){
+        da = dav;
+        jPanel1.removeAll();
+        jPanel1.add(da);
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }
+    
+    public static void AbrirVerActividades(){
+        jPanel1.removeAll();
+        jPanel1.add(vact);
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }
     public void AbrirAbmCategorias(AbmCategorias a){
         jPanel1.removeAll();
         jPanel1.add(a);
@@ -361,6 +391,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private static javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem mAAgregar;
+    private javax.swing.JMenuItem mAVer;
     private javax.swing.JMenu mActividades;
     private javax.swing.JMenuItem mCAgregar;
     private javax.swing.JMenu mCuotas;

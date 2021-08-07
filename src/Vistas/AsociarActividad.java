@@ -183,6 +183,7 @@ public class AsociarActividad extends javax.swing.JPanel {
     private void cbActividadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbActividadesItemStateChanged
         // TODO add your handling code here:
         Actividad a = (Actividad) cbActividades.getSelectedItem();
+        Conexion.getInstance().refresh(a);
         System.out.println("size de horarios de a:  "+a.getHorarios().size());
         Iterator<Horario> it = a.getHorarios().iterator();
         
