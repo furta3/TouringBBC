@@ -132,27 +132,15 @@ public class AltaSocio extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnAgregar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        dcFechaIngreso = new com.toedter.calendar.JDateChooser();
+        tfCI = new javax.swing.JTextField();
         tfNombre = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         tfApellido = new javax.swing.JTextField();
         tfTelefono = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         tfDireccion = new javax.swing.JTextField();
         dcFechaNac = new com.toedter.calendar.JDateChooser();
-        jLabel9 = new javax.swing.JLabel();
-        tfCI = new javax.swing.JTextField();
-        lCarnet1 = new javax.swing.JLabel();
-        dcFechaIngreso = new com.toedter.calendar.JDateChooser();
         cbTipoSocio = new javax.swing.JComboBox<>();
-        jLabel12 = new javax.swing.JLabel();
         cbCuotas = new javax.swing.JComboBox<>();
-        jLabel13 = new javax.swing.JLabel();
-        checkJ = new javax.swing.JCheckBox();
         panelJugador = new javax.swing.JPanel();
         lPlantel = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -168,54 +156,24 @@ public class AltaSocio extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         cbCuotas2 = new javax.swing.JComboBox<>();
+        btnAgregar = new javax.swing.JButton();
+        checkJ = new javax.swing.JCheckBox();
         checkF = new javax.swing.JCheckBox();
         btnConfirmar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        lCarnet1 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setToolTipText("");
-
-        btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btnAgregar.setText("Agregar");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("Alta Socio");
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel8.setText("Cédula:");
-
-        tfNombre.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        tfNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfNombreActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel2.setText("Nombre:");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel3.setText("Apellido:");
-
-        tfApellido.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-
-        tfTelefono.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel4.setText("Teléfono:");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel5.setText("Dirección:");
-
-        tfDireccion.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel9.setText("Fecha Nac.");
 
         tfCI.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         tfCI.addActionListener(new java.awt.event.ActionListener() {
@@ -229,8 +187,18 @@ public class AltaSocio extends javax.swing.JPanel {
             }
         });
 
-        lCarnet1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        lCarnet1.setText("Fecha ingreso:");
+        tfNombre.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        tfNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNombreActionPerformed(evt);
+            }
+        });
+
+        tfApellido.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        tfTelefono.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        tfDireccion.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         cbTipoSocio.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         cbTipoSocio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Común", "Jugador", "Vitalicio", "Contribuyente", " " }));
@@ -240,25 +208,11 @@ public class AltaSocio extends javax.swing.JPanel {
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel12.setText("Tipo socio:");
-
         cbCuotas.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         cbCuotas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Común", "Jugador", "Vitalicio", "Contribuyente", " " }));
         cbCuotas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbCuotasActionPerformed(evt);
-            }
-        });
-
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel13.setText("Cuota:");
-
-        checkJ.setBackground(new java.awt.Color(255, 255, 255));
-        checkJ.setText("Jugador");
-        checkJ.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkJActionPerformed(evt);
             }
         });
 
@@ -432,6 +386,22 @@ public class AltaSocio extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        checkJ.setBackground(new java.awt.Color(255, 255, 255));
+        checkJ.setText("Jugador");
+        checkJ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkJActionPerformed(evt);
+            }
+        });
+
         checkF.setBackground(new java.awt.Color(255, 255, 255));
         checkF.setText("Familiar");
         checkF.addActionListener(new java.awt.event.ActionListener() {
@@ -455,6 +425,36 @@ public class AltaSocio extends javax.swing.JPanel {
                 btnCancelarActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel1.setText("Alta Socio");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel8.setText("Cédula:");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel2.setText("Nombre:");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel3.setText("Apellido:");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel4.setText("Teléfono:");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel5.setText("Dirección:");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel9.setText("Fecha Nac.");
+
+        lCarnet1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lCarnet1.setText("Fecha ingreso:");
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel12.setText("Tipo socio:");
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel13.setText("Cuota:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -588,41 +588,66 @@ public class AltaSocio extends javax.swing.JPanel {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        if(checkJ.isSelected()){
-            Jugador j = new Jugador();
-            j.setNombre(tfNombre.getText());
-            j.setApellido(tfApellido.getText());
-            j.setCi(parseInt(tfCI.getText()));
-            j.setDireccion(tfDireccion.getText());
-            j.setFechaNac(dcFechaNac.getDate());
-            j.setTelefono(tfTelefono.getText());
-            j.setFechaIngreso(dcFechaIngreso.getDate());
-            j.setTipo((TipoSocio)cbTipoSocio.getSelectedItem());
-            j.setVigente(true);
-            
-            j.setCarnetHabilitante(dcCarnetHab.getDate());
-            j.setPlantel((Categoria) cbCat.getSelectedItem());
+        if(esCIValida(tfCI.getText())){
+            if(checkJ.isSelected()){
+                Jugador j = new Jugador();
+                j.setNombre(tfNombre.getText());
+                j.setApellido(tfApellido.getText());
+                j.setCi(parseInt(tfCI.getText()));
+                j.setDireccion(tfDireccion.getText());
+                j.setFechaNac(dcFechaNac.getDate());
+                j.setTelefono(tfTelefono.getText());
+                j.setFechaIngreso(dcFechaIngreso.getDate());
+                j.setTipo((TipoSocio)cbTipoSocio.getSelectedItem());
+                j.setVigente(true);
 
-            addFamiliar(j);
-                
-                
+                j.setCarnetHabilitante(dcCarnetHab.getDate());
+                j.setPlantel((Categoria) cbCat.getSelectedItem());
+
+                if(checkF.isSelected())
+                    addFamiliar(j);     
+                else{
+                    Cuota cuota = (Cuota) cbCuotas.getSelectedItem();
+                    if(cuota.getSocios()!=null){
+                        cuota.getSocios().add(j);
+                    }
+                    j.getCuotas().add(cuota);
+                    Conexion.getInstance().merge(cuota);
+                    Conexion.getInstance().persist(j);
+                }
+            }
+            else{
+                Socio j = new Socio();
+                j.setNombre(tfNombre.getText());
+                j.setApellido(tfApellido.getText());
+                j.setCi(parseInt(tfCI.getText()));
+                j.setDireccion(tfDireccion.getText());
+                j.setFechaNac(dcFechaNac.getDate());
+                j.setTelefono(tfTelefono.getText());
+                j.setFechaIngreso(dcFechaIngreso.getDate());
+                j.setTipo((TipoSocio)cbTipoSocio.getSelectedItem());
+                j.setVigente(true);
+
+                if(checkF.isSelected())
+                    addFamiliar(j);     
+                else{
+                    Cuota cuota = (Cuota) cbCuotas.getSelectedItem();
+                    if(cuota.getSocios()!=null){
+                        cuota.getSocios().add(j);
+                    }
+                    j.getCuotas().add(cuota);
+                    Conexion.getInstance().merge(cuota);
+                    Conexion.getInstance().persist(j);
+                }
+                    
+                }
+
+            limpiar();
         }
         else{
-            Socio j = new Socio();
-            j.setNombre(tfNombre.getText());
-            j.setApellido(tfApellido.getText());
-            j.setCi(parseInt(tfCI.getText()));
-            j.setDireccion(tfDireccion.getText());
-            j.setFechaNac(dcFechaNac.getDate());
-            j.setTelefono(tfTelefono.getText());
-            j.setFechaIngreso(dcFechaIngreso.getDate());
-            j.setTipo((TipoSocio)cbTipoSocio.getSelectedItem());
-            j.setVigente(true);
-
-            addFamiliar(j);
+            System.out.println("CI invalida");
         }
-
-        limpiar();
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -694,7 +719,7 @@ public class AltaSocio extends javax.swing.JPanel {
                 so.setFamilia(f);
                 so.setRol((boolean)tFamiliares.getValueAt(i, 3));
                 
-                System.out.println("convertido a socio");
+                //System.out.println("convertido a socio");
                 //Conexion.getInstance().persist(so);
                 
                 if((boolean)tFamiliares.getValueAt(i, 3)){
@@ -705,7 +730,7 @@ public class AltaSocio extends javax.swing.JPanel {
                     }
                     so.getCuotas().add(cuota);
                     Conexion.getInstance().merge(cuota);
-                    System.out.println("cuota para este socio "+so.getNombre());
+                    //System.out.println("cuota para este socio "+so.getNombre());
                 }
                 //Conexion.getInstance().persist(so);
                        
@@ -717,12 +742,12 @@ public class AltaSocio extends javax.swing.JPanel {
                 ju.setFamilia(f);
                 ju.setRol((boolean)tFamiliares.getValueAt(i, 3));
                 
-                System.out.println("convertido a jugador");
+                //System.out.println("convertido a jugador");
                 //Conexion.getInstance().persist(ju);
                 if((boolean)tFamiliares.getValueAt(i, 3)){
                     ju.setCuotas(new ArrayList<Cuota>());
                     ju.getCuotas().add( (Cuota) cbCuotas2.getSelectedItem());
-                    System.out.println("cuota para este jugador "+ju.getNombre());
+                    //System.out.println("cuota para este jugador "+ju.getNombre());
                     
                 }
                 Conexion.getInstance().persist(ju);    
@@ -766,30 +791,42 @@ public class AltaSocio extends javax.swing.JPanel {
         dcFechaNac.setDate(null);
         dcCarnetHab.setDate(null);
     }
-    /*public static boolean esCIValida(String ci) {
+    
+    public boolean CiValida(int ci){
+        return true;
+    }
+    public static boolean esCIValida(String ci) {
         if(ci.length() != 7 && ci.length() != 8){
-        return false;
-        }else{
-        try{
-        Integer.parseInt(ci);
-        }catch (NumberFormatException e){
-        return false;
+            return false;
         }
+        else{
+            try{
+            Integer.parseInt(ci);
+            }
+            catch (NumberFormatException e){
+                return false;
+            }
         }
 
         int digVerificador = Integer.parseInt((ci.charAt(ci.length() - 1)) + "" ) ;
         int[] factores;
         if(ci.length() == 7){ // CI viejas
-        factores = new int[]{9, 8, 7, 6, 3, 4};
-        }else{
-        factores = new int[]{2, 9, 8, 7, 6, 3, 4};
+            factores = new int[]{9, 8, 7, 6, 3, 4};
+        }
+        else{
+            factores = new int[]{2, 9, 8, 7, 6, 3, 4};
         }
 
 
         int suma = 0;
-        for(int i=0; i int digito = Integer.parseInt(ci.charAt(i) + "") ;
-        suma += digito * factores[ i ];
-    
+        //for(int i=0; i int digito = Integer.parseInt(ci.charAt(i) + "" ) ;
+        for(int i = 0; i <ci.length()-1;i++){
+            int digito = Integer.parseInt(ci.charAt(i) + "" );
+            if(digito != 0)
+                suma += digito * factores[ i ];
+        }
+        
+        
 
         int resto = suma % 10;
         int checkdigit = 10 - resto;
@@ -800,7 +837,7 @@ public class AltaSocio extends javax.swing.JPanel {
         else {
         return (checkdigit == digVerificador) ;
         }
-    }*/
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

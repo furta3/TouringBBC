@@ -465,14 +465,14 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="btnActualizar3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnAgregarCuota" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btnActualizar2" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnNuevaCuota" min="-2" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="cbCuotas" min="-2" pref="114" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                              <Component id="btnActualizar1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnEliminarCuotaDeSocio" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="98" max="32767" attributes="0"/>
@@ -489,11 +489,11 @@
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="cbCuotas" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnActualizar3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnActualizar1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAgregarCuota" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnEliminarCuotaDeSocio" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnActualizar2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnNuevaCuota" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="108" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -559,7 +559,7 @@
                 <Property name="text" type="java.lang.String" value="Cuotas"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnActualizar1">
+            <Component class="javax.swing.JButton" name="btnEliminarCuotaDeSocio">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
@@ -567,7 +567,7 @@
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizar1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarCuotaDeSocioActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="cbCuotas">
@@ -585,7 +585,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JButton" name="btnActualizar2">
+            <Component class="javax.swing.JButton" name="btnNuevaCuota">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
@@ -593,10 +593,10 @@
                 <Property name="text" type="java.lang.String" value="Nueva"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizar2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevaCuotaActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnActualizar3">
+            <Component class="javax.swing.JButton" name="btnAgregarCuota">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="0"/>
@@ -604,7 +604,7 @@
                 <Property name="text" type="java.lang.String" value="Agregar"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizar3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAgregarCuotaActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

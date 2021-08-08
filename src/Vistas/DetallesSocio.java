@@ -122,10 +122,10 @@ public class DetallesSocio extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tCuotas = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
-        btnActualizar1 = new javax.swing.JButton();
+        btnEliminarCuotaDeSocio = new javax.swing.JButton();
         cbCuotas = new javax.swing.JComboBox<>();
-        btnActualizar2 = new javax.swing.JButton();
-        btnActualizar3 = new javax.swing.JButton();
+        btnNuevaCuota = new javax.swing.JButton();
+        btnAgregarCuota = new javax.swing.JButton();
         pFamilia = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tFamiliares = new javax.swing.JTable();
@@ -321,29 +321,29 @@ public class DetallesSocio extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setText("Cuotas");
 
-        btnActualizar1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btnActualizar1.setText("Eliminar");
-        btnActualizar1.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminarCuotaDeSocio.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnEliminarCuotaDeSocio.setText("Eliminar");
+        btnEliminarCuotaDeSocio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizar1ActionPerformed(evt);
+                btnEliminarCuotaDeSocioActionPerformed(evt);
             }
         });
 
         cbCuotas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        btnActualizar2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btnActualizar2.setText("Nueva");
-        btnActualizar2.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevaCuota.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnNuevaCuota.setText("Nueva");
+        btnNuevaCuota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizar2ActionPerformed(evt);
+                btnNuevaCuotaActionPerformed(evt);
             }
         });
 
-        btnActualizar3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btnActualizar3.setText("Agregar");
-        btnActualizar3.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarCuota.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnAgregarCuota.setText("Agregar");
+        btnAgregarCuota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizar3ActionPerformed(evt);
+                btnAgregarCuotaActionPerformed(evt);
             }
         });
 
@@ -363,14 +363,14 @@ public class DetallesSocio extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(pCuotasLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(btnActualizar3)
+                .addComponent(btnAgregarCuota)
                 .addGap(18, 18, 18)
                 .addGroup(pCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnActualizar2)
+                    .addComponent(btnNuevaCuota)
                     .addGroup(pCuotasLayout.createSequentialGroup()
                         .addComponent(cbCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(47, 47, 47)
-                        .addComponent(btnActualizar1)))
+                        .addComponent(btnEliminarCuotaDeSocio)))
                 .addContainerGap(98, Short.MAX_VALUE))
         );
         pCuotasLayout.setVerticalGroup(
@@ -383,10 +383,10 @@ public class DetallesSocio extends javax.swing.JPanel {
                 .addGap(34, 34, 34)
                 .addGroup(pCuotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActualizar3)
-                    .addComponent(btnActualizar1))
+                    .addComponent(btnAgregarCuota)
+                    .addComponent(btnEliminarCuotaDeSocio))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnActualizar2)
+                .addComponent(btnNuevaCuota)
                 .addContainerGap(108, Short.MAX_VALUE))
         );
 
@@ -782,21 +782,36 @@ public class DetallesSocio extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
-    private void btnActualizar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar1ActionPerformed
+    private void btnEliminarCuotaDeSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCuotaDeSocioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnActualizar1ActionPerformed
+    }//GEN-LAST:event_btnEliminarCuotaDeSocioActionPerformed
 
-    private void btnActualizar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar3ActionPerformed
+    private void btnAgregarCuotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCuotaActionPerformed
         // TODO add your handling code here:
-        s.getCuotas().add( (Cuota) cbCuotas.getSelectedItem());
+        Cuota cuota = (Cuota) cbCuotas.getSelectedItem();
+        if(cuota.getSocios()!=null){
+            cuota.getSocios().add(s);
+        }
+        s.getCuotas().add(cuota);
+        Conexion.getInstance().merge(cuota);
+        //s.getCuotas().add( (Cuota) cbCuotas.getSelectedItem());
         cbCuotas.removeItem(cbCuotas.getSelectedItem());
-        //loadCuotas();
-    }//GEN-LAST:event_btnActualizar3ActionPerformed
+        DefaultTableModel mdl = (DefaultTableModel) tCuotas.getModel();
 
-    private void btnActualizar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar2ActionPerformed
+        Object[] fila = new Object[4];
+        fila[0] = Conexion.sdf.format(cuota.getFecha());
+        fila[1] = cuota;
+        fila[2] = cuota.getDescripcion();
+        fila[3] = cuota.getMonto();
+        mdl.addRow(fila); 
+
+        //loadCuotas();
+    }//GEN-LAST:event_btnAgregarCuotaActionPerformed
+
+    private void btnNuevaCuotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaCuotaActionPerformed
         // TODO add your handling code here:
         main.AbrirAltaCuota(new AltaCuota(main));
-    }//GEN-LAST:event_btnActualizar2ActionPerformed
+    }//GEN-LAST:event_btnNuevaCuotaActionPerformed
 
     private void btnActualizar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar5ActionPerformed
         // TODO add your handling code here:
@@ -900,7 +915,7 @@ public class DetallesSocio extends javax.swing.JPanel {
             mdl.setRowCount(0);
             while (it.hasNext()) {
                 Cuota sa = it.next();
-                if (s.isVigente()) {  
+                if (sa.isVigente()) {  
                     Object[] fila = new Object[4];
                     fila[0] = Conexion.sdf.format(sa.getFecha());
                     fila[1] = sa;
@@ -944,16 +959,16 @@ public class DetallesSocio extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnActualizar1;
-    private javax.swing.JButton btnActualizar2;
-    private javax.swing.JButton btnActualizar3;
     private javax.swing.JButton btnActualizar4;
     private javax.swing.JButton btnActualizar5;
     private javax.swing.JButton btnActualizar6;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAgregarActividad;
+    private javax.swing.JButton btnAgregarCuota;
     private javax.swing.JButton btnBorrarActividad;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnEliminarCuotaDeSocio;
+    private javax.swing.JButton btnNuevaCuota;
     private javax.swing.JComboBox<String> cbCuotas;
     private javax.swing.JComboBox<String> cbRol;
     private javax.swing.JComboBox<String> cbTipoSocio;
