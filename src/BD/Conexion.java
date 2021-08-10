@@ -72,18 +72,31 @@ public class Conexion {
         }
         return j;
     }
-    public Socio findSocio(Object object) {
+    public Socio findSocio(int ci) {
         EntityManager em = getEntity();
         Socio s = null;
         em.getTransaction().begin();
         try {
-            s = em.find(Socio.class, object);
+            s =(Socio) em.find(Socio.class, ci);
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
             em.getTransaction().rollback();
         }
-        return null;
+        return s;
+    }
+    public Jugador findJugador(int ci) {
+        EntityManager em = getEntity();
+        Jugador s = null;
+        em.getTransaction().begin();
+        try {
+            s =(Jugador) em.find(Jugador.class, ci);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
+        return s;
     }
     
     /*public void save(Object object) {

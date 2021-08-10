@@ -31,6 +31,7 @@ public class Principal extends javax.swing.JFrame {
     Inicio i = new Inicio();
     static VerActividades vact;
     static DetallesActividad da;
+    static DetallesJugador dju;
     
     public Principal() {
         initComponents();
@@ -250,6 +251,14 @@ public class Principal extends javax.swing.JFrame {
         AbrirVerActividades();
     }//GEN-LAST:event_mAVerActionPerformed
     
+    public static void AbrirDetallesJugador(DetallesJugador djv){
+        dju = djv;
+        jPanel1.removeAll();
+        jPanel1.add(dju);
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }
+    
     public static void AbrirDetallesActividad(DetallesActividad dav){
         da = dav;
         jPanel1.removeAll();
@@ -313,7 +322,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel1.revalidate();
     }
     
-    public static void AbrirDetallesJugador(DetallesSocio djp){
+    public static void AbrirDetallesSocio(DetallesSocio djp){
         dj = djp;
         dj.setVisible(true);
         jPanel1.removeAll();
@@ -381,7 +390,7 @@ public class Principal extends javax.swing.JFrame {
                 new Principal().setVisible(true);
             }
         });
-        
+
     }
 
 

@@ -54,6 +54,7 @@ public class AltaSocio extends javax.swing.JPanel {
         List<TipoSocio> ts;
         ts = Conexion.getInstance().getTiposSocios();
         DefaultComboBoxModel dcm = new DefaultComboBoxModel();
+        dcm.addElement("Seleccionar");
         for(TipoSocio tipo: ts){
             if(tipo.isVigente()){
                 dcm.addElement(tipo);
@@ -72,9 +73,11 @@ public class AltaSocio extends javax.swing.JPanel {
         }
         cbCuotas.setModel(dcm2);
         cbCuotas2.setModel(dcm2);
+        
         List<Categoria> cat;
         cat = Conexion.getInstance().getCategorias();
         DefaultComboBoxModel dcm3 = new DefaultComboBoxModel();
+        dcm3.addElement("Seleccionar");
         for(Categoria tipo: cat){
                 if(tipo.isVigente()){
                         dcm3.addElement(tipo);
@@ -589,6 +592,9 @@ public class AltaSocio extends javax.swing.JPanel {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
+        //Socio p = new Socio();
+        //p.setCi(parseInt(tfCI.getText()));
+        
         if(!esCIValida(tfCI.getText())){
             JOptionPane.showMessageDialog(this, "Cédula invalida", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -604,11 +610,18 @@ public class AltaSocio extends javax.swing.JPanel {
         else if(cbTipoSocio.getSelectedIndex()==0){
             JOptionPane.showMessageDialog(this, "Seleccione un tipo de socio.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        else if(cbCat.getSelectedIndex()==0){
+        else if(checkJ.isSelected() && cbCat.getSelectedIndex()==0){
             JOptionPane.showMessageDialog(this, "Seleccione una categoría para el jugador.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        else if(Conexion.getInstance().findSocio(new Socio().setCi(parseInt(tfCI.getText())))!=null){
-            JOptionPane.showMessageDialog(this, "Seleccione una categoría para el jugador.", "Error", JOptionPane.ERROR_MESSAGE);
+        else if(Conexion.getInstance().findSocio(parseInt(tfCI.getText()))!=null){
+            if (JOptionPane.showConfirmDialog(this, "Ya existe el socio en el sistema ¿Desea activarlo de nuevo?", "Consulta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                Socio v = Conexion.getInstance().findSocio(parseInt(tfCI.getText()));
+                v.setVigente(true);
+                Conexion.getInstance().merge(v);
+                limpiar();
+                JOptionPane.showMessageDialog(this, "Socio reactivado: ci: "+v.getCi()+", nombre: "+v.getNombre()+", apellido: "+v.getApellido()+".", "Información", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
         }
         else{
             if(checkJ.isSelected()){
@@ -633,6 +646,7 @@ public class AltaSocio extends javax.swing.JPanel {
                 }     
                 else if(cbCuotas.getSelectedIndex()==0){
                     Conexion.getInstance().persist(j);
+                    JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
                     Familia fa =  new Familia();
@@ -644,11 +658,13 @@ public class AltaSocio extends javax.swing.JPanel {
                     if(cuota.getSocios()!=null){
                         cuota.getSocios().add(j);
                         Conexion.getInstance().merge(cuota);
+                        JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                     }
                     else{
                         cuota.setSocios(new ArrayList<Socio>());
                         cuota.getSocios().add(j);
                         Conexion.getInstance().merge(cuota);
+                        JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
             }
@@ -668,6 +684,7 @@ public class AltaSocio extends javax.swing.JPanel {
                     addFamiliar(j);    
                 else if(cbCuotas.getSelectedIndex()==0){
                     Conexion.getInstance().persist(j);
+                    JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
                     Familia fa =  new Familia();
@@ -678,11 +695,13 @@ public class AltaSocio extends javax.swing.JPanel {
                     if(cuota.getSocios()!=null){
                         cuota.getSocios().add(j);
                         Conexion.getInstance().merge(cuota);
+                        JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                     }
                     else{
                         cuota.setSocios(new ArrayList<Socio>());
                         cuota.getSocios().add(j);
                         Conexion.getInstance().merge(cuota);
+                        JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                     }
                 } 
             }
@@ -717,11 +736,8 @@ public class AltaSocio extends javax.swing.JPanel {
                     else
                         tFamiliares.setValueAt(false, i, 3);
                 }
-                
             }
         }
-            
-        
     }//GEN-LAST:event_tFamiliaresMouseClicked
 
     private void cbCuotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCuotasActionPerformed
@@ -748,6 +764,7 @@ public class AltaSocio extends javax.swing.JPanel {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
+        String apellido = "";
         if(principal()){
             if(f==null){
                 f = new Familia();
@@ -760,6 +777,9 @@ public class AltaSocio extends javax.swing.JPanel {
                     Socio so = (Socio) tFamiliares.getValueAt(i, 0);
                     so.setFamilia(f);
                     so.setRol((boolean)tFamiliares.getValueAt(i, 3));
+                    
+                    if((boolean)tFamiliares.getValueAt(i, 3))
+                        apellido  = so.getApellido();
 
                     if((boolean)tFamiliares.getValueAt(i, 3) && cbCuotas2.getSelectedIndex()!=0){
                         so.setCuotas(new ArrayList<Cuota>());
@@ -779,19 +799,24 @@ public class AltaSocio extends javax.swing.JPanel {
                     Jugador ju = (Jugador) tFamiliares.getValueAt(i, 0);
                     ju.setFamilia(f);
                     ju.setRol((boolean)tFamiliares.getValueAt(i, 3));
-                    ju.setCuotas(new ArrayList<Cuota>());
-                    Cuota cuota = (Cuota) cbCuotas2.getSelectedItem();
-                    if(cuota.getSocios()!=null){
-                        cuota.getSocios().add(ju);
+                    if((boolean)tFamiliares.getValueAt(i, 3))
+                        apellido  = ju.getApellido();
+                    
+                    if((boolean)tFamiliares.getValueAt(i, 3) && cbCuotas2.getSelectedIndex()!=0){
+                        ju.setCuotas(new ArrayList<Cuota>());
+                        Cuota cuota = (Cuota) cbCuotas2.getSelectedItem();
+                        if(cuota.getSocios()!=null){
+                            cuota.getSocios().add(ju);
+                        }
+                        else{
+                            cuota.setSocios(new ArrayList<Socio>());
+                            cuota.getSocios().add(ju);
+                        }
+                        ju.getCuotas().add(cuota);
+                        Conexion.getInstance().merge(cuota);
                     }
-                    else{
-                        cuota.setSocios(new ArrayList<Socio>());
-                        cuota.getSocios().add(ju);
-                    }
-                    ju.getCuotas().add(cuota);
-                    Conexion.getInstance().merge(cuota);
                 }
-                JOptionPane.showMessageDialog(this, "Familia agregado con éxito.", "Información", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Familia "+apellido+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
             }
         }
         else

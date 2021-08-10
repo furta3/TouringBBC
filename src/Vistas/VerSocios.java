@@ -46,23 +46,6 @@ public class VerSocios extends javax.swing.JPanel {
             }
         }
     }
-    
-    public void buscarSocios(String buscar){
-        DefaultTableModel mdl = (DefaultTableModel) tSocios.getModel();
-        mdl.setRowCount(0);
-        while (it.hasNext()) {
-            Socio s = it.next();
-            if (s.isVigente() && (s.getNombre().contains(buscar) || s.getApellido().contains(buscar) || s.getCi() == Integer.parseInt(buscar))) {  
-                Object[] fila = new Object[4];
-                fila[0] = s.getCi();
-                fila[1] = s;
-                fila[2] = s.getApellido();
-                fila[3] = s.getTelefono();
-                mdl.addRow(fila); 
-            }
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -171,9 +154,16 @@ public class VerSocios extends javax.swing.JPanel {
     private void tSociosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tSociosMousePressed
         // TODO add your handling code here:
         if(tSocios.getSelectedRowCount()==1){
-            DetallesSocio dj = new DetallesSocio(main,(Socio) tSocios.getValueAt(tSocios.getSelectedRow(), 1));
-
-            main.AbrirDetallesJugador(dj);
+            Socio so = (Socio) tSocios.getValueAt(tSocios.getSelectedRow(), 1);
+            Jugador ju = Conexion.getInstance().findJugador(so.getCi());
+            if(ju!=null){
+                DetallesJugador dj = new DetallesJugador(main,ju);
+                main.AbrirDetallesJugador(dj);
+            }
+            else{
+                DetallesSocio dj = new DetallesSocio(main,(Socio) tSocios.getValueAt(tSocios.getSelectedRow(), 1));
+                main.AbrirDetallesSocio(dj);
+            }
         }
     }//GEN-LAST:event_tSociosMousePressed
 
@@ -189,7 +179,22 @@ public class VerSocios extends javax.swing.JPanel {
         else
             buscarSocios(tfBuscar.getText());
     }//GEN-LAST:event_tfBuscarKeyReleased
-
+    public void buscarSocios(String buscar){
+        DefaultTableModel mdl = (DefaultTableModel) tSocios.getModel();
+        System.out.println("se busca padre?");
+        mdl.setRowCount(0);
+        while (it.hasNext()) {
+            Socio s = it.next();
+            if (s.isVigente() && (s.getNombre().contains(buscar) || s.getApellido().contains(buscar) || s.getCi() == Integer.parseInt(buscar))) {  
+                Object[] fila = new Object[4];
+                fila[0] = s.getCi();
+                fila[1] = s;
+                fila[2] = s.getApellido();
+                fila[3] = s.getTelefono();
+                mdl.addRow(fila); 
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

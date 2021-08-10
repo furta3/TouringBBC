@@ -394,6 +394,11 @@ public class DetallesSocio extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tFamiliares.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tFamiliaresMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tFamiliares);
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -802,10 +807,7 @@ public class DetallesSocio extends javax.swing.JPanel {
 
     private void tCuotasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tCuotasKeyReleased
         // TODO add your handling code here:
-        if(tFamiliares.getSelectedRowCount()==1){
-            DetallesSocio dj = new DetallesSocio(main,(Socio) tFamiliares.getValueAt(tFamiliares.getSelectedRow(), 0));
-            main.AbrirDetallesJugador(dj);
-        }
+        
     }//GEN-LAST:event_tCuotasKeyReleased
 
     private void btnEliminarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarSocioActionPerformed
@@ -816,6 +818,22 @@ public class DetallesSocio extends javax.swing.JPanel {
             main.AbrirVerSocios(new VerSocios(main));
         }
     }//GEN-LAST:event_btnEliminarSocioActionPerformed
+
+    private void tFamiliaresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tFamiliaresMouseClicked
+        // TODO add your handling code here:
+        if(tFamiliares.getSelectedRowCount()==1){
+            Socio so = (Socio) tFamiliares.getValueAt(tFamiliares.getSelectedRow(), 0);
+            Jugador ju = Conexion.getInstance().findJugador(so.getCi());
+            if(ju!=null){
+                DetallesJugador dj = new DetallesJugador(main,ju);
+                main.AbrirDetallesJugador(dj);
+            }
+            else{
+                DetallesSocio dj = new DetallesSocio(main,(Socio) tFamiliares.getValueAt(tFamiliares.getSelectedRow(), 0));
+                main.AbrirDetallesSocio(dj);
+            }
+        }
+    }//GEN-LAST:event_tFamiliaresMouseClicked
 
     public void cargarPagos(){
         Familia f = s.getFamilia();
