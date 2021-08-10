@@ -16,9 +16,9 @@ AltaFuncionario:
 
 
 //////////////////cuadros de dialogo para confirmacion://///////////////
-meto un jdialog y puedo usar una funcion desde el jdialgo ya 
-que pertenece al jpanel padre
+if (JOptionPane.showConfirmDialog(this, "¿Seguro de que quiere eliminar este producto?", "Consulta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
 
+JOptionPane.showMessageDialog(this, "Cédula invalida", "Error", JOptionPane.ERROR_MESSAGE);
 
 ////////////////CARGAR TABLA////////////////////////////////////////////
 Conexion.getInstance().refresh(f);

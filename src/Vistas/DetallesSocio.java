@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -53,23 +54,11 @@ public class DetallesSocio extends javax.swing.JPanel {
         
         cargarTipos();
         cbTipoSocio.setSelectedItem(s.getTipo());
-        if(!s.getTipo().toString().equals("Jugador")){
-            jugador(false);
-        }
-        else{
-            Jugador j = (Jugador) s;
-            dcCarnetHab.setDate(j.getCarnetHabilitante());
-            //tfPlantel.setText(j.getPlantel());
-        }
+
         loadAct();
     }
     
-    public void jugador(boolean b){
-        lCarnet.setVisible(b);
-        dcCarnetHab.setVisible(b);
-        lPlantel.setVisible(b);
-        tfPlantel.setVisible(b);
-    }
+
     
     public void cargarTipos(){
         List<TipoSocio> ts;
@@ -104,10 +93,6 @@ public class DetallesSocio extends javax.swing.JPanel {
         tfDireccion = new javax.swing.JTextField();
         dcFechaNac = new com.toedter.calendar.JDateChooser();
         jLabel9 = new javax.swing.JLabel();
-        lCarnet = new javax.swing.JLabel();
-        dcCarnetHab = new com.toedter.calendar.JDateChooser();
-        lPlantel = new javax.swing.JLabel();
-        tfPlantel = new javax.swing.JTextField();
         lCarnet1 = new javax.swing.JLabel();
         dcFechaIngreso = new com.toedter.calendar.JDateChooser();
         btnActualizar = new javax.swing.JButton();
@@ -144,11 +129,9 @@ public class DetallesSocio extends javax.swing.JPanel {
         jComboBox4 = new javax.swing.JComboBox<>();
         jComboBox5 = new javax.swing.JComboBox<>();
         sMonto = new javax.swing.JSpinner();
-        jPanel1 = new javax.swing.JPanel();
-        lPlantel1 = new javax.swing.JLabel();
-        cbRol = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         cbTipoSocio = new javax.swing.JComboBox<>();
+        btnEliminarSocio = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
@@ -198,14 +181,6 @@ public class DetallesSocio extends javax.swing.JPanel {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel9.setText("Fecha Nac.");
-
-        lCarnet.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        lCarnet.setText("Carnet Hab.");
-
-        lPlantel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        lPlantel.setText("Plantel:");
-
-        tfPlantel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         lCarnet1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lCarnet1.setText("Fecha ingreso:");
@@ -314,6 +289,11 @@ public class DetallesSocio extends javax.swing.JPanel {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tCuotas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tCuotasKeyReleased(evt);
             }
         });
         jScrollPane2.setViewportView(tCuotas);
@@ -588,27 +568,6 @@ public class DetallesSocio extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Pagos", pPagos);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 462, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 454, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Inicio", jPanel1);
-
-        lPlantel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        lPlantel1.setText("Rol de Familia:");
-
-        cbRol.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        cbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Principal", "Miembro" }));
-
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel11.setText("Tipo:");
 
@@ -616,6 +575,14 @@ public class DetallesSocio extends javax.swing.JPanel {
         cbTipoSocio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbTipoSocioActionPerformed(evt);
+            }
+        });
+
+        btnEliminarSocio.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnEliminarSocio.setText("Eliminar");
+        btnEliminarSocio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarSocioActionPerformed(evt);
             }
         });
 
@@ -629,34 +596,9 @@ public class DetallesSocio extends javax.swing.JPanel {
                         .addGap(177, 177, 177)
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbTipoSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lPlantel)
-                                        .addComponent(lCarnet))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(dcCarnetHab, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(tfPlantel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(122, 122, 122)
-                                .addComponent(btnActualizar)
-                                .addGap(70, 70, 70))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lPlantel1)
-                                .addGap(45, 45, 45)
-                                .addComponent(cbRol, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(96, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
@@ -665,17 +607,23 @@ public class DetallesSocio extends javax.swing.JPanel {
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5)
-                                    .addComponent(jLabel9))
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel11))
                                 .addGap(45, 45, 45)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfApellido)
-                                    .addComponent(tfTelefono)
-                                    .addComponent(tfDireccion)
-                                    .addComponent(dcFechaNac, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                    .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dcFechaIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                    .addComponent(tfCI, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(1, 1, 1)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbTipoSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(tfApellido)
+                                        .addComponent(tfTelefono)
+                                        .addComponent(tfDireccion)
+                                        .addComponent(dcFechaNac, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                                        .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(dcFechaIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                                        .addComponent(tfCI, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnActualizar)
+                                .addGap(51, 51, 51)
+                                .addComponent(btnEliminarSocio)))))
                 .addGap(49, 49, 49)
                 .addComponent(jTabbedPane1))
         );
@@ -712,26 +660,14 @@ public class DetallesSocio extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(dcFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lPlantel1)
-                    .addComponent(cbRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(cbTipoSocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dcCarnetHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(lCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfPlantel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lPlantel))
+                    .addComponent(cbTipoSocio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnActualizar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizar)
+                    .addComponent(btnEliminarSocio))
                 .addContainerGap())
             .addComponent(jTabbedPane1)
         );
@@ -751,40 +687,81 @@ public class DetallesSocio extends javax.swing.JPanel {
             evt.consume();
     }//GEN-LAST:event_tfCIKeyPressed
 
-    private void btnAgregarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActividadActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        AsociarActividad asac = new AsociarActividad(main,s);
-        Principal.AbrirAsociarActividad(asac);
-    }//GEN-LAST:event_btnAgregarActividadActionPerformed
+        s.setFechaIngreso(dcFechaIngreso.getDate());
+        s.setNombre(tfNombre.getText());
+        s.setApellido(tfApellido.getText());
+        s.setTelefono(tfTelefono.getText());
+        s.setFechaNac(dcFechaNac.getDate());
+        //s.setRol(cbRol.getSelectedItem().toString());
+        s.setTipo((TipoSocio)cbTipoSocio.getSelectedItem());
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void cbTipoSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoSocioActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cbTipoSocioActionPerformed
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
         // TODO add your handling code here:
         if(s != null){
             switch (jTabbedPane1.getSelectedIndex()){
-            case 0: 
-                loadAct();
+                case 0:
+                    loadAct();
                 break;
-            case 1:
+                case 1:
+                    loadCuotas();
+                    loadCB();
+                break;
+                case 2:
+                    loadFamilia();
+                break;
+                case 3:
+                    cargarPagos();
+                break;
+                case 4:
                 
-                break;
-            case 2:
-                loadCuotas();
-                loadCB();
-                break;
-            case 3:
-                loadFamilia();
-                break;
-            case 4:
-                cargarPagos();
                 break;
             }
         }
-        
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
-    private void btnEliminarCuotaDeSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCuotaDeSocioActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminarCuotaDeSocioActionPerformed
+        if(tPagos.getSelectedRowCount()==1){
+            PagoBBC p = (PagoBBC) tPagos.getValueAt(tPagos.getSelectedRow(), 1);
+            Conexion.getInstance().delete(p);//pedir confirmacion
+            cargarPagos();
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        if((int)sMonto.getValue()!=0){
+            PagoBBC p = new PagoBBC();
+            p.setFamilia(s.getFamilia());
+            p.setFecha(new Date());
+            p.setMonto((int)sMonto.getValue());
+            Conexion.getInstance().persist(p);
+            cargarPagos();
+        }
+
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void tPagosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tPagosMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_tPagosMouseClicked
+
+    private void btnActualizar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar6ActionPerformed
+        // TODO add your handling code here:
+        main.AbrirAltaSocio(new AltaSocio(main,s.getFamilia()));
+    }//GEN-LAST:event_btnActualizar6ActionPerformed
+
+    private void btnActualizar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActualizar5ActionPerformed
 
     private void btnAgregarCuotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCuotaActionPerformed
         // TODO add your handling code here:
@@ -803,7 +780,7 @@ public class DetallesSocio extends javax.swing.JPanel {
         fila[1] = cuota;
         fila[2] = cuota.getDescripcion();
         fila[3] = cuota.getMonto();
-        mdl.addRow(fila); 
+        mdl.addRow(fila);
 
         //loadCuotas();
     }//GEN-LAST:event_btnAgregarCuotaActionPerformed
@@ -813,68 +790,32 @@ public class DetallesSocio extends javax.swing.JPanel {
         main.AbrirAltaCuota(new AltaCuota(main));
     }//GEN-LAST:event_btnNuevaCuotaActionPerformed
 
-    private void btnActualizar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar5ActionPerformed
+    private void btnEliminarCuotaDeSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCuotaDeSocioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnActualizar5ActionPerformed
+    }//GEN-LAST:event_btnEliminarCuotaDeSocioActionPerformed
 
-    private void btnActualizar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizar6ActionPerformed
+    private void btnAgregarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActividadActionPerformed
         // TODO add your handling code here:
-        main.AbrirAltaSocio(new AltaSocio(main,s.getFamilia()));
-    }//GEN-LAST:event_btnActualizar6ActionPerformed
+        AsociarActividad asac = new AsociarActividad(main,s);
+        Principal.AbrirAsociarActividad(asac);
+    }//GEN-LAST:event_btnAgregarActividadActionPerformed
 
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+    private void tCuotasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tCuotasKeyReleased
         // TODO add your handling code here:
-        s.setFechaIngreso(dcFechaIngreso.getDate());
-        s.setNombre(tfNombre.getText());
-        s.setApellido(tfApellido.getText());
-        s.setTelefono(tfTelefono.getText());
-        s.setFechaNac(dcFechaNac.getDate());
-        //s.setRol(cbRol.getSelectedItem().toString());
-        s.setTipo((TipoSocio)cbTipoSocio.getSelectedItem());
-        if(cbTipoSocio.getSelectedItem().toString().equals("Jugador")){
-            Jugador j = (Jugador) s ;
-            j.setCarnetHabilitante(dcCarnetHab.getDate());
-            //j.setPlantel(tfPlantel.getText());
-            Conexion.getInstance().merge(j);
+        if(tFamiliares.getSelectedRowCount()==1){
+            DetallesSocio dj = new DetallesSocio(main,(Socio) tFamiliares.getValueAt(tFamiliares.getSelectedRow(), 0));
+            main.AbrirDetallesJugador(dj);
         }
-        else
+    }//GEN-LAST:event_tCuotasKeyReleased
+
+    private void btnEliminarSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarSocioActionPerformed
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(this, "¿Seguro de que quiere eliminar este socio?", "Consulta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+            s.setVigente(false);
             Conexion.getInstance().merge(s);
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
-    private void cbTipoSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoSocioActionPerformed
-        // TODO add your handling code here:
-        if(cbTipoSocio.getSelectedItem().toString().equals("Jugador"))
-            jugador(true);
-        else
-            jugador(false);
-    }//GEN-LAST:event_cbTipoSocioActionPerformed
-
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
-        if((int)sMonto.getValue()!=0){
-            PagoBBC p = new PagoBBC();
-            p.setFamilia(s.getFamilia());
-            p.setFecha(new Date());
-            p.setMonto((int)sMonto.getValue());
-            Conexion.getInstance().persist(p);
-            cargarPagos();
+            main.AbrirVerSocios(new VerSocios(main));
         }
-        
-    }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void tPagosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tPagosMouseClicked
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_tPagosMouseClicked
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        if(tPagos.getSelectedRowCount()==1){
-            PagoBBC p = (PagoBBC) tPagos.getValueAt(tPagos.getSelectedRow(), 1);
-            Conexion.getInstance().delete(p);//pedir confirmacion
-            cargarPagos();
-        }
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    }//GEN-LAST:event_btnEliminarSocioActionPerformed
 
     public void cargarPagos(){
         Familia f = s.getFamilia();
@@ -968,11 +909,10 @@ public class DetallesSocio extends javax.swing.JPanel {
     private javax.swing.JButton btnBorrarActividad;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarCuotaDeSocio;
+    private javax.swing.JButton btnEliminarSocio;
     private javax.swing.JButton btnNuevaCuota;
     private javax.swing.JComboBox<String> cbCuotas;
-    private javax.swing.JComboBox<String> cbRol;
     private javax.swing.JComboBox<String> cbTipoSocio;
-    private com.toedter.calendar.JDateChooser dcCarnetHab;
     private com.toedter.calendar.JDateChooser dcFechaIngreso;
     private com.toedter.calendar.JDateChooser dcFechaNac;
     private javax.swing.JComboBox<String> jComboBox2;
@@ -991,16 +931,12 @@ public class DetallesSocio extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel lCarnet;
     private javax.swing.JLabel lCarnet1;
-    private javax.swing.JLabel lPlantel;
-    private javax.swing.JLabel lPlantel1;
     private javax.swing.JPanel pActividades;
     private javax.swing.JPanel pCuotas;
     private javax.swing.JPanel pFamilia;
@@ -1014,7 +950,6 @@ public class DetallesSocio extends javax.swing.JPanel {
     private javax.swing.JTextField tfCI;
     private javax.swing.JTextField tfDireccion;
     private javax.swing.JTextField tfNombre;
-    private javax.swing.JTextField tfPlantel;
     private javax.swing.JTextField tfTelefono;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,9 +17,11 @@ import Clases.TipoSocio;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -62,6 +64,7 @@ public class AltaSocio extends javax.swing.JPanel {
         List<Cuota> cuotas;
         cuotas = Conexion.getInstance().getCuotas();
         DefaultComboBoxModel dcm2 = new DefaultComboBoxModel();
+        dcm2.addElement("Ninguna");
         for(Cuota tipo: cuotas){
                 if(tipo.isVigente()){
                         dcm2.addElement(tipo);
@@ -144,7 +147,7 @@ public class AltaSocio extends javax.swing.JPanel {
         panelJugador = new javax.swing.JPanel();
         lPlantel = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        dcFechaNac1 = new com.toedter.calendar.JDateChooser();
+        dcVenCi = new com.toedter.calendar.JDateChooser();
         cbCat = new javax.swing.JComboBox<>();
         dcCarnetHab = new com.toedter.calendar.JDateChooser();
         cbTipoCarnet = new javax.swing.JComboBox<>();
@@ -173,7 +176,6 @@ public class AltaSocio extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setToolTipText("");
 
         tfCI.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         tfCI.addActionListener(new java.awt.event.ActionListener() {
@@ -218,7 +220,6 @@ public class AltaSocio extends javax.swing.JPanel {
 
         panelJugador.setBackground(new java.awt.Color(255, 255, 255));
         panelJugador.setBorder(javax.swing.BorderFactory.createTitledBorder("Jugador"));
-        panelJugador.setToolTipText("");
         panelJugador.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         lPlantel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -273,7 +274,7 @@ public class AltaSocio extends javax.swing.JPanel {
                                 .addGap(72, 72, 72)))
                         .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dcFechaNac1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(dcVenCi, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelJugadorLayout.setVerticalGroup(
@@ -285,7 +286,7 @@ public class AltaSocio extends javax.swing.JPanel {
                     .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dcFechaNac1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dcVenCi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
                 .addGap(32, 32, 32)
                 .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -588,7 +589,28 @@ public class AltaSocio extends javax.swing.JPanel {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        if(esCIValida(tfCI.getText())){
+        if(!esCIValida(tfCI.getText())){
+            JOptionPane.showMessageDialog(this, "Cédula invalida", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(tfNombre.getText().equals("") || tfApellido.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "El nombre y el apellido no pueden estar vacíos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(dcFechaIngreso.getDate().after(new Date())){
+            JOptionPane.showMessageDialog(this, "La fecha de ingreso no puede ser mayor a la actual", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(checkJ.isSelected() && (dcVenCi.getDate() ==  null || dcCarnetHab.getDate() == null)){
+            JOptionPane.showMessageDialog(this, "El vencimiento del carnet de salud y cédula no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(cbTipoSocio.getSelectedIndex()==0){
+            JOptionPane.showMessageDialog(this, "Seleccione un tipo de socio.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(cbCat.getSelectedIndex()==0){
+            JOptionPane.showMessageDialog(this, "Seleccione una categoría para el jugador.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(Conexion.getInstance().findSocio(new Socio().setCi(parseInt(tfCI.getText())))!=null){
+            JOptionPane.showMessageDialog(this, "Seleccione una categoría para el jugador.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
             if(checkJ.isSelected()){
                 Jugador j = new Jugador();
                 j.setNombre(tfNombre.getText());
@@ -603,17 +625,31 @@ public class AltaSocio extends javax.swing.JPanel {
 
                 j.setCarnetHabilitante(dcCarnetHab.getDate());
                 j.setPlantel((Categoria) cbCat.getSelectedItem());
+                j.setVenCi(dcVenCi.getDate());
+                j.setTipoCarnet(cbTipoCarnet.getSelectedItem().toString());
 
-                if(checkF.isSelected())
-                    addFamiliar(j);     
+                if(checkF.isSelected()){
+                    addFamiliar(j);  
+                }     
+                else if(cbCuotas.getSelectedIndex()==0){
+                    Conexion.getInstance().persist(j);
+                }
                 else{
+                    Familia fa =  new Familia();
+                    Conexion.getInstance().persist(fa);
+                    j.setFamilia(fa);
+                    
+                    j.setCuotas(new ArrayList<Cuota>());
                     Cuota cuota = (Cuota) cbCuotas.getSelectedItem();
                     if(cuota.getSocios()!=null){
                         cuota.getSocios().add(j);
+                        Conexion.getInstance().merge(cuota);
                     }
-                    j.getCuotas().add(cuota);
-                    Conexion.getInstance().merge(cuota);
-                    Conexion.getInstance().persist(j);
+                    else{
+                        cuota.setSocios(new ArrayList<Socio>());
+                        cuota.getSocios().add(j);
+                        Conexion.getInstance().merge(cuota);
+                    }
                 }
             }
             else{
@@ -629,23 +665,29 @@ public class AltaSocio extends javax.swing.JPanel {
                 j.setVigente(true);
 
                 if(checkF.isSelected())
-                    addFamiliar(j);     
+                    addFamiliar(j);    
+                else if(cbCuotas.getSelectedIndex()==0){
+                    Conexion.getInstance().persist(j);
+                }
                 else{
+                    Familia fa =  new Familia();
+                    Conexion.getInstance().persist(fa);
+                    j.setFamilia(fa);
+                    j.setCuotas(new ArrayList<Cuota>());
                     Cuota cuota = (Cuota) cbCuotas.getSelectedItem();
                     if(cuota.getSocios()!=null){
                         cuota.getSocios().add(j);
+                        Conexion.getInstance().merge(cuota);
                     }
-                    j.getCuotas().add(cuota);
-                    Conexion.getInstance().merge(cuota);
-                    Conexion.getInstance().persist(j);
-                }
-                    
-                }
+                    else{
+                        cuota.setSocios(new ArrayList<Socio>());
+                        cuota.getSocios().add(j);
+                        Conexion.getInstance().merge(cuota);
+                    }
+                } 
+            }
 
             limpiar();
-        }
-        else{
-            System.out.println("CI invalida");
         }
         
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -706,61 +748,71 @@ public class AltaSocio extends javax.swing.JPanel {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
-        //List<Socio> ls = new ArrayList<Socio>();
-        if(f==null){
-            f = new Familia();
-            //f.setSocios(ls);
-            Conexion.getInstance().persist(f);
-        }
-        
-        for(int i=0;i<tFamiliares.getRowCount();i++){
-            if(tFamiliares.getValueAt(i, 0).getClass() == Socio.class){
-                Socio so = (Socio) tFamiliares.getValueAt(i, 0);
-                so.setFamilia(f);
-                so.setRol((boolean)tFamiliares.getValueAt(i, 3));
-                
-                //System.out.println("convertido a socio");
-                //Conexion.getInstance().persist(so);
-                
-                if((boolean)tFamiliares.getValueAt(i, 3)){
-                    so.setCuotas(new ArrayList<Cuota>());
+        if(principal()){
+            if(f==null){
+                f = new Familia();
+                //f.setSocios(ls);
+                Conexion.getInstance().persist(f);
+            }
+
+            for(int i=0;i<tFamiliares.getRowCount();i++){
+                if(tFamiliares.getValueAt(i, 0).getClass() == Socio.class){
+                    Socio so = (Socio) tFamiliares.getValueAt(i, 0);
+                    so.setFamilia(f);
+                    so.setRol((boolean)tFamiliares.getValueAt(i, 3));
+
+                    if((boolean)tFamiliares.getValueAt(i, 3) && cbCuotas2.getSelectedIndex()!=0){
+                        so.setCuotas(new ArrayList<Cuota>());
+                        Cuota cuota = (Cuota) cbCuotas2.getSelectedItem();
+                        if(cuota.getSocios()!=null){
+                            cuota.getSocios().add(so);
+                        }
+                        else{
+                            cuota.setSocios(new ArrayList<Socio>());
+                            cuota.getSocios().add(so);
+                        }
+                        so.getCuotas().add(cuota);
+                        Conexion.getInstance().merge(cuota);
+                    }
+                }
+                else{
+                    Jugador ju = (Jugador) tFamiliares.getValueAt(i, 0);
+                    ju.setFamilia(f);
+                    ju.setRol((boolean)tFamiliares.getValueAt(i, 3));
+                    ju.setCuotas(new ArrayList<Cuota>());
                     Cuota cuota = (Cuota) cbCuotas2.getSelectedItem();
                     if(cuota.getSocios()!=null){
-                        cuota.getSocios().add(so);
+                        cuota.getSocios().add(ju);
                     }
-                    so.getCuotas().add(cuota);
+                    else{
+                        cuota.setSocios(new ArrayList<Socio>());
+                        cuota.getSocios().add(ju);
+                    }
+                    ju.getCuotas().add(cuota);
                     Conexion.getInstance().merge(cuota);
-                    //System.out.println("cuota para este socio "+so.getNombre());
                 }
-                //Conexion.getInstance().persist(so);
-                       
-                //Conexion.getInstance().merge(so);
-                //ls.add(so);
-            }
-            else{
-                Jugador ju = (Jugador) tFamiliares.getValueAt(i, 0);
-                ju.setFamilia(f);
-                ju.setRol((boolean)tFamiliares.getValueAt(i, 3));
-                
-                //System.out.println("convertido a jugador");
-                //Conexion.getInstance().persist(ju);
-                if((boolean)tFamiliares.getValueAt(i, 3)){
-                    ju.setCuotas(new ArrayList<Cuota>());
-                    ju.getCuotas().add( (Cuota) cbCuotas2.getSelectedItem());
-                    //System.out.println("cuota para este jugador "+ju.getNombre());
-                    
-                }
-                Conexion.getInstance().persist(ju);    
-                //Conexion.getInstance().merge(ju);
-                //ls.add(ju);
+                JOptionPane.showMessageDialog(this, "Familia agregado con éxito.", "Información", JOptionPane.ERROR_MESSAGE);
             }
         }
+        else
+            JOptionPane.showMessageDialog(this, "Seleccione el socio principal de la familia.", "Error", JOptionPane.ERROR_MESSAGE);
         
-        System.out.println("OK");
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
+    public boolean principal(){
+        for(int i=0;i<tFamiliares.getRowCount();i++){
+            if((boolean)tFamiliares.getValueAt(i, 3))
+                return true;
+        }
+        return false;
+    }
+    
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        checkF.setSelected(false);
+        Familiar(false);
+        DefaultTableModel mdl = (DefaultTableModel) tFamiliares.getModel();
+        mdl.setRowCount(0);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void cbCuotas2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCuotas2ActionPerformed
@@ -854,7 +906,7 @@ public class AltaSocio extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser dcCarnetHab;
     private com.toedter.calendar.JDateChooser dcFechaIngreso;
     private com.toedter.calendar.JDateChooser dcFechaNac;
-    private com.toedter.calendar.JDateChooser dcFechaNac1;
+    private com.toedter.calendar.JDateChooser dcVenCi;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
