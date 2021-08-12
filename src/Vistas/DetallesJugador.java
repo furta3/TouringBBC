@@ -820,6 +820,15 @@ public class DetallesJugador extends javax.swing.JPanel {
 
     private void btnEliminarCuotaDeSocioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarCuotaDeSocioActionPerformed
         // TODO add your handling code here:
+        if(tCuotas.getSelectedRowCount()==1){
+            if (JOptionPane.showConfirmDialog(this, "¿Seguro de que quiere eliminar esta cuota?", "Consulta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                Cuota c = (Cuota) tCuotas.getValueAt(tCuotas.getSelectedRow(), 1);
+                s.getCuotas().remove(c);
+                Conexion.getInstance().merge(s);
+                DefaultTableModel mdl = (DefaultTableModel) tCuotas.getModel();
+                mdl.removeRow(tCuotas.getSelectedRow());
+            }
+        }
     }//GEN-LAST:event_btnEliminarCuotaDeSocioActionPerformed
 
     private void btnAgregarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActividadActionPerformed

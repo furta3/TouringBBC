@@ -867,6 +867,7 @@ public class AltaSocio extends javax.swing.JPanel {
         tfCI.setText("");
         dcFechaNac.setDate(null);
         dcCarnetHab.setDate(null);
+        dcVenCi.setDate(null);
     }
     
     public boolean CiValida(int ci){
