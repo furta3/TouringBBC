@@ -104,6 +104,7 @@ public class DetallesJugador extends javax.swing.JPanel {
         btnBorrarActividad = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tActividades = new javax.swing.JTable();
+        btnModificarActividad = new javax.swing.JButton();
         pCuotas = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tCuotas = new javax.swing.JTable();
@@ -250,6 +251,14 @@ public class DetallesJugador extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tActividades);
 
+        btnModificarActividad.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnModificarActividad.setText("Modificar");
+        btnModificarActividad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActividadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pActividadesLayout = new javax.swing.GroupLayout(pActividades);
         pActividades.setLayout(pActividadesLayout);
         pActividadesLayout.setHorizontalGroup(
@@ -265,9 +274,11 @@ public class DetallesJugador extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pActividadesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAgregarActividad)
-                .addGap(54, 54, 54)
+                .addGap(32, 32, 32)
+                .addComponent(btnModificarActividad)
+                .addGap(52, 52, 52)
                 .addComponent(btnBorrarActividad)
-                .addGap(130, 130, 130))
+                .addGap(57, 57, 57))
         );
         pActividadesLayout.setVerticalGroup(
             pActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,7 +290,8 @@ public class DetallesJugador extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pActividadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarActividad)
-                    .addComponent(btnBorrarActividad))
+                    .addComponent(btnBorrarActividad)
+                    .addComponent(btnModificarActividad))
                 .addContainerGap(84, Short.MAX_VALUE))
         );
 
@@ -812,7 +824,7 @@ public class DetallesJugador extends javax.swing.JPanel {
 
     private void btnAgregarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActividadActionPerformed
         // TODO add your handling code here:
-        AsociarActividad asac = new AsociarActividad(main,s);
+        AsociarActividad asac = new AsociarActividad(main,s,null);
         Principal.AbrirAsociarActividad(asac);
     }//GEN-LAST:event_btnAgregarActividadActionPerformed
 
@@ -842,6 +854,14 @@ public class DetallesJugador extends javax.swing.JPanel {
             main.AbrirVerSocios(new VerSocios(main));
         }
     }//GEN-LAST:event_btnEliminarSocioActionPerformed
+
+    private void btnModificarActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActividadActionPerformed
+        // TODO add your handling code here:
+        if(tActividades.getSelectedRowCount()==1){
+            AsociarActividad asac = new AsociarActividad(main,s, (SocioActividad) tActividades.getValueAt(tActividades.getSelectedRow(), 1));
+            Principal.AbrirAsociarActividad(asac);
+        }
+    }//GEN-LAST:event_btnModificarActividadActionPerformed
 
     public void cargarPagos(){
         Familia f = s.getFamilia();
@@ -936,6 +956,7 @@ public class DetallesJugador extends javax.swing.JPanel {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarCuotaDeSocio;
     private javax.swing.JButton btnEliminarSocio;
+    private javax.swing.JButton btnModificarActividad;
     private javax.swing.JButton btnNuevaCuota;
     private javax.swing.JComboBox<String> cbCuotas;
     private javax.swing.JComboBox<String> cbTipoSocio;

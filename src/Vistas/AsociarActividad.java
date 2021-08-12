@@ -28,11 +28,18 @@ public class AsociarActividad extends javax.swing.JPanel {
      */
     Principal main;
     Socio s;
-    public AsociarActividad(Principal main,Socio s) {
+    SocioActividad sa;
+    public AsociarActividad(Principal main,Socio s, SocioActividad sa) {
         initComponents();
         this.main = main;
         this.s = s;
-        Load();
+        this.sa  = sa;
+        if(sa==null)
+            Load();
+        else{
+            LoadMod();
+        }
+        
     }
     
     public void Load(){
@@ -40,13 +47,41 @@ public class AsociarActividad extends javax.swing.JPanel {
         
         List<Actividad> act;
         act = Conexion.getInstance().getActividades();
+        if(act.size()>0){
+            DefaultComboBoxModel dcm = new DefaultComboBoxModel();
+            for(Actividad cliente: act){
+                if(cliente.isVigente()){
+                    dcm.addElement(cliente);
+                }
+            }
+            cbActividades.setModel(dcm);
+            cargarHorarios();
+        }
+        btnEliminar.setVisible(false);
+    }
+    public void LoadMod(){
+        lSocio.setText(s.getNombre()+" "+s.getApellido());
         DefaultComboBoxModel dcm = new DefaultComboBoxModel();
-        for(Actividad cliente: act){
-            if(cliente.isVigente()){
-                dcm.addElement(cliente);
+        dcm.addElement(sa.getActividades().getNombre());
+        cbActividades.setModel(dcm);
+        Iterator<Horario> it = sa.getActividades().getHorarios().iterator();
+        
+        DefaultTableModel mdl = (DefaultTableModel) tHorarios.getModel();
+        mdl.setRowCount(0);
+        while (it.hasNext()) {
+            Horario s = it.next();
+            if (s.isVigente()) {  
+                Object[] fila = new Object[4];
+                fila[0] = s;
+                fila[1] = s.getHora();
+                fila[2] = s.getDuracion();
+                if(sa.getHorarios().contains(s))
+                    fila[3] = true;
+                mdl.addRow(fila); 
             }
         }
-        cbActividades.setModel(dcm);
+        cbActividades.enable(false);
+        btnEliminar.setVisible(true);
     }
 
     /**
@@ -66,8 +101,11 @@ public class AsociarActividad extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         lSocio = new javax.swing.JLabel();
         cbActividades = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btnConfirmar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnAtras = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         tHorarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -117,11 +155,27 @@ public class AsociarActividad extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jButton1.setText("Confirmar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnConfirmar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnConfirmar.setText("Confirmar");
+        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnConfirmarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnAtras.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnAtras.setText("Volver");
+        btnAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtrasActionPerformed(evt);
             }
         });
 
@@ -130,10 +184,19 @@ public class AsociarActividad extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(115, 115, 115)
+                .addContainerGap(115, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addContainerGap(484, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(btnConfirmar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEliminar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel1)
@@ -141,27 +204,30 @@ public class AsociarActividad extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lSocio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbActividades, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(79, 79, 79)
-                                .addComponent(jButton1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
+                                    .addComponent(cbActividades, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(111, 111, 111)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(63, 63, 63))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(128, 128, 128))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(btnAtras)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(lSocio))
@@ -169,19 +235,22 @@ public class AsociarActividad extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(cbActividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(158, Short.MAX_VALUE))
+                        .addGap(89, 89, 89)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnConfirmar)
+                            .addComponent(btnEliminar))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addComponent(btnAtras)
+                .addGap(21, 21, 21))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbActividadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbActividadesItemStateChanged
         // TODO add your handling code here:
+        cargarHorarios();
+    }//GEN-LAST:event_cbActividadesItemStateChanged
+
+    public void cargarHorarios(){
         Actividad a = (Actividad) cbActividades.getSelectedItem();
         Conexion.getInstance().refresh(a);
         System.out.println("size de horarios de a:  "+a.getHorarios().size());
@@ -196,31 +265,84 @@ public class AsociarActividad extends javax.swing.JPanel {
                 fila[0] = s;
                 fila[1] = s.getHora();
                 fila[2] = s.getDuracion();
-                
+                fila[3] = false;
                 mdl.addRow(fila); 
             //}
         }
-    }//GEN-LAST:event_cbActividadesItemStateChanged
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    }
+    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
-        SocioActividad sa = new  SocioActividad();
-        sa.setActividades((Actividad)cbActividades.getSelectedItem());
-        sa.setSocios(s);
-        List<Horario> hs =new ArrayList<Horario>();
-        for(int f = 0;f<tHorarios.getRowCount();f++){
-            if((boolean) tHorarios.getValueAt(f, 3) == true){
-                hs.add((Horario)tHorarios.getValueAt(f, 0));
+        if(sa==null){
+            //if(s.getActividades()==null){
+                SocioActividad sa = new  SocioActividad();
+                sa.setActividades((Actividad)cbActividades.getSelectedItem());
+                sa.setSocios(s);
+                List<Horario> hs =new ArrayList<Horario>();
+                for(int f = 0;f<tHorarios.getRowCount();f++){
+                    if((boolean) tHorarios.getValueAt(f, 3) == true){
+                        hs.add((Horario)tHorarios.getValueAt(f, 0));
+                    }
+                }
+                sa.setHorarios(hs);
+                Conexion.getInstance().persist(sa);
+                volver();
+            /*}
+            else{
+                SocioActividad sa = new  SocioActividad();
+                sa.setActividades((Actividad)cbActividades.getSelectedItem());
+                sa.setSocios(s);
+                List<Horario> hs =new ArrayList<Horario>();
+                for(int f = 0;f<tHorarios.getRowCount();f++){
+                    if((boolean) tHorarios.getValueAt(f, 3) == true){
+                         hs.add((Horario)tHorarios.getValueAt(f, 0));
+                    }
+                }
+                sa.setHorarios(hs);
+                Conexion.getInstance().persist(sa);
+                volver();
             }
+            */
         }
-        sa.setHorarios(hs);
-        Conexion.getInstance().persist(sa);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        else{
+            sa.getHorarios().clear();
+            
+            for(int f = 0;f<tHorarios.getRowCount();f++){
+                if((boolean) tHorarios.getValueAt(f, 3) == true){
+                    sa.getHorarios().add((Horario)tHorarios.getValueAt(f, 0));
+                }
+            }
+            Conexion.getInstance().merge(sa);
+            
+            volver();
+        }
+    }//GEN-LAST:event_btnConfirmarActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
+        // TODO add your handling code here:
+        volver();
+    }//GEN-LAST:event_btnAtrasActionPerformed
+    public void volver(){
+        Jugador ju = Conexion.getInstance().findJugador(s.getCi());
+        if(ju!=null){
+            DetallesJugador dj = new DetallesJugador(main,ju);
+            main.AbrirDetallesJugador(dj);
+        }
+        else{
+            DetallesSocio dj = new DetallesSocio(main,s);
+            main.AbrirDetallesSocio(dj);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtras;
+    private javax.swing.JButton btnConfirmar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JComboBox<String> cbActividades;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

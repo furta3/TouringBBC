@@ -99,20 +99,6 @@ public class Conexion {
         return s;
     }
     
-    /*public void save(Object object) {
-        EntityManager em = getEntity();
-        em.getTransaction().begin();
-        Session sessionOne = em.openSession();
-        sessionOne.beginTransaction();
-        try {
-            Long id = (Long) em.save(object);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            em.getTransaction().rollback();
-        }
-    }*/
-    
     public void refresh(Object object) {
         EntityManager em = getEntity();
         em.getTransaction().begin();

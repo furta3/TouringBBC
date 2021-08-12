@@ -8,6 +8,7 @@ package Vistas;
 import BD.Conexion;
 import Clases.Actividad;
 import Clases.Horario;
+import Clases.SocioActividad;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -327,8 +328,13 @@ public class DetallesActividad extends javax.swing.JPanel {
         if(tHorarios.getSelectedRowCount()==1){
             Horario h2 = (Horario) tHorarios.getValueAt(tHorarios.getSelectedRow(), 0);
             h2.setVigente(false);
+            h2.setSocioActividadHorario(new ArrayList<SocioActividad>());
             Conexion.getInstance().merge(h2);
+            
             ((DefaultTableModel)tHorarios.getModel()).removeRow(tHorarios.getSelectedRow());
+            /*Horario h2 = (Horario) tHorarios.getValueAt(tHorarios.getSelectedRow(), 0);
+            Conexion.getInstance().delete(h2);
+            ((DefaultTableModel)tHorarios.getModel()).removeRow(tHorarios.getSelectedRow());*/
         }
     }//GEN-LAST:event_btnQuitarActionPerformed
 

@@ -7,6 +7,7 @@ package Clases;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,7 +32,7 @@ public class SocioActividad implements Serializable {
     @ManyToOne
     private Actividad actividades;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     private List<Horario> horarios;
 
     public Socio getSocios() {
@@ -90,11 +91,11 @@ public class SocioActividad implements Serializable {
     public String toString() {
         String dias  = "";
         for(int f = 0; f<horarios.size();f++){
-            if(f!=0)
+            if(dias == "" && f>0)
                 dias += ",";
-            dias += horarios.get(f).getDia();
+            if(horarios.get(f).isVigente())
+                dias += horarios.get(f).getDia();
         }
         return dias;
     }
-    
 }
