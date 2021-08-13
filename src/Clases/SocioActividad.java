@@ -32,7 +32,7 @@ public class SocioActividad implements Serializable {
     @ManyToOne
     private Actividad actividades;
 
-    @ManyToMany(cascade = CascadeType.REMOVE)
+    @ManyToMany
     private List<Horario> horarios;
 
     public Socio getSocios() {

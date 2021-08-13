@@ -18,7 +18,8 @@ AltaFuncionario:
 //////////////////cuadros de dialogo para confirmacion://///////////////
 if (JOptionPane.showConfirmDialog(this, "¿Seguro de que quiere eliminar este producto?", "Consulta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION)
 
-JOptionPane.showMessageDialog(this, "Cédula invalida", "Error", JOptionPane.ERROR_MESSAGE);
+JOptionPane.showMessageDialog(this, "detalles del error.", "Error", JOptionPane.ERROR_MESSAGE);
+JOptionPane.showMessageDialog(this, "informacion a dar.", "Información", JOptionPane.INFORMATION_MESSAGE);
 
 ////////////////CARGAR TABLA////////////////////////////////////////////
 Conexion.getInstance().refresh(f);

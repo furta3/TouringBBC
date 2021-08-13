@@ -260,14 +260,14 @@ public class AsociarActividad extends javax.swing.JPanel {
         mdl.setRowCount(0);
         while (it.hasNext()) {
             Horario s = it.next();
-            //if (s.isVigente()) {  
+            if (s.isVigente()) {  
                 Object[] fila = new Object[4];
                 fila[0] = s;
                 fila[1] = s.getHora();
                 fila[2] = s.getDuracion();
                 fila[3] = false;
                 mdl.addRow(fila); 
-            //}
+            }
         }
     }
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed

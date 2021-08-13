@@ -239,7 +239,7 @@ public class AltaSocio extends javax.swing.JPanel {
         });
 
         cbTipoCarnet.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        cbTipoCarnet.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carnet de Salud", "Carnet del niño", "Carnet del adolescente" }));
+        cbTipoCarnet.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Salud", "Adolescente", "Niño" }));
         cbTipoCarnet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbTipoCarnetActionPerformed(evt);
@@ -247,7 +247,7 @@ public class AltaSocio extends javax.swing.JPanel {
         });
 
         lTipoCarnet.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        lTipoCarnet.setText("Tipo:");
+        lTipoCarnet.setText("Carnet de:");
 
         lVenCarnet.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lVenCarnet.setText("Vecimiento:");
@@ -639,12 +639,16 @@ public class AltaSocio extends javax.swing.JPanel {
                 j.setCarnetHabilitante(dcCarnetHab.getDate());
                 j.setPlantel((Categoria) cbCat.getSelectedItem());
                 j.setVenCi(dcVenCi.getDate());
-                j.setTipoCarnet(cbTipoCarnet.getSelectedItem().toString());
+                j.setTipoCarnet(cbTipoCarnet.getSelectedIndex());
 
                 if(checkF.isSelected()){
                     addFamiliar(j);  
                 }     
                 else if(cbCuotas.getSelectedIndex()==0){
+                    Familia fa =  new Familia();
+                    Conexion.getInstance().persist(fa);
+                    j.setFamilia(fa);
+                    j.setRol(true);
                     Conexion.getInstance().persist(j);
                     JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -652,7 +656,7 @@ public class AltaSocio extends javax.swing.JPanel {
                     Familia fa =  new Familia();
                     Conexion.getInstance().persist(fa);
                     j.setFamilia(fa);
-                    
+                    j.setRol(true);
                     j.setCuotas(new ArrayList<Cuota>());
                     Cuota cuota = (Cuota) cbCuotas.getSelectedItem();
                     if(cuota.getSocios()!=null){
@@ -683,6 +687,10 @@ public class AltaSocio extends javax.swing.JPanel {
                 if(checkF.isSelected())
                     addFamiliar(j);    
                 else if(cbCuotas.getSelectedIndex()==0){
+                    Familia fa =  new Familia();
+                    Conexion.getInstance().persist(fa);
+                    j.setFamilia(fa);
+                    j.setRol(true);
                     Conexion.getInstance().persist(j);
                     JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -690,6 +698,7 @@ public class AltaSocio extends javax.swing.JPanel {
                     Familia fa =  new Familia();
                     Conexion.getInstance().persist(fa);
                     j.setFamilia(fa);
+                    j.setRol(true);
                     j.setCuotas(new ArrayList<Cuota>());
                     Cuota cuota = (Cuota) cbCuotas.getSelectedItem();
                     if(cuota.getSocios()!=null){

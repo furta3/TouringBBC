@@ -27,7 +27,16 @@ public class Jugador extends Socio implements Serializable {
     private Categoria plantel;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date venCi;//vecnimiento de la cédula
-    private String tipoCarnet;
+    private int tipoCarnet;
+    private String detalles;
+
+    public String getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(String detalles) {
+        this.detalles = detalles;
+    }
 
     public Date getVenCi() {
         return venCi;
@@ -37,11 +46,11 @@ public class Jugador extends Socio implements Serializable {
         this.venCi = venCi;
     }
 
-    public String getTipoCarnet() {
+    public int getTipoCarnet() {
         return tipoCarnet;
     }
 
-    public void setTipoCarnet(String tipoCarnet) {
+    public void setTipoCarnet(int tipoCarnet) {
         this.tipoCarnet = tipoCarnet;
     }
     
