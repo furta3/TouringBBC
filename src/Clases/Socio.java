@@ -43,7 +43,17 @@ public class Socio extends PersonaBBC implements Serializable {
     private boolean rol;
     @ManyToOne
     private TipoSocio tipo;
+    @OneToMany(mappedBy = "socio")
+    private List<PagoBBC> pagos;
 
+    public List<PagoBBC> getPagos() {
+        return pagos;
+    }
+
+    public void setPagos(List<PagoBBC> pagos) {
+        this.pagos = pagos;
+    }
+    
     public boolean getRol() {
         return rol;
     }

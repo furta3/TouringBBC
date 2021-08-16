@@ -10,7 +10,6 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class Familia_ {
 
 	public static volatile SingularAttribute<Familia, Long> id;
-	public static volatile ListAttribute<Familia, PagoBBC> pagos;
 	public static volatile ListAttribute<Familia, Socio> socios;
 
 }

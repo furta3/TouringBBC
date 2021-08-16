@@ -1,0 +1,6 @@
+Actividades:
+	tiene una cuota basica, y varias alternativas
+	funcionario
+
+modificar abm de categorias (añoNac - añoActual), 
+agregando las edades, y haciendo cambio automatico

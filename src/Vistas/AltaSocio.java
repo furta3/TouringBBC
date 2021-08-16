@@ -36,15 +36,16 @@ public class AltaSocio extends javax.swing.JPanel {
     Familia f;
     Principal main;
     Socio sel;
+    int vol=0;
     public AltaSocio(Principal main, Familia f) {
         initComponents();
         this.main = main;
         this.f = f;
+
         if(f!=null){
-            checkF.setSelected(true);
-            Familiar(true);
+            AgregarNuevosFamiliares();
             cargarFamiliares();
-            
+            vol=1;
         }
         else{
             Familiar(false);
@@ -226,7 +227,7 @@ public class AltaSocio extends javax.swing.JPanel {
         panelJugador.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         lPlantel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        lPlantel.setText("Plantel:");
+        lPlantel.setText("Categoría:");
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel14.setText("Ven. Cédula:");
@@ -259,25 +260,16 @@ public class AltaSocio extends javax.swing.JPanel {
             .addGroup(panelJugadorLayout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelJugadorLayout.createSequentialGroup()
-                        .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lTipoCarnet)
-                            .addComponent(lVenCarnet))
-                        .addGap(48, 48, 48)
-                        .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbTipoCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dcCarnetHab, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelJugadorLayout.createSequentialGroup()
-                        .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelJugadorLayout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addGap(45, 45, 45))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelJugadorLayout.createSequentialGroup()
-                                .addComponent(lPlantel)
-                                .addGap(72, 72, 72)))
-                        .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dcVenCi, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(lTipoCarnet)
+                    .addComponent(lVenCarnet)
+                    .addComponent(jLabel14)
+                    .addComponent(lPlantel))
+                .addGap(45, 45, 45)
+                .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dcVenCi, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbTipoCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dcCarnetHab, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelJugadorLayout.setVerticalGroup(
@@ -292,16 +284,14 @@ public class AltaSocio extends javax.swing.JPanel {
                     .addComponent(dcVenCi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
                 .addGap(32, 32, 32)
-                .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelJugadorLayout.createSequentialGroup()
-                        .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbTipoCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lTipoCarnet))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(dcCarnetHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3))
+                .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbTipoCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lTipoCarnet))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dcCarnetHab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lVenCarnet))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         panelFamilia.setBackground(new java.awt.Color(255, 255, 255));
@@ -332,12 +322,14 @@ public class AltaSocio extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tFamiliares.setColumnSelectionAllowed(true);
         tFamiliares.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tFamiliaresMouseClicked(evt);
             }
         });
         jScrollPane3.setViewportView(tFamiliares);
+        tFamiliares.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jButton2.setText("Quitar");
@@ -613,6 +605,8 @@ public class AltaSocio extends javax.swing.JPanel {
         else if(checkJ.isSelected() && cbCat.getSelectedIndex()==0){
             JOptionPane.showMessageDialog(this, "Seleccione una categoría para el jugador.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        else if(checkF.isSelected() && tFamiliares.getRowCount()>=4)
+            JOptionPane.showMessageDialog(this, "Familia completa.", "Error", JOptionPane.ERROR_MESSAGE);
         else if(Conexion.getInstance().findSocio(parseInt(tfCI.getText()))!=null){
             if (JOptionPane.showConfirmDialog(this, "Ya existe el socio en el sistema ¿Desea activarlo de nuevo?", "Consulta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                 Socio v = Conexion.getInstance().findSocio(parseInt(tfCI.getText()));
@@ -773,22 +767,23 @@ public class AltaSocio extends javax.swing.JPanel {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
-        String apellido = "";
+        int fsize;
+        String apellido;
         if(principal()){
             if(f==null){
                 f = new Familia();
                 //f.setSocios(ls);
                 Conexion.getInstance().persist(f);
+                fsize = 0;
             }
+            else
+                fsize = f.getSocios().size();
 
-            for(int i=0;i<tFamiliares.getRowCount();i++){
+            for(int i=fsize;i<tFamiliares.getRowCount();i++){
                 if(tFamiliares.getValueAt(i, 0).getClass() == Socio.class){
                     Socio so = (Socio) tFamiliares.getValueAt(i, 0);
                     so.setFamilia(f);
                     so.setRol((boolean)tFamiliares.getValueAt(i, 3));
-                    
-                    if((boolean)tFamiliares.getValueAt(i, 3))
-                        apellido  = so.getApellido();
 
                     if((boolean)tFamiliares.getValueAt(i, 3) && cbCuotas2.getSelectedIndex()!=0){
                         so.setCuotas(new ArrayList<Cuota>());
@@ -803,6 +798,8 @@ public class AltaSocio extends javax.swing.JPanel {
                         so.getCuotas().add(cuota);
                         Conexion.getInstance().merge(cuota);
                     }
+                    else
+                        Conexion.getInstance().persist(so);
                 }
                 else{
                     Jugador ju = (Jugador) tFamiliares.getValueAt(i, 0);
@@ -810,7 +807,7 @@ public class AltaSocio extends javax.swing.JPanel {
                     ju.setRol((boolean)tFamiliares.getValueAt(i, 3));
                     if((boolean)tFamiliares.getValueAt(i, 3))
                         apellido  = ju.getApellido();
-                    
+
                     if((boolean)tFamiliares.getValueAt(i, 3) && cbCuotas2.getSelectedIndex()!=0){
                         ju.setCuotas(new ArrayList<Cuota>());
                         Cuota cuota = (Cuota) cbCuotas2.getSelectedItem();
@@ -824,13 +821,18 @@ public class AltaSocio extends javax.swing.JPanel {
                         ju.getCuotas().add(cuota);
                         Conexion.getInstance().merge(cuota);
                     }
+                    else
+                        Conexion.getInstance().persist(ju);
                 }
-                JOptionPane.showMessageDialog(this, "Familia "+apellido+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
             }
+            JOptionPane.showMessageDialog(this, "Familia agregada con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
         else
             JOptionPane.showMessageDialog(this, "Seleccione el socio principal de la familia.", "Error", JOptionPane.ERROR_MESSAGE);
-        
+        if(vol==1)
+            volver();
+        else
+            limpiarFamilia();
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     public boolean principal(){
@@ -868,6 +870,21 @@ public class AltaSocio extends javax.swing.JPanel {
         btnCancelar.setVisible(b);
         cbCuotas.setEnabled(!b);
     }
+    public void AgregarNuevosFamiliares(){
+        for(Component component : panelFamilia.getComponents()) {
+            component.setEnabled(true);
+        }
+        tFamiliares.setEnabled(true);
+        btnConfirmar.setVisible(true);
+        btnCancelar.setVisible(true);
+        cbCuotas.setEnabled(false);
+        cbCuotas2.setEnabled(false);
+        checkF.setVisible(false);
+        checkF.setSelected(true);
+        DefaultTableModel dtm =  (DefaultTableModel) tFamiliares.getModel();
+        
+    }
+    
     public void limpiar(){
         tfNombre.setText("");
         tfApellido.setText("");
@@ -878,7 +895,13 @@ public class AltaSocio extends javax.swing.JPanel {
         dcCarnetHab.setDate(null);
         dcVenCi.setDate(null);
     }
-    
+    public void limpiarFamilia(){
+        f=null;
+        checkF.setSelected(false);
+        Familiar(false);
+        DefaultTableModel mdl = (DefaultTableModel) tFamiliares.getModel();
+        mdl.setRowCount(0);
+    }
     public boolean CiValida(int ci){
         return true;
     }
@@ -925,8 +948,24 @@ public class AltaSocio extends javax.swing.JPanel {
         return (checkdigit == digVerificador) ;
         }
     }
-
-
+    
+    public void  volver(){
+        for(int d = 0 ;d<tFamiliares.getRowCount();d++){
+            if((boolean) tFamiliares.getValueAt(d, 3)){
+                Socio so = (Socio) tFamiliares.getValueAt(d, 0);
+                Jugador ju = Conexion.getInstance().findJugador(so.getCi());
+                if(ju!=null){
+                    DetallesJugador dj = new DetallesJugador(main,ju);
+                    main.AbrirDetallesJugador(dj);
+                }
+                else{
+                    DetallesSocio dj = new DetallesSocio(main,(Socio) tFamiliares.getValueAt(d, 1));
+                    main.AbrirDetallesSocio(dj);
+                }
+            }
+        }
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;

@@ -21,22 +21,24 @@ import javax.persistence.Temporal;
 @Entity
 public class PagoBBC implements Serializable {
 
+    @ManyToOne
+    private Socio socio;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToOne
-    private Familia familia;
+
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fecha;
     private int monto;
 
-    public Familia getFamilia() {
-        return familia;
+    public Socio getSocio() {
+        return socio;
     }
 
-    public void setFamilia(Familia familia) {
-        this.familia = familia;
+    public void setSocio(Socio socio) {
+        this.socio = socio;
     }
 
     public Date getFecha() {

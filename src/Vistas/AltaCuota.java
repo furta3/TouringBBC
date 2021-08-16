@@ -82,7 +82,7 @@ public class AltaCuota extends javax.swing.JPanel {
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Alta cuota");
+        jLabel1.setText("Gestión cuota");
 
         lPlantel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lPlantel.setText("Nombre:");
@@ -200,13 +200,12 @@ public class AltaCuota extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnCancelar)
                                 .addGap(97, 97, 97)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(150, 150, 150)
                 .addComponent(jLabel1)
-                .addContainerGap(623, Short.MAX_VALUE))
+                .addContainerGap(583, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

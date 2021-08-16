@@ -11,8 +11,8 @@ public abstract class PagoBBC_ {
 
 	public static volatile SingularAttribute<PagoBBC, Date> fecha;
 	public static volatile SingularAttribute<PagoBBC, Integer> monto;
+	public static volatile SingularAttribute<PagoBBC, Socio> socio;
 	public static volatile SingularAttribute<PagoBBC, Long> id;
-	public static volatile SingularAttribute<PagoBBC, Familia> familia;
 
 }
 
