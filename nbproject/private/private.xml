@@ -4,18 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/DetallesJugador.java</file>
+            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/BD/Conexion.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/AsociarActividad.java</file>
-            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Horario.java</file>
-            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Familia.java</file>
-            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Socio.java</file>
-            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Actividad.java</file>
-            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/SocioActividad.java</file>
-            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/AltaSocio.java</file>
-            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/PersonaBBC.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Cuota.java</file>
-            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/TipoCarnet.java</file>
-            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/AltaCuota.java</file>
-            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Jugador.java</file>
+            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/Principal.java</file>
+            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Actividad.java</file>
+            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/AltaSocio.java</file>
+            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/AltaActividad.java</file>
         </group>
     </open-files>
 </project-private>

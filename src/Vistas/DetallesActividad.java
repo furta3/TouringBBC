@@ -33,7 +33,7 @@ public class DetallesActividad extends javax.swing.JPanel {
     
     public void load(){
         lNombre.setText(act.getNombre());
-        sCosto.setValue(act.getCosto());
+        sCosto.setValue(act.getCupos());
         cargarHorarios();
     }
     public void cargarHorarios(){
@@ -279,7 +279,7 @@ public class DetallesActividad extends javax.swing.JPanel {
         if((int)sCosto.getValue() > 0 && tHorarios.getRowCount()>0){
             
             
-            act.setCosto((int)sCosto.getValue());
+            act.setCupos((int)sCosto.getValue());
             act.setVigente(true);
             //
             Conexion.getInstance().merge(act);

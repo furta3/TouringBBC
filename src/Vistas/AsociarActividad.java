@@ -7,6 +7,7 @@ package Vistas;
 
 import BD.Conexion;
 import Clases.Actividad;
+import Clases.Cuota;
 import Clases.Horario;
 import Clases.Jugador;
 import Clases.Socio;
@@ -45,18 +46,32 @@ public class AsociarActividad extends javax.swing.JPanel {
     public void Load(){
         lSocio.setText(s.getNombre()+" "+s.getApellido());
         
-        List<Actividad> act;
-        act = Conexion.getInstance().getActividades();
-        if(act.size()>0){
+        //List<Actividad> act;
+        //act = Conexion.getInstance().getActividades();
+        if(main.actividades.size()>0){
             DefaultComboBoxModel dcm = new DefaultComboBoxModel();
-            for(Actividad cliente: act){
-                if(cliente.isVigente()){
-                    dcm.addElement(cliente);
+            for(Actividad act: main.actividades){
+                if(act.isVigente()){
+                    dcm.addElement(act);
                 }
             }
             cbActividades.setModel(dcm);
             cargarHorarios();
+            Actividad a = (Actividad) cbActividades.getSelectedItem();
+            if(a.getCuotas().size()>0){
+                DefaultComboBoxModel dcm2 = new DefaultComboBoxModel();
+                for(Cuota c: a.getCuotas()){
+                    if(c.isVigente()){
+                        dcm2.addElement(c);
+                    }
+                }
+                cbCuotas.setModel(dcm2);
+            }
+            else
+                cbCuotas.setModel(new DefaultComboBoxModel());
         }
+        
+        
         btnEliminar.setVisible(false);
     }
     public void LoadMod(){
@@ -104,6 +119,8 @@ public class AsociarActividad extends javax.swing.JPanel {
         btnConfirmar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnAtras = new javax.swing.JButton();
+        cbCuotas = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -179,6 +196,11 @@ public class AsociarActividad extends javax.swing.JPanel {
             }
         });
 
+        cbCuotas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel5.setText("Cuota:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,11 +208,8 @@ public class AsociarActividad extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(115, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addContainerGap(484, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
@@ -200,16 +219,18 @@ public class AsociarActividad extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel1)
-                                    .addComponent(jLabel3))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbCuotas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lSocio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbActividades, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(cbActividades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(111, 111, 111)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(128, 128, 128))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(175, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(btnAtras)
@@ -235,7 +256,11 @@ public class AsociarActividad extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(cbActividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(89, 89, 89)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(58, 58, 58)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnConfirmar)
                             .addComponent(btnEliminar))))
@@ -248,11 +273,23 @@ public class AsociarActividad extends javax.swing.JPanel {
     private void cbActividadesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbActividadesItemStateChanged
         // TODO add your handling code here:
         cargarHorarios();
+        
     }//GEN-LAST:event_cbActividadesItemStateChanged
 
     public void cargarHorarios(){
         Actividad a = (Actividad) cbActividades.getSelectedItem();
         Conexion.getInstance().refresh(a);
+        if(a.getCuotas().size()>0){
+            DefaultComboBoxModel dcm2 = new DefaultComboBoxModel();
+            for(Cuota c: a.getCuotas()){
+                if(c.isVigente()){
+                    dcm2.addElement(c);
+                }
+            }
+            cbCuotas.setModel(dcm2);
+        }
+        else
+            cbCuotas.setModel(new DefaultComboBoxModel());
         System.out.println("size de horarios de a:  "+a.getHorarios().size());
         Iterator<Horario> it = a.getHorarios().iterator();
         
@@ -343,10 +380,12 @@ public class AsociarActividad extends javax.swing.JPanel {
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JComboBox<String> cbActividades;
+    private javax.swing.JComboBox<String> cbCuotas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lSocio;
     private javax.swing.JTable tHorarios;

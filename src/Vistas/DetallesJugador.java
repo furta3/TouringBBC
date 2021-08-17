@@ -1159,7 +1159,7 @@ public class DetallesJugador extends javax.swing.JPanel {
                 Object[] fila = new Object[4];
                 fila[0] = sa.getActividades();
                 fila[1] = sa;
-                fila[2] = sa.getActividades().getCosto();
+                fila[2] = sa.getActividades().getCupos();
                 mdl.addRow(fila); 
             //}
         }

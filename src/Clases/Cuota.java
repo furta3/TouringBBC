@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
@@ -36,7 +37,17 @@ public class Cuota implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Socio> socios;
     private boolean vigente;
+    @ManyToOne
+    private Actividad actividad;
 
+    public Actividad getActividad() {
+        return actividad;
+    }
+
+    public void setActividad(Actividad actividad) {
+        this.actividad = actividad;
+    }
+    
     public boolean isVigente() {
         return vigente;
     }

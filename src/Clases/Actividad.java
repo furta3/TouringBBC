@@ -22,17 +22,28 @@ import javax.persistence.OneToMany;
 @Entity
 public class Actividad implements Serializable {
 
+    @OneToMany(mappedBy = "actividad")
+    private List<Cuota> cuotas;
+
     @OneToMany(mappedBy = "actividades")
     private List<SocioActividad> socios;
 
     private static final long serialVersionUID = 1L;
     @Id
     private String nombre;
-    private int costo;
+    private int cupos;
     private boolean vigente;
     @OneToMany(mappedBy = "actividad",cascade = CascadeType.ALL)
     private List<Horario> horarios;
 
+    public List<Cuota> getCuotas() {
+        return cuotas;
+    }
+
+    public void setCuotas(List<Cuota> cuotas) {
+        this.cuotas = cuotas;
+    }
+    
     public List<SocioActividad> getSocios() {
         return socios;
     }
@@ -57,12 +68,12 @@ public class Actividad implements Serializable {
         this.nombre = nombre;
     }
 
-    public int getCosto() {
-        return costo;
+    public int getCupos() {
+        return cupos;
     }
 
-    public void setCosto(int costo) {
-        this.costo = costo;
+    public void setCupos(int cupos) {
+        this.cupos = cupos;
     }
 
     public List<Horario> getHorarios() {

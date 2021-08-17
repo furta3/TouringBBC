@@ -35,7 +35,7 @@ public void cargarAct(){
             if (s.isVigente()) {  
                 Object[] fila = new Object[3];
                 fila[0] = s;
-                fila[1] = s.getCosto();
+                fila[1] = s.getCupos();
                 fila[2] = s.getHorarios();
                 mdl.addRow(fila); 
             }

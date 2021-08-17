@@ -7,9 +7,11 @@ package Vistas;
 
 import BD.Conexion;
 import Clases.Actividad;
+import Clases.Cuota;
 import Clases.Horario;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +28,14 @@ public class AltaActividad extends javax.swing.JPanel {
         initComponents();
         System.out.println("en el init");
         this.main = main;
+        
+        DefaultComboBoxModel dcm = new DefaultComboBoxModel();
+        for(Cuota tipo: main.cuotas){
+                if(tipo.isVigente()){
+                        dcm.addElement(tipo);
+                }
+        }
+        cbCuotas.setModel(dcm);
     }
 
     /**
@@ -41,7 +51,6 @@ public class AltaActividad extends javax.swing.JPanel {
         btnConfirmar = new javax.swing.JButton();
         tfNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        sCosto = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tHorarios = new javax.swing.JTable();
@@ -55,6 +64,9 @@ public class AltaActividad extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         btnQuitar = new javax.swing.JButton();
+        cbCuotas = new javax.swing.JComboBox<>();
+        sCupos = new javax.swing.JSpinner();
+        jLabel9 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -80,10 +92,8 @@ public class AltaActividad extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel2.setText("Alta Actividad");
 
-        sCosto.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel3.setText("Costo:");
+        jLabel3.setText("Cuota:");
 
         tHorarios.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         tHorarios.setModel(new javax.swing.table.DefaultTableModel(
@@ -151,6 +161,14 @@ public class AltaActividad extends javax.swing.JPanel {
             }
         });
 
+        cbCuotas.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        cbCuotas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        sCupos.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel9.setText("Cupos:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -161,13 +179,14 @@ public class AltaActividad extends javax.swing.JPanel {
                         .addContainerGap(70, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(sCupos)
                             .addComponent(jLabel8)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tfNombre)
-                                .addComponent(sCosto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(tfNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                            .addComponent(cbCuotas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(113, 113, 113)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -193,10 +212,13 @@ public class AltaActividad extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(46, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(115, 115, 115)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnConfirmar)
-                    .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(115, 115, 115)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(btnConfirmar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -223,15 +245,22 @@ public class AltaActividad extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5)
                                     .addComponent(tfHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(sCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3)))
+                                    .addComponent(jLabel3)
+                                    .addComponent(cbCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel1)
                                 .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(sDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(sDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(sCupos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAgregar)
@@ -285,10 +314,10 @@ public class AltaActividad extends javax.swing.JPanel {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
-        if(!tfNombre.getText().equals("") && (int)sCosto.getValue() > 0 && tHorarios.getRowCount()>0){
+        if(!tfNombre.getText().equals("") && (int)sCupos.getValue() > 0 && tHorarios.getRowCount()>0){
             Actividad a = new Actividad();
             a.setNombre(tfNombre.getText());
-            a.setCosto((int)sCosto.getValue());
+            a.setCupos((int)sCupos.getValue());
             a.setVigente(true);
             Conexion.getInstance().persist(a);
             
@@ -300,7 +329,7 @@ public class AltaActividad extends javax.swing.JPanel {
             }
             
             tfNombre.setText("");
-            sCosto.setValue(0);
+            sCupos.setValue(0);
             sDuracion.setValue(0);
             tfHora.setText("");
             cbDia.setSelectedIndex(0);
@@ -314,6 +343,7 @@ public class AltaActividad extends javax.swing.JPanel {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnQuitar;
+    private javax.swing.JComboBox<String> cbCuotas;
     private javax.swing.JComboBox<String> cbDia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -323,8 +353,9 @@ public class AltaActividad extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner sCosto;
+    private javax.swing.JSpinner sCupos;
     private javax.swing.JSpinner sDuracion;
     private javax.swing.JTable tHorarios;
     private javax.swing.JTextField tfHora;

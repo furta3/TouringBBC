@@ -239,4 +239,19 @@ public class Conexion {
         }
         return lista;
     }
+    
+    public List<Cuota> getCuotasByAct(Actividad act){
+        EntityManager em = getEntity();
+        List<Cuota> lista = null;
+        em.getTransaction().begin();
+        try {
+            //lista = em.createNativeQuery("SELECT * FROM Socio", Socio.class).getResultList();
+            lista = em.createQuery("SELECT a FROM Cuota a WHERE actividad_nombre="+act.getNombre(), Cuota.class).getResultList(); //Jugador va con la J mayúscula sino no anda
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        }
+        return lista;
+    }
 }

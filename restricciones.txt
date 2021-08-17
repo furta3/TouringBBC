@@ -1,5 +1,9 @@
 Restricciones para Turing BBC java
 
+Funcionarios socios:
+en la vista detalles funcionarios, un boton que sea pasar a socio
+y en el getSocios, que quite a los funcionarios sin actividades
+
 AltaSocio:
 	verificar ci
 	verificar fecha nac

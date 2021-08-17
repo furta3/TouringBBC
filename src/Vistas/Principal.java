@@ -11,11 +11,18 @@ package Vistas;
  */
 
 import BD.Conexion;
+import Clases.Actividad;
+import Clases.Categoria;
+import Clases.Cuota;
+import Clases.Funcionario;
 import Clases.Jugador;
+import Clases.Socio;
+import Clases.TipoSocio;
 
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.PopupMenu;
+import java.util.List;
 import javax.swing.ImageIcon;
 public class Principal extends javax.swing.JFrame {
 
@@ -33,6 +40,14 @@ public class Principal extends javax.swing.JFrame {
     static DetallesActividad da;
     static DetallesJugador dju;
     
+    public static List<Cuota> cuotas;
+    public static List<Actividad> actividades;
+    public static List<Socio> socios;
+    public static List<Categoria> categorias;
+    public static List<TipoSocio> tiposSocios;
+    public static List<Jugador> jugadores;
+    public static List<Funcionario> funcionarios;
+    
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
@@ -40,8 +55,18 @@ public class Principal extends javax.swing.JFrame {
         Conexion.getInstance();
         this.padre = this;
         AbrirInicio();
+        cargarDatos();
         //ImageIcon icono = new ImageIcon("src/Images/ico.png");
         //this.setIconImage(icono.getImage());
+    }
+    
+    public void cargarDatos(){
+        cuotas = Conexion.getInstance().getCuotas();
+        actividades = Conexion.getInstance().getActividades();
+        socios = Conexion.getInstance().getSocios();
+        categorias = Conexion.getInstance().getCategorias();
+        tiposSocios = Conexion.getInstance().getTiposSocios();
+        
     }
 
     @SuppressWarnings("unchecked")

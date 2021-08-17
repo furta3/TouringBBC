@@ -52,22 +52,22 @@ public class AltaSocio extends javax.swing.JPanel {
         }
             
         dcFechaIngreso.setDate(new Date());
-        List<TipoSocio> ts;
-        ts = Conexion.getInstance().getTiposSocios();
+        //List<TipoSocio> ts;
+        //ts = Conexion.getInstance().getTiposSocios();
         DefaultComboBoxModel dcm = new DefaultComboBoxModel();
         dcm.addElement("Seleccionar");
-        for(TipoSocio tipo: ts){
+        for(TipoSocio tipo: main.tiposSocios){
             if(tipo.isVigente()){
                 dcm.addElement(tipo);
             }
         }
         cbTipoSocio.setModel(dcm);
        
-        List<Cuota> cuotas;
-        cuotas = Conexion.getInstance().getCuotas();
+        //List<Cuota> cuotas;
+        //cuotas = Conexion.getInstance().getCuotas();
         DefaultComboBoxModel dcm2 = new DefaultComboBoxModel();
         dcm2.addElement("Ninguna");
-        for(Cuota tipo: cuotas){
+        for(Cuota tipo: main.cuotas){
                 if(tipo.isVigente()){
                         dcm2.addElement(tipo);
                 }
@@ -75,11 +75,11 @@ public class AltaSocio extends javax.swing.JPanel {
         cbCuotas.setModel(dcm2);
         cbCuotas2.setModel(dcm2);
         
-        List<Categoria> cat;
-        cat = Conexion.getInstance().getCategorias();
+        //List<Categoria> cat;
+        //cat = Conexion.getInstance().getCategorias();
         DefaultComboBoxModel dcm3 = new DefaultComboBoxModel();
         dcm3.addElement("Seleccionar");
-        for(Categoria tipo: cat){
+        for(Categoria tipo: main.categorias){
                 if(tipo.isVigente()){
                         dcm3.addElement(tipo);
                 }
@@ -508,7 +508,7 @@ public class AltaSocio extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -518,7 +518,7 @@ public class AltaSocio extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(tfCI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2))
@@ -537,7 +537,7 @@ public class AltaSocio extends javax.swing.JPanel {
                         .addGap(15, 15, 15))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelJugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -564,7 +564,7 @@ public class AltaSocio extends javax.swing.JPanel {
                             .addComponent(btnConfirmar)
                             .addComponent(btnCancelar)))
                     .addComponent(panelFamilia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
