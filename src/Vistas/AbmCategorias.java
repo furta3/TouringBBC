@@ -43,6 +43,10 @@ public class AbmCategorias extends javax.swing.JPanel {
         tfNombre = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        sMin = new javax.swing.JSpinner();
+        sMax = new javax.swing.JSpinner();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -53,11 +57,11 @@ public class AbmCategorias extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nombre"
+                "Nombre", "Edad Min.", "Edad Max."
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -101,6 +105,16 @@ public class AbmCategorias extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel2.setText("Nombre:");
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel3.setText("Edad min:");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel4.setText("Edad max:");
+
+        sMin.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
+        sMax.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,19 +125,26 @@ public class AbmCategorias extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(85, 85, 85)
-                                .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnAgregar)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnModificar)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnEliminar)))
+                                .addComponent(btnEliminar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGap(85, 85, 85)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(sMax, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                                        .addComponent(sMin, javax.swing.GroupLayout.Alignment.LEADING)))))
                         .addGap(95, 95, 95)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1))
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +160,15 @@ public class AbmCategorias extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(90, 90, 90)
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(sMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(sMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnEliminar)
                             .addComponent(btnAgregar)
@@ -160,6 +189,8 @@ public class AbmCategorias extends javax.swing.JPanel {
 
         Categoria ts = new Categoria();
         ts.setNombre(tfNombre.getText());
+        ts.setEdadMin((int) sMin.getValue());
+        ts.setEdadMax((int) sMax.getValue());
         ts.setVigente(true);
         Conexion.getInstance().persist(ts);
 
@@ -175,14 +206,18 @@ public class AbmCategorias extends javax.swing.JPanel {
         while (it.hasNext()) {
             Categoria s = it.next();
             if (s.isVigente()) {  
-                Object[] fila = new Object[1];
+                Object[] fila = new Object[3];
                 fila[0] = s;
+                fila[1] = s.getEdadMin();
+                fila[2] = s.getEdadMax();
                 mdl.addRow(fila); 
             }
         }
     }
     public void limpiar(){
         tfNombre.setText("");
+        sMin.setValue(0);
+        sMax.setValue(0);
     }
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
@@ -212,7 +247,11 @@ public class AbmCategorias extends javax.swing.JPanel {
     private javax.swing.JButton btnModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner sMax;
+    private javax.swing.JSpinner sMin;
     private javax.swing.JTable tTipos;
     private javax.swing.JTextField tfNombre;
     // End of variables declaration//GEN-END:variables

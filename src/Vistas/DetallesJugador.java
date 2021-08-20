@@ -40,6 +40,7 @@ public class DetallesJugador extends javax.swing.JPanel {
         initComponents();
         this.main = main;
         this.s  = s;
+        tfCi.setEditable(false);
         load();
     }
     

@@ -262,7 +262,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void mSTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSTiposActionPerformed
         // TODO add your handling code here:
-        AbrirAbmTiposSocios(new AbmTipoSocios());
+        AbrirAbmTiposSocios(new AbmTipoSocios(this));
     }//GEN-LAST:event_mSTiposActionPerformed
 
     private void mSCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSCategoriasActionPerformed

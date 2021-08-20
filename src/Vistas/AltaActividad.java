@@ -12,6 +12,7 @@ import Clases.Horario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -425,7 +426,9 @@ public class AltaActividad extends javax.swing.JPanel {
                 c.setActividad(a);
                 Conexion.getInstance().merge(c);
             }
-            Conexion.getInstance().merge(main.actividades);
+            main.actividades = Conexion.getInstance().getActividades();
+            JOptionPane.showMessageDialog(this, "Actividad agregada con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            limpiar();
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 

@@ -21,17 +21,16 @@ public class VerSocios extends javax.swing.JPanel {
      * Creates new form PanelVacio
      */
     Principal main;
-    Iterator<Socio> it;
+    
     public VerSocios(Principal main) {
         initComponents();
         this.main=main;
-        
-        it = Conexion.getInstance().getSocios().iterator();
         cargarSocios();
     }
     
     public void cargarSocios(){
         DefaultTableModel mdl = (DefaultTableModel) tSocios.getModel();
+        Iterator<Socio> it = main.socios.iterator();
         mdl.setRowCount(0);
         while (it.hasNext()) {
             Socio s = it.next();
@@ -181,11 +180,11 @@ public class VerSocios extends javax.swing.JPanel {
     }//GEN-LAST:event_tfBuscarKeyReleased
     public void buscarSocios(String buscar){
         DefaultTableModel mdl = (DefaultTableModel) tSocios.getModel();
-        System.out.println("se busca padre?");
+        Iterator<Socio> it = main.socios.iterator();
         mdl.setRowCount(0);
         while (it.hasNext()) {
             Socio s = it.next();
-            if (s.isVigente() && (s.getNombre().contains(buscar) || s.getApellido().contains(buscar) || s.getCi() == Integer.parseInt(buscar))) {  
+            if (s.isVigente() && (s.getNombre().contains(buscar) || s.getApellido().contains(buscar) || Integer.toString(s.getCi()).contains(buscar))) {  
                 Object[] fila = new Object[4];
                 fila[0] = s.getCi();
                 fila[1] = s;

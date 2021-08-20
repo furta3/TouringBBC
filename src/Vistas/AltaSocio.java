@@ -644,6 +644,7 @@ public class AltaSocio extends javax.swing.JPanel {
                     j.setFamilia(fa);
                     j.setRol(true);
                     Conexion.getInstance().persist(j);
+                    main.socios = Conexion.getInstance().getSocios();
                     JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
@@ -656,12 +657,14 @@ public class AltaSocio extends javax.swing.JPanel {
                     if(cuota.getSocios()!=null){
                         cuota.getSocios().add(j);
                         Conexion.getInstance().merge(cuota);
+                        main.socios = Conexion.getInstance().getSocios();
                         JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                     }
                     else{
                         cuota.setSocios(new ArrayList<Socio>());
                         cuota.getSocios().add(j);
                         Conexion.getInstance().merge(cuota);
+                        main.socios = Conexion.getInstance().getSocios();
                         JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
@@ -686,6 +689,7 @@ public class AltaSocio extends javax.swing.JPanel {
                     j.setFamilia(fa);
                     j.setRol(true);
                     Conexion.getInstance().persist(j);
+                    main.socios = Conexion.getInstance().getSocios();
                     JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
@@ -698,12 +702,14 @@ public class AltaSocio extends javax.swing.JPanel {
                     if(cuota.getSocios()!=null){
                         cuota.getSocios().add(j);
                         Conexion.getInstance().merge(cuota);
+                        main.socios = Conexion.getInstance().getSocios();
                         JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                     }
                     else{
                         cuota.setSocios(new ArrayList<Socio>());
                         cuota.getSocios().add(j);
                         Conexion.getInstance().merge(cuota);
+                        main.socios = Conexion.getInstance().getSocios();
                         JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                     }
                 } 
@@ -826,6 +832,7 @@ public class AltaSocio extends javax.swing.JPanel {
                 }
             }
             JOptionPane.showMessageDialog(this, "Familia agregada con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            main.socios = Conexion.getInstance().getSocios();
         }
         else
             JOptionPane.showMessageDialog(this, "Seleccione el socio principal de la familia.", "Error", JOptionPane.ERROR_MESSAGE);

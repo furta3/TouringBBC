@@ -10,6 +10,7 @@ import Clases.Cuota;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,18 +23,20 @@ public class AltaCuota extends javax.swing.JPanel {
      * Creates new form PanelVacio
      */
     Cuota sel = null;
-    List<Cuota> cuotas;
+    Principal main;
+    //List<Cuota> cuotas;
     public AltaCuota(Principal main) {
         initComponents();
         dcFecha.setDate(new Date());
         lMod.setVisible(false);
         btnCancelar.setVisible(false);
-        cuotas = Conexion.getInstance().getCuotas();
+        //cuotas = Conexion.getInstance().getCuotas();
+        this.main = main;
         cargarCuotas();
     }
     
     public void cargarCuotas(){
-        Iterator<Cuota> it = cuotas.iterator();
+        Iterator<Cuota> it = main.cuotas.iterator();
         DefaultTableModel mdl = (DefaultTableModel) tCuotas.getModel();
         mdl.setRowCount(0);
         while (it.hasNext()) {
@@ -264,8 +267,9 @@ public class AltaCuota extends javax.swing.JPanel {
             c.setFrecuencia(cbFrec.getSelectedItem().toString());
             c.setVigente(true);
             Conexion.getInstance().persist(c);
-            cuotas.add(c);
+            main.cuotas.add(c);
             cargarCuotas();
+            JOptionPane.showMessageDialog(this, "Cuota agregada con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
             limpiar();
         }
         else{
@@ -276,8 +280,11 @@ public class AltaCuota extends javax.swing.JPanel {
             sel.setFrecuencia(cbFrec.getSelectedItem().toString());
             Conexion.getInstance().merge(sel);
             btnAgregar.setText("Agregar");
-            cuotas.set(cuotas.indexOf(sel),sel);
+            main.cuotas.set(main.cuotas.indexOf(sel),sel);
             cargarCuotas();
+            tfNombre.setEditable(true);
+            JOptionPane.showMessageDialog(this, "Cuota "+sel.getNombre()+" modificada.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            sel = null;
             limpiar();
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
@@ -294,22 +301,20 @@ public class AltaCuota extends javax.swing.JPanel {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
         if(sel!=null){
-            System.out.println("en el modificar");
             lMod.setVisible(true);
             btnCancelar.setVisible(true);
             btnAgregar.setText("Confirmar");
             tfMonto.setText(Integer.toString(sel.getMonto()));
             tfNombre.setText(sel.getNombre());
+            tfNombre.setEditable(false);
             taDesc.setText(sel.getDescripcion());
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void tCuotasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tCuotasMousePressed
         // TODO add your handling code here:
-        if(tCuotas.getSelectedRowCount()==1){
+        if(tCuotas.getSelectedRowCount()==1)
             sel = (Cuota) tCuotas.getValueAt(tCuotas.getSelectedRow(), 1);
-            System.out.println("seleccionada");
-        }
     }//GEN-LAST:event_tCuotasMousePressed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -317,6 +322,7 @@ public class AltaCuota extends javax.swing.JPanel {
         btnCancelar.setVisible(false);
         btnAgregar.setText("Agregar");
         lMod.setVisible(false);
+        tfNombre.setEditable(true);
         sel = null;
         limpiar();
     }//GEN-LAST:event_btnCancelarActionPerformed

@@ -29,6 +29,24 @@ public class Categoria implements Serializable {
     private Long id;
     private String nombre;
     private boolean vigente;
+    private int edadMin;
+    private int edadMax;
+
+    public int getEdadMin() {
+        return edadMin;
+    }
+
+    public void setEdadMin(int edadMin) {
+        this.edadMin = edadMin;
+    }
+
+    public int getEdadMax() {
+        return edadMax;
+    }
+
+    public void setEdadMax(int edadMax) {
+        this.edadMax = edadMax;
+    }
 
     public List<Jugador> getJugadores() {
         return jugadores;

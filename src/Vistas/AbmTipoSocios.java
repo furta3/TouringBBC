@@ -24,13 +24,15 @@ public class AbmTipoSocios extends javax.swing.JPanel {
      * Creates new form PanelVacio
      */
     TipoSocio TipoSeleccionado;
-    public AbmTipoSocios() {
+    Principal main;
+    public AbmTipoSocios(Principal main) {
         initComponents();
+        this.main = main;
         cargarTipos();
     }
     
     public void cargarTipos(){
-        Iterator<TipoSocio> it = Conexion.getInstance().getTiposSocios().iterator();
+        Iterator<TipoSocio> it = main.tiposSocios.iterator();
         DefaultTableModel mdl = (DefaultTableModel) tTipos.getModel();
         mdl.setRowCount(0);
         while (it.hasNext()) {
@@ -186,6 +188,7 @@ public class AbmTipoSocios extends javax.swing.JPanel {
         Conexion.getInstance().persist(ts);
         
         tfNombre.setText("");
+        main.tiposSocios.add(ts);
         cargarTipos();
         limpiar();
     }//GEN-LAST:event_btnAgregarActionPerformed

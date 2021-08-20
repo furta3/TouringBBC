@@ -7,6 +7,7 @@ package Vistas;
 
 import BD.Conexion;
 import Clases.Actividad;
+import Clases.Socio;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 
@@ -53,6 +54,8 @@ public void cargarAct(){
         jScrollPane1 = new javax.swing.JScrollPane();
         tActividades = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        tfBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -90,6 +93,16 @@ public void cargarAct(){
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jLabel1.setText("Actividades");
 
+        tfBuscar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        tfBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfBuscarKeyReleased(evt);
+            }
+        });
+
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnBuscar.setText("Buscar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,7 +114,12 @@ public void cargarAct(){
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(194, 194, 194)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(btnBuscar)))))
                 .addContainerGap(234, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -109,7 +127,11 @@ public void cargarAct(){
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
@@ -122,10 +144,36 @@ public void cargarAct(){
         }
     }//GEN-LAST:event_tActividadesMouseClicked
 
+    public void buscarSocios(String buscar){
+        DefaultTableModel mdl = (DefaultTableModel) tActividades.getModel();
+        Iterator<Actividad> it = main.actividades.iterator();
+        mdl.setRowCount(0);
+        while (it.hasNext()) {
+            Actividad s = it.next();
+            if (s.isVigente() && s.getNombre().contains(buscar)) {  
+                Object[] fila = new Object[4];
+                fila[0] = s;
+                fila[1] = s.getCupos();
+                fila[2] = s.getHorarios();
+                mdl.addRow(fila); 
+            }
+        }
+    }
+    
+    private void tfBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarKeyReleased
+        // TODO add your handling code here:
+        if(tfBuscar.getText().equals(""))
+            cargarAct();
+        else
+            buscarSocios(tfBuscar.getText());
+    }//GEN-LAST:event_tfBuscarKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tActividades;
+    private javax.swing.JTextField tfBuscar;
     // End of variables declaration//GEN-END:variables
 }
