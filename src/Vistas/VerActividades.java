@@ -7,7 +7,6 @@ package Vistas;
 
 import BD.Conexion;
 import Clases.Actividad;
-import Clases.Socio;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,17 +19,18 @@ public class VerActividades extends javax.swing.JPanel {
     /**
      * Creates new form PanelVacio
      */
-    Iterator<Actividad> it;
     Principal main;
     public VerActividades(Principal main) {
         initComponents();
         this.main=main;
-        it = Conexion.getInstance().getActividades().iterator();
         cargarAct();
+        tfBuscar.setText("Buscar");
     }
-public void cargarAct(){
+    
+    public void cargarAct(){
         DefaultTableModel mdl = (DefaultTableModel) tActividades.getModel();
         mdl.setRowCount(0);
+        Iterator<Actividad> it = Conexion.getInstance().getActividades().iterator();
         while (it.hasNext()) {
             Actividad s = it.next();
             if (s.isVigente()) {  
@@ -68,7 +68,7 @@ public void cargarAct(){
                 {null, null, null}
             },
             new String [] {
-                "Nombre", "Costo", "Horarios"
+                "Nombre", "Cupos", "Horarios"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -94,6 +94,14 @@ public void cargarAct(){
         jLabel1.setText("Actividades");
 
         tfBuscar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        tfBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfBuscarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfBuscarFocusLost(evt);
+            }
+        });
         tfBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 tfBuscarKeyReleased(evt);
@@ -150,7 +158,7 @@ public void cargarAct(){
         mdl.setRowCount(0);
         while (it.hasNext()) {
             Actividad s = it.next();
-            if (s.isVigente() && s.getNombre().contains(buscar)) {  
+            if (s.isVigente() && s.getNombre().toUpperCase().contains(buscar.toUpperCase())) {  
                 Object[] fila = new Object[4];
                 fila[0] = s;
                 fila[1] = s.getCupos();
@@ -162,11 +170,26 @@ public void cargarAct(){
     
     private void tfBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarKeyReleased
         // TODO add your handling code here:
-        if(tfBuscar.getText().equals(""))
+        if(tfBuscar.getText().equals("")){
             cargarAct();
+        }
         else
             buscarSocios(tfBuscar.getText());
     }//GEN-LAST:event_tfBuscarKeyReleased
+
+    private void tfBuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfBuscarFocusGained
+        // TODO add your handling code here:
+        if(tfBuscar.getText().trim().equals("Buscar")){
+            tfBuscar.setText("");
+        }
+    }//GEN-LAST:event_tfBuscarFocusGained
+
+    private void tfBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfBuscarFocusLost
+        // TODO add your handling code here:
+        if(tfBuscar.getText().trim().equals("")){
+            tfBuscar.setText("Buscar");
+        }
+    }//GEN-LAST:event_tfBuscarFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

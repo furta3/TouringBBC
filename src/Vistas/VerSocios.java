@@ -11,6 +11,7 @@ import Clases.Socio;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 
+
 /**
  *
  * @author nacho
@@ -26,6 +27,7 @@ public class VerSocios extends javax.swing.JPanel {
         initComponents();
         this.main=main;
         cargarSocios();
+        tfBuscar.setText("Buscar");
     }
     
     public void cargarSocios(){
@@ -67,10 +69,15 @@ public class VerSocios extends javax.swing.JPanel {
         jLabel1.setText("Socios");
 
         tfBuscar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        tfBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tfBuscarKeyPressed(evt);
+        tfBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfBuscarFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfBuscarFocusLost(evt);
+            }
+        });
+        tfBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 tfBuscarKeyReleased(evt);
             }
@@ -154,7 +161,11 @@ public class VerSocios extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(tSocios.getSelectedRowCount()==1){
             Socio so = (Socio) tSocios.getValueAt(tSocios.getSelectedRow(), 1);
-            Jugador ju = Conexion.getInstance().findJugador(so.getCi());
+            
+            DetallesSocio dj = new DetallesSocio(main,so);
+            main.AbrirDetallesJugador(dj);
+            
+            /*Jugador ju = Conexion.getInstance().findJugador(so.getCi());
             if(ju!=null){
                 DetallesJugador dj = new DetallesJugador(main,ju);
                 main.AbrirDetallesJugador(dj);
@@ -162,14 +173,9 @@ public class VerSocios extends javax.swing.JPanel {
             else{
                 DetallesSocio dj = new DetallesSocio(main,(Socio) tSocios.getValueAt(tSocios.getSelectedRow(), 1));
                 main.AbrirDetallesSocio(dj);
-            }
+            }*/
         }
     }//GEN-LAST:event_tSociosMousePressed
-
-    private void tfBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarKeyPressed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_tfBuscarKeyPressed
 
     private void tfBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarKeyReleased
         // TODO add your handling code here:
@@ -178,13 +184,27 @@ public class VerSocios extends javax.swing.JPanel {
         else
             buscarSocios(tfBuscar.getText());
     }//GEN-LAST:event_tfBuscarKeyReleased
+
+    private void tfBuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfBuscarFocusGained
+        // TODO add your handling code here:
+        if(tfBuscar.getText().trim().equals("Buscar")){
+            tfBuscar.setText("");
+        }
+    }//GEN-LAST:event_tfBuscarFocusGained
+
+    private void tfBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfBuscarFocusLost
+        // TODO add your handling code here:
+        if(tfBuscar.getText().trim().equals("")){
+            tfBuscar.setText("Buscar");
+        }
+    }//GEN-LAST:event_tfBuscarFocusLost
     public void buscarSocios(String buscar){
         DefaultTableModel mdl = (DefaultTableModel) tSocios.getModel();
         Iterator<Socio> it = main.socios.iterator();
         mdl.setRowCount(0);
         while (it.hasNext()) {
             Socio s = it.next();
-            if (s.isVigente() && (s.getNombre().contains(buscar) || s.getApellido().contains(buscar) || Integer.toString(s.getCi()).contains(buscar))) {  
+            if (s.isVigente() && (s.getNombre().toUpperCase().contains(buscar.toUpperCase()) || s.getApellido().toUpperCase().contains(buscar.toUpperCase()) || Integer.toString(s.getCi()).contains(buscar))) {  
                 Object[] fila = new Object[4];
                 fila[0] = s.getCi();
                 fila[1] = s;

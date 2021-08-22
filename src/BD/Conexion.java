@@ -231,7 +231,7 @@ public class Conexion {
         em.getTransaction().begin();
         try {
             //lista = em.createNativeQuery("SELECT * FROM Socio", Socio.class).getResultList();
-            lista = em.createQuery("SELECT a FROM Categoria a ", Categoria.class).getResultList();
+            lista = em.createQuery("SELECT a FROM Categoria a ORDER BY edadMin ASC", Categoria.class).getResultList();
             em.getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();

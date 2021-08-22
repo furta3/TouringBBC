@@ -960,7 +960,9 @@ public class AltaSocio extends javax.swing.JPanel {
         for(int d = 0 ;d<tFamiliares.getRowCount();d++){
             if((boolean) tFamiliares.getValueAt(d, 3)){
                 Socio so = (Socio) tFamiliares.getValueAt(d, 0);
-                Jugador ju = Conexion.getInstance().findJugador(so.getCi());
+                DetallesSocio dj = new DetallesSocio(main,so);
+                main.AbrirDetallesJugador(dj);
+                /*Jugador ju = Conexion.getInstance().findJugador(so.getCi());
                 if(ju!=null){
                     DetallesJugador dj = new DetallesJugador(main,ju);
                     main.AbrirDetallesJugador(dj);
@@ -968,7 +970,7 @@ public class AltaSocio extends javax.swing.JPanel {
                 else{
                     DetallesSocio dj = new DetallesSocio(main,(Socio) tFamiliares.getValueAt(d, 1));
                     main.AbrirDetallesSocio(dj);
-                }
+                }*/
             }
         }
         

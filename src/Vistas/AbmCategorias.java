@@ -9,6 +9,7 @@ import BD.Conexion;
 import Clases.Categoria;
 import Clases.TipoSocio;
 import java.util.Iterator;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,8 +22,10 @@ public class AbmCategorias extends javax.swing.JPanel {
      * Creates new form PanelVacio
      */
     Categoria cat;
-    public AbmCategorias() {
+    Principal main;
+    public AbmCategorias(Principal main) {
         initComponents();
+        this.main = main;
         cargarCat();
     }
 
@@ -36,7 +39,7 @@ public class AbmCategorias extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tTipos = new javax.swing.JTable();
+        tCategorias = new javax.swing.JTable();
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
@@ -51,8 +54,8 @@ public class AbmCategorias extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
-        tTipos.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        tTipos.setModel(new javax.swing.table.DefaultTableModel(
+        tCategorias.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        tCategorias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -68,12 +71,12 @@ public class AbmCategorias extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tTipos.addMouseListener(new java.awt.event.MouseAdapter() {
+        tCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                tTiposMousePressed(evt);
+                tCategoriasMousePressed(evt);
             }
         });
-        jScrollPane1.setViewportView(tTipos);
+        jScrollPane1.setViewportView(tCategorias);
 
         btnAgregar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnAgregar.setText("Agregar");
@@ -177,32 +180,46 @@ public class AbmCategorias extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tTiposMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tTiposMousePressed
+    private void tCategoriasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tCategoriasMousePressed
         // TODO add your handling code here:
-        if(tTipos.getSelectedRowCount()==1){
-            cat = (Categoria) tTipos.getValueAt(tTipos.getSelectedRow(), 0);
+        if(tCategorias.getSelectedRowCount()==1){
+            cat = (Categoria) tCategorias.getValueAt(tCategorias.getSelectedRow(), 0);
             tfNombre.setText(cat.getNombre());
         }
-    }//GEN-LAST:event_tTiposMousePressed
+    }//GEN-LAST:event_tCategoriasMousePressed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-
         Categoria ts = new Categoria();
         ts.setNombre(tfNombre.getText());
         ts.setEdadMin((int) sMin.getValue());
         ts.setEdadMax((int) sMax.getValue());
         ts.setVigente(true);
-        Conexion.getInstance().persist(ts);
-
-        tfNombre.setText("");
-        cargarCat();
-        limpiar();
+        if(verificarEdades(ts)){
+            Conexion.getInstance().persist(ts);
+            tfNombre.setText("");
+            sMin.setValue(0);
+            sMax.setValue(0);
+            main.categorias.add(ts);
+            cargarCat();
+            limpiar();
+        }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+    public boolean verificarEdades(Categoria nueva){
+        Iterator<Categoria> it = main.categorias.iterator();
+        while (it.hasNext()) {
+            Categoria s = it.next();
+            if (s.isVigente() && ((s.getEdadMax()>= nueva.getEdadMin() && s.getEdadMin() <= nueva.getEdadMin()) || (s.getEdadMax()>= nueva.getEdadMax() && s.getEdadMin() <= nueva.getEdadMax()))) {
+                JOptionPane.showMessageDialog(this, "Error con las edad, verificar que no haya incompatibilidad contras categorias.", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        return true;
+    }
+    
     public void cargarCat(){
-        Iterator<Categoria> it = Conexion.getInstance().getCategorias().iterator();
-        DefaultTableModel mdl = (DefaultTableModel) tTipos.getModel();
-        mdl.setRowCount(0);
+        Iterator<Categoria> it = main.categorias.iterator();
+        DefaultTableModel mdl = (DefaultTableModel) tCategorias.getModel();
         while (it.hasNext()) {
             Categoria s = it.next();
             if (s.isVigente()) {  
@@ -252,7 +269,7 @@ public class AbmCategorias extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner sMax;
     private javax.swing.JSpinner sMin;
-    private javax.swing.JTable tTipos;
+    private javax.swing.JTable tCategorias;
     private javax.swing.JTextField tfNombre;
     // End of variables declaration//GEN-END:variables
 }

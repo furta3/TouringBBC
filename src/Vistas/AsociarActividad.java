@@ -364,15 +364,8 @@ public class AsociarActividad extends javax.swing.JPanel {
         volver();
     }//GEN-LAST:event_btnAtrasActionPerformed
     public void volver(){
-        Jugador ju = Conexion.getInstance().findJugador(s.getCi());
-        if(ju!=null){
-            DetallesJugador dj = new DetallesJugador(main,ju);
-            main.AbrirDetallesJugador(dj);
-        }
-        else{
-            DetallesSocio dj = new DetallesSocio(main,s);
-            main.AbrirDetallesSocio(dj);
-        }
+        DetallesSocio dj = new DetallesSocio(main,s);
+                main.AbrirDetallesJugador(dj);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

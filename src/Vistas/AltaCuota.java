@@ -33,7 +33,9 @@ public class AltaCuota extends javax.swing.JPanel {
         //cuotas = Conexion.getInstance().getCuotas();
         this.main = main;
         cargarCuotas();
+        tfBuscar.setText("Buscar");
     }
+
     
     public void cargarCuotas(){
         Iterator<Cuota> it = main.cuotas.iterator();
@@ -80,6 +82,7 @@ public class AltaCuota extends javax.swing.JPanel {
         btnModificar = new javax.swing.JButton();
         lMod = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
+        tfBuscar = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -166,6 +169,21 @@ public class AltaCuota extends javax.swing.JPanel {
             }
         });
 
+        tfBuscar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        tfBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfBuscarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfBuscarFocusLost(evt);
+            }
+        });
+        tfBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfBuscarKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -173,6 +191,10 @@ public class AltaCuota extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAgregar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(429, 429, 429)
                         .addComponent(btnModificar)
@@ -187,7 +209,7 @@ public class AltaCuota extends javax.swing.JPanel {
                                     .addComponent(lPlantel1)
                                     .addComponent(lPlantel2)
                                     .addComponent(lPlantel3))
-                                .addGap(43, 43, 43)
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(tfNombre)
@@ -197,13 +219,11 @@ public class AltaCuota extends javax.swing.JPanel {
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(82, 82, 82)
-                                .addComponent(lMod))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btnAgregar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancelar)
-                                .addGap(97, 97, 97)))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lMod)))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(150, 150, 150)
@@ -215,36 +235,38 @@ public class AltaCuota extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lMod)
+                    .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(lMod)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lCarnet1)
                                 .addGap(18, 18, 18)
-                                .addComponent(lPlantel))
+                                .addComponent(lPlantel)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(tfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lPlantel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lPlantel2)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lPlantel3)
+                                    .addComponent(cbFrec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(dcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lPlantel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lPlantel2)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lPlantel3)
-                            .addComponent(cbFrec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnBorrar)
@@ -252,7 +274,7 @@ public class AltaCuota extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAgregar)
                         .addComponent(btnCancelar)))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -327,6 +349,45 @@ public class AltaCuota extends javax.swing.JPanel {
         limpiar();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void tfBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBuscarKeyReleased
+        // TODO add your handling code here:
+        if(tfBuscar.getText().equals("")){
+            cargarCuotas();
+        }
+        else
+            buscarCuotas(tfBuscar.getText());
+    }//GEN-LAST:event_tfBuscarKeyReleased
+
+    private void tfBuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfBuscarFocusGained
+        // TODO add your handling code here:
+        if(tfBuscar.getText().trim().equals("Buscar")){
+            tfBuscar.setText("");
+        }
+    }//GEN-LAST:event_tfBuscarFocusGained
+
+    private void tfBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfBuscarFocusLost
+        // TODO add your handling code here:
+        if(tfBuscar.getText().trim().equals("")){
+            tfBuscar.setText("Buscar");
+        }
+    }//GEN-LAST:event_tfBuscarFocusLost
+    public void buscarCuotas(String buscar){
+        DefaultTableModel mdl = (DefaultTableModel) tCuotas.getModel();
+        Iterator<Cuota> it = main.cuotas.iterator();
+        mdl.setRowCount(0);
+        while (it.hasNext()) {
+            Cuota s = it.next();
+            if (s.isVigente() && (s.getNombre().toUpperCase().contains(buscar.toUpperCase()) || s.getDescripcion().toUpperCase().contains(buscar.toUpperCase()))) {  
+                Object[] fila = new Object[5];
+                fila[0] = Conexion.sdf.format(s.getFecha());
+                fila[1] = s;
+                fila[2] = s.getMonto();
+                fila[3] = s.getDescripcion();
+                fila[4] = s.getFrecuencia();
+                mdl.addRow(fila);
+            }
+        }
+    }
     public void limpiar(){
         dcFecha.setDate(new Date());
         tfNombre.setText("");
@@ -353,6 +414,7 @@ public class AltaCuota extends javax.swing.JPanel {
     private javax.swing.JLabel lPlantel3;
     private javax.swing.JTable tCuotas;
     private javax.swing.JTextArea taDesc;
+    private javax.swing.JTextField tfBuscar;
     private javax.swing.JTextField tfMonto;
     private javax.swing.JTextField tfNombre;
     // End of variables declaration//GEN-END:variables

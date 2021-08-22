@@ -22,6 +22,8 @@ import Clases.TipoSocio;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.PopupMenu;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.ImageIcon;
 public class Principal extends javax.swing.JFrame {
@@ -30,7 +32,6 @@ public class Principal extends javax.swing.JFrame {
     static Principal padre;
     static AltaSocio aj;
     static AltaActividad aa;
-    static DetallesSocio dj;
     static AsociarActividad asac;
     static AltaCuota ac;
     static VerSocios vs;
@@ -38,7 +39,7 @@ public class Principal extends javax.swing.JFrame {
     Inicio i = new Inicio();
     static VerActividades vact;
     static DetallesActividad da;
-    static DetallesJugador dju;
+    static DetallesSocio dju;
     
     public static List<Cuota> cuotas;
     public static List<Actividad> actividades;
@@ -58,6 +59,19 @@ public class Principal extends javax.swing.JFrame {
         cargarDatos();
         //ImageIcon icono = new ImageIcon("src/Images/ico.png");
         //this.setIconImage(icono.getImage());
+    }
+    
+    public void verificarCategorias(){
+        Iterator<Jugador> it = jugadores.iterator();
+        Date hoy = new Date();
+        while (it.hasNext()) {
+            Jugador j = it.next();
+            if (j.isVigente() && (hoy.getYear()-j.getFechaNac().getYear() > j.getPlantel().getEdadMax()) && categorias.get(categorias.size()-1) != j.getPlantel()) {  
+                j.setPlantel( categorias.get(categorias.indexOf(j.getPlantel())+1) );
+                Conexion.getInstance().merge(j);
+                jugadores.add(jugadores.indexOf(j), j);
+            }
+        }
     }
     
     public void cargarDatos(){
@@ -267,7 +281,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void mSCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSCategoriasActionPerformed
         // TODO add your handling code here:
-        AbrirAbmCategorias(new AbmCategorias());
+        AbrirAbmCategorias(new AbmCategorias(this));
     }//GEN-LAST:event_mSCategoriasActionPerformed
 
     private void mAVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAVerActionPerformed
@@ -276,7 +290,7 @@ public class Principal extends javax.swing.JFrame {
         AbrirVerActividades();
     }//GEN-LAST:event_mAVerActionPerformed
     
-    public static void AbrirDetallesJugador(DetallesJugador djv){
+    public static void AbrirDetallesJugador(DetallesSocio djv){
         dju = djv;
         jPanel1.removeAll();
         jPanel1.add(dju);
@@ -343,15 +357,6 @@ public class Principal extends javax.swing.JFrame {
         aj.setVisible(true);
         jPanel1.removeAll();
         jPanel1.add(aj);
-        jPanel1.repaint();
-        jPanel1.revalidate();
-    }
-    
-    public static void AbrirDetallesSocio(DetallesSocio djp){
-        dj = djp;
-        dj.setVisible(true);
-        jPanel1.removeAll();
-        jPanel1.add(dj);
         jPanel1.repaint();
         jPanel1.revalidate();
     }
