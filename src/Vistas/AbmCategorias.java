@@ -184,22 +184,34 @@ public class AbmCategorias extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(tCategorias.getSelectedRowCount()==1){
             cat = (Categoria) tCategorias.getValueAt(tCategorias.getSelectedRow(), 0);
-            tfNombre.setText(cat.getNombre());
         }
     }//GEN-LAST:event_tCategoriasMousePressed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        Categoria ts = new Categoria();
-        ts.setNombre(tfNombre.getText());
-        ts.setEdadMin((int) sMin.getValue());
-        ts.setEdadMax((int) sMax.getValue());
-        ts.setVigente(true);
-        if(verificarEdades(ts)){
-            Conexion.getInstance().persist(ts);
-            tfNombre.setText("");
-            sMin.setValue(0);
-            sMax.setValue(0);
-            main.categorias.add(ts);
+        if(btnAgregar.getText().equals("Agregar")){
+            Categoria ts = new Categoria();
+            ts.setNombre(tfNombre.getText());
+            ts.setEdadMin((int) sMin.getValue());
+            ts.setEdadMax((int) sMax.getValue());
+            ts.setVigente(true);
+            if(verificarEdades(ts)){
+                Conexion.getInstance().persist(ts);
+                tfNombre.setText("");
+                sMin.setValue(0);
+                sMax.setValue(0);
+                main.categorias  = Conexion.getInstance().getCategorias();
+                cargarCat();
+                limpiar();
+            }
+        }
+        else{
+            cat.setNombre(tfNombre.getText());
+            cat.setEdadMin((int)sMin.getValue());
+            cat.setEdadMax((int)sMax.getValue());
+            btnAgregar.setText("Agregar");
+            btnEliminar.setText("Eliminar");
+            Conexion.getInstance().merge(cat);
+            main.categorias = Conexion.getInstance().getCategorias();
             cargarCat();
             limpiar();
         }
@@ -209,10 +221,12 @@ public class AbmCategorias extends javax.swing.JPanel {
         Iterator<Categoria> it = main.categorias.iterator();
         while (it.hasNext()) {
             Categoria s = it.next();
-            if (s.isVigente() && ((s.getEdadMax()>= nueva.getEdadMin() && s.getEdadMin() <= nueva.getEdadMin()) || (s.getEdadMax()>= nueva.getEdadMax() && s.getEdadMin() <= nueva.getEdadMax()))) {
-                JOptionPane.showMessageDialog(this, "Error con las edad, verificar que no haya incompatibilidad contras categorias.", "Error", JOptionPane.ERROR_MESSAGE);
+            if(s.isVigente() && ((s.getEdadMax()>= nueva.getEdadMin() && s.getEdadMin() <= nueva.getEdadMin()) || (s.getEdadMax()>= nueva.getEdadMax() && s.getEdadMin() <= nueva.getEdadMax()))) {
+                JOptionPane.showMessageDialog(this, "Error con las edad, verificar que no haya incompatibilidad con otras categorias.", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
+            if((int)sMin.getValue() <= (int)sMax.getValue())
+                JOptionPane.showMessageDialog(this, "Error con las edad, la edad máxima no puede ser menor o igual a la mínima.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return true;
     }
@@ -220,6 +234,7 @@ public class AbmCategorias extends javax.swing.JPanel {
     public void cargarCat(){
         Iterator<Categoria> it = main.categorias.iterator();
         DefaultTableModel mdl = (DefaultTableModel) tCategorias.getModel();
+        mdl.setRowCount(0);
         while (it.hasNext()) {
             Categoria s = it.next();
             if (s.isVigente()) {  
@@ -235,13 +250,23 @@ public class AbmCategorias extends javax.swing.JPanel {
         tfNombre.setText("");
         sMin.setValue(0);
         sMax.setValue(0);
+        cat = null;
+        tCategorias.clearSelection();
     }
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        if(cat != null){
-            cat.setVigente(false);
-            Conexion.getInstance().merge(cat);
-            cargarCat();
+        if(btnEliminar.getText().equals("Eliminar")){
+            if(cat != null){
+                cat.setVigente(false);
+                Conexion.getInstance().merge(cat);
+                main.categorias = Conexion.getInstance().getCategorias();
+                cargarCat();
+                limpiar();
+            }
+        }
+        else{
+            btnAgregar.setText("Agregar");
+            btnEliminar.setText("Eliminar");
             limpiar();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -249,10 +274,11 @@ public class AbmCategorias extends javax.swing.JPanel {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
         if(cat != null){
-            cat.setNombre(tfNombre.getText());
-            Conexion.getInstance().merge(cat);
-            cargarCat();
-            limpiar();
+            btnAgregar.setText("Confirmar");
+            btnEliminar.setText("Cancelar");
+            tfNombre.setText(cat.getNombre());
+            sMin.setValue(cat.getEdadMin());
+            sMax.setValue(cat.getEdadMax());
         }
 
     }//GEN-LAST:event_btnModificarActionPerformed

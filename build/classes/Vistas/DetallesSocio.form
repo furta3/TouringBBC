@@ -1064,8 +1064,14 @@
               </Properties>
             </Component>
             <Component class="com.toedter.calendar.JMonthChooser" name="mc">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="mcPropertyChange"/>
+              </Events>
             </Component>
             <Component class="com.toedter.calendar.JYearChooser" name="yc">
+              <Events>
+                <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="ycPropertyChange"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel1">
               <Properties>

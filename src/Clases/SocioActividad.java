@@ -35,6 +35,17 @@ public class SocioActividad implements Serializable {
     @ManyToMany
     private List<Horario> horarios;
 
+    @ManyToOne
+    private Cuota cuota;
+
+    public Cuota getCuota() {
+        return cuota;
+    }
+
+    public void setCuota(Cuota cuota) {
+        this.cuota = cuota;
+    }
+    
     public Socio getSocios() {
         return socios;
     }

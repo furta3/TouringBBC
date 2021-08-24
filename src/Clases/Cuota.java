@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
@@ -24,6 +25,9 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Cuota implements Serializable {
+
+    @OneToMany(mappedBy = "cuota")
+    private List<SocioActividad> socioActividades;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -102,6 +102,8 @@ public class Principal extends javax.swing.JFrame {
         mAAgregar = new javax.swing.JMenuItem();
         mCuotas = new javax.swing.JMenu();
         mCAgregar = new javax.swing.JMenuItem();
+        mCategoria = new javax.swing.JMenu();
+        mCItem = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -207,7 +209,7 @@ public class Principal extends javax.swing.JFrame {
 
         mCuotas.setText("Cuotas");
 
-        mCAgregar.setText("Agregar");
+        mCAgregar.setText("Gestionar");
         mCAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mCAgregarActionPerformed(evt);
@@ -216,6 +218,13 @@ public class Principal extends javax.swing.JFrame {
         mCuotas.add(mCAgregar);
 
         jMenuBar1.add(mCuotas);
+
+        mCategoria.setText("Categorias");
+
+        mCItem.setText("Reportes");
+        mCategoria.add(mCItem);
+
+        jMenuBar1.add(mCategoria);
 
         setJMenuBar(jMenuBar1);
 
@@ -433,6 +442,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mAVer;
     private javax.swing.JMenu mActividades;
     private javax.swing.JMenuItem mCAgregar;
+    private javax.swing.JMenuItem mCItem;
+    private javax.swing.JMenu mCategoria;
     private javax.swing.JMenu mCuotas;
     private javax.swing.JMenuItem mIInicio;
     private javax.swing.JMenuItem mSASocio;

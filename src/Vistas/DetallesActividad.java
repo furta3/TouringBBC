@@ -261,7 +261,6 @@ public class DetallesActividad extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tCuotas);
 
         cbCuotas.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        cbCuotas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel3.setText("Cuota:");

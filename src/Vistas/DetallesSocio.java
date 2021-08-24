@@ -664,6 +664,18 @@ public class DetallesSocio extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel12.setText("Pagos");
 
+        mc.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                mcPropertyChange(evt);
+            }
+        });
+
+        yc.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                ycPropertyChange(evt);
+            }
+        });
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nuevo pago"));
 
@@ -896,9 +908,11 @@ public class DetallesSocio extends javax.swing.JPanel {
         s.setApellido(tfApellido.getText());
         s.setTelefono(tfTelefono.getText());
         s.setFechaNac(dcFechaNac.getDate());
+        s.setDireccion(tfDireccion.getText());
         //s.setRol(cbRol.getSelectedItem().toString());
         s.setTipo((TipoSocio)cbTipoSocio.getSelectedItem());
         Conexion.getInstance().merge(s);
+        main.socios.set(main.socios.indexOf(s), s);
         JOptionPane.showMessageDialog(this, "Datos actualizados.", "Información", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
@@ -915,11 +929,11 @@ public class DetallesSocio extends javax.swing.JPanel {
                     loadAct();
                 break;
                 case 2:
-                    loadCuotas();
-                    loadCB();
+                    loadFamilia();
                 break;
                 case 3:
-                    loadFamilia();
+                    loadCuotas();
+                    loadCB();
                 break;
                 case 4:
                     cargarPagos();
@@ -938,6 +952,8 @@ public class DetallesSocio extends javax.swing.JPanel {
             if (JOptionPane.showConfirmDialog(this, "¿Seguro de que quiere eliminar este producto?", "Consulta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                 PagoBBC p = (PagoBBC) tPagos.getValueAt(tPagos.getSelectedRow(), 1);
                 Conexion.getInstance().delete(p);//pedir confirmacion
+                Conexion.getInstance().merge(s);
+                main.socios.set(main.socios.indexOf(s), s);
                 cargarPagos();
             }
         }
@@ -951,6 +967,8 @@ public class DetallesSocio extends javax.swing.JPanel {
             p.setFecha(new Date());
             p.setMonto((int)sMonto.getValue());
             Conexion.getInstance().persist(p);
+            Conexion.getInstance().merge(s);
+            main.socios.set(main.socios.indexOf(s), s);
             cargarPagos();
         }
 
@@ -976,6 +994,8 @@ public class DetallesSocio extends javax.swing.JPanel {
             Conexion.getInstance().merge(eliFamiliar);
             DefaultTableModel dtm = (DefaultTableModel) tFamiliares.getModel();
             dtm.removeRow(tFamiliares.getSelectedRow());
+            Conexion.getInstance().merge(s);
+            main.socios.set(main.socios.indexOf(s), s);
             JOptionPane.showMessageDialog(this, "Miembro eliminado de la familia.", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarFamiliarActionPerformed
@@ -1065,7 +1085,7 @@ public class DetallesSocio extends javax.swing.JPanel {
         j.setTipoCarnet(cbTipoCarnet.getSelectedIndex());
         j.setVenCi(dcVenCi.getDate());
         j.setDetalles(taDesc.getText());
-        Conexion.getInstance().merge(s);
+        Conexion.getInstance().merge(j);
         JOptionPane.showMessageDialog(this, "Datos de jugador actualizados.", "Información", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnActualizarJugadorActionPerformed
 
@@ -1074,7 +1094,10 @@ public class DetallesSocio extends javax.swing.JPanel {
         if(tActividades.getSelectedRowCount()==1){
             if (JOptionPane.showConfirmDialog(this, "¿Seguro de que quiere eliminar esta actividad de la tabla?", "Consulta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                 SocioActividad sa = (SocioActividad) tActividades.getValueAt(tActividades.getSelectedRow(), 1);
+                s.getActividades().remove(sa);
                 Conexion.getInstance().delete(sa);
+                Conexion.getInstance().merge(s);
+                main.socios.set(main.socios.indexOf(s), s);
                 DefaultTableModel mdl = (DefaultTableModel) tActividades.getModel();
                 mdl.removeRow(tActividades.getSelectedRow());
             }
@@ -1104,6 +1127,7 @@ public class DetallesSocio extends javax.swing.JPanel {
                     s2.setFamilia(s.getFamilia());
                     s2.setRol(false);
                     Conexion.getInstance().merge(s2);
+                    main.socios.set(main.socios.indexOf(s2), s2);
                     addFamiliar(s2);
                     JOptionPane.showMessageDialog(this, "Familiar Agregado.", "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -1114,21 +1138,9 @@ public class DetallesSocio extends javax.swing.JPanel {
                     Conexion.getInstance().merge(s2);
                     Conexion.getInstance().delete(fami);
                     addFamiliar(s2);
-                    JOptionPane.showMessageDialog(this, "Familiar Agregado.", "Información", JOptionPane.INFORMATION_MESSAGE);
-                    /*List<PagoBBC> pagos = new ArrayList<PagoBBC>();
-                    Iterator<PagoBBC> it = s2.getFamilia().getPagos().iterator();
-                    while(it.hasNext()){
-                        PagoBBC p = (PagoBBC) it.next();
-                        p.setFamilia(s.getFamilia());
-                        pagos.add(p);
-                        //Conexion.getInstance().merge(p);
-                    }
-                    s.getFamilia().getPagos().addAll(pagos);
-                    s2.setRol(false);
-                    s2.setFamilia(s.getFamilia());
                     Conexion.getInstance().merge(s2);
-                    Conexion.getInstance().delete(s2.getFamilia());
-                    addFamiliar(s2);*/
+                    main.socios.set(main.socios.indexOf(s2), s2);
+                    JOptionPane.showMessageDialog(this, "Familiar Agregado.", "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         }
@@ -1155,6 +1167,7 @@ public class DetallesSocio extends javax.swing.JPanel {
                         Socio soci2 = (Socio) tFamiliares.getValueAt(i, 0);
                         soci2.setRol(false);
                         Conexion.getInstance().merge(soci2);
+                        main.socios.set(main.socios.indexOf(soci2), soci2);
                         tFamiliares.setValueAt(false, i, 3);
                     }
                 }
@@ -1165,6 +1178,16 @@ public class DetallesSocio extends javax.swing.JPanel {
             
         }
     }//GEN-LAST:event_tFamiliaresMouseClicked
+
+    private void mcPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_mcPropertyChange
+        // TODO add your handling code here:
+        cargarPagos();
+    }//GEN-LAST:event_mcPropertyChange
+
+    private void ycPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_ycPropertyChange
+        // TODO add your handling code here:
+        cargarPagos();
+    }//GEN-LAST:event_ycPropertyChange
     
     public void addFamiliar(Socio s3){
         DefaultTableModel mdl = (DefaultTableModel) tFamiliares.getModel();
@@ -1176,13 +1199,14 @@ public class DetallesSocio extends javax.swing.JPanel {
         mdl.addRow(fila); 
     }
     public void cargarPagos(){
-        Conexion.getInstance().refresh(s);
+        //Conexion.getInstance().refresh(s);
         Iterator<PagoBBC> it = s.getPagos().iterator();
         DefaultTableModel mdl = (DefaultTableModel) tPagos.getModel();
         mdl.setRowCount(0);
         while (it.hasNext()) {
             PagoBBC sa = it.next();
-            if (sa.getFecha().getYear() == yc.getYear() && sa.getFecha().getMonth() == mc.getMonth()) {  
+            System.out.println("sa year = "+(sa.getFecha().getYear()+1900)+", sa month = "+sa.getFecha().getMonth()+", year chooser = "+yc.getYear()+", month chooser = "+mc.getMonth());
+            if (sa.getFecha().getYear()+1900 == yc.getYear() && sa.getFecha().getMonth() == mc.getMonth()) {  
                 Object[] fila = new Object[2];
                 fila[0] = Conexion.sdf.format(sa.getFecha());
                 fila[1] = sa;
@@ -1191,7 +1215,7 @@ public class DetallesSocio extends javax.swing.JPanel {
         }
     }
     public void loadAct(){
-        Iterator<SocioActividad> it = Conexion.getInstance().getActAsociadas( Integer.toString(s.getCi())).iterator();
+        Iterator<SocioActividad> it = s.getActividades().iterator(); //Conexion.getInstance().getActAsociadas( Integer.toString(s.getCi())).iterator();
         DefaultTableModel mdl = (DefaultTableModel) tActividades.getModel();
         mdl.setRowCount(0);
         while (it.hasNext()) {
@@ -1207,10 +1231,10 @@ public class DetallesSocio extends javax.swing.JPanel {
     }
     
     public void loadCuotas(){
+        DefaultTableModel mdl = (DefaultTableModel) tCuotas.getModel();
+        mdl.setRowCount(0);
         if(s.getCuotas().size()>0){
             Iterator<Cuota> it = s.getCuotas().iterator();
-            DefaultTableModel mdl = (DefaultTableModel) tCuotas.getModel();
-            mdl.setRowCount(0);
             while (it.hasNext()) {
                 Cuota sa = it.next();
                 if (sa.isVigente()) {  
@@ -1223,16 +1247,30 @@ public class DetallesSocio extends javax.swing.JPanel {
                 }
             }
         }
+        if(s.getActividades().size()>0){
+            Iterator<SocioActividad> it2 = s.getActividades().iterator();
+            while (it2.hasNext()) {
+                SocioActividad sa2 = it2.next();
+                Cuota c = sa2.getCuota();
+                if (c.isVigente()) {  
+                    Object[] fila = new Object[4];
+                    fila[0] = Conexion.sdf.format(c.getFecha());
+                    fila[1] = c;
+                    fila[2] = c.getDescripcion();
+                    fila[3] = c.getMonto();
+                    mdl.addRow(fila); 
+                }
+            }
+        }
     }
     
     public void loadCB(){
-        List<Cuota> act;
-        act = Conexion.getInstance().getCuotas();
+        List<Cuota> cuotas = main.cuotas;
         DefaultComboBoxModel dcm = new DefaultComboBoxModel();
-        for(Cuota cliente: act){
-            //if(cliente.isVigente()){
-                dcm.addElement(cliente);
-            //}
+        for(Cuota c: cuotas){
+            if(c.isVigente() && c.getActividad() == null){
+                dcm.addElement(c);
+            }
         }
         cbCuotas.setModel(dcm);
     }
@@ -1257,7 +1295,7 @@ public class DetallesSocio extends javax.swing.JPanel {
     
     public void loadJugador(){
         List<Categoria> ts;
-        ts = Conexion.getInstance().getCategorias();
+        ts = main.categorias;
         DefaultComboBoxModel dcm = new DefaultComboBoxModel();
         for(Categoria tipo: ts){
                 if(tipo.isVigente()){

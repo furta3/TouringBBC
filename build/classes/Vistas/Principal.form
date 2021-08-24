@@ -123,11 +123,23 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mCAgregar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Agregar"/>
+                <Property name="text" type="java.lang.String" value="Gestionar"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mCAgregarActionPerformed"/>
               </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="mCategoria">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Categorias"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mCItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Reportes"/>
+              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
