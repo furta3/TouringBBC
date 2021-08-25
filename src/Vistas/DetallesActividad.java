@@ -13,6 +13,7 @@ import Clases.SocioActividad;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -37,6 +38,7 @@ public class DetallesActividad extends javax.swing.JPanel {
         tfNombre.setText(act.getNombre());
         sCupos.setValue(act.getCupos());
         cargarHorarios();
+        cargarCuotas();
     }
     public void cargarHorarios(){
         //Conexion.getInstance().refresh(f);
@@ -51,6 +53,31 @@ public class DetallesActividad extends javax.swing.JPanel {
                         fila[1] = h.getHora();
                         fila[2] = h.getDuracion();
                         mdl.addRow(fila);
+                }
+        }
+    }
+    public void cargarCuotas(){
+        List<Cuota> ts = main.cuotas;
+        DefaultComboBoxModel dcm = new DefaultComboBoxModel();
+        for(Cuota tipo: ts){
+                if(tipo.isVigente()){
+                        dcm.addElement(tipo);
+                }
+        }
+        cbCuotas.setModel(dcm);
+        
+        Iterator<Cuota> it = act.getCuotas().iterator();
+        DefaultTableModel mdl = (DefaultTableModel) tCuotas.getModel();
+        mdl.setRowCount(0);
+        while (it.hasNext()) {
+                Cuota h = it.next();
+                if (h.isVigente()) {  
+                    Object[] fila = new Object[5];
+                    fila[0] = h;
+                    fila[1] = h.getMonto();
+                    fila[2] = h.getFrecuencia();
+                    mdl.addRow(fila);
+                    cbCuotas.removeItem(h);
                 }
         }
     }
@@ -390,12 +417,21 @@ public class DetallesActividad extends javax.swing.JPanel {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
-        if(!tfNombre.getText().equals("") && (int)sCupos.getValue() > 0 && tHorarios.getRowCount()>0 && tCuotas.getRowCount()>0){
+        if(tCuotas.getRowCount()<=0)
+            JOptionPane.showMessageDialog(this, "La actividad  debe tener al menos una cuota.", "Error", JOptionPane.ERROR_MESSAGE);
+        else if(tHorarios.getRowCount()<=0)
+            JOptionPane.showMessageDialog(this, "La actividad  debe tener al menos un horario.", "Error", JOptionPane.ERROR_MESSAGE);
+        else if((int)sCupos.getValue() <= 0)
+            JOptionPane.showMessageDialog(this, "La cantidad de cupos no puede ser menor o igual a 0.", "Error", JOptionPane.ERROR_MESSAGE);
+        else if(tfNombre.getText().equals(""))
+            JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        else{
             act.setNombre(tfNombre.getText());
             act.setCupos((int)sCupos.getValue());
             act.setVigente(true);
             Conexion.getInstance().merge(act);
-            main.actividades = Conexion.getInstance().getActividades();
+            //main.actividades = Conexion.getInstance().getActividades();
+            main.actividades.set(main.actividades.indexOf(act), act);
             JOptionPane.showMessageDialog(this, "Actividad actualizada con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnConfirmarActionPerformed

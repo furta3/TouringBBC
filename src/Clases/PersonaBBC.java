@@ -89,7 +89,12 @@ public class PersonaBBC implements Serializable {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
+    
+    public int getEdad(){
+        Date hoy = new Date();
+        return (hoy.getYear() - fechaNac.getYear());
+    }
+    
     @Override
     public String toString() {
         return nombre + " " + apellido;

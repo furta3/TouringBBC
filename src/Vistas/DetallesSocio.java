@@ -1086,6 +1086,7 @@ public class DetallesSocio extends javax.swing.JPanel {
         j.setVenCi(dcVenCi.getDate());
         j.setDetalles(taDesc.getText());
         Conexion.getInstance().merge(j);
+        main.jugadores.set(main.jugadores.indexOf(j), j);
         JOptionPane.showMessageDialog(this, "Datos de jugador actualizados.", "Información", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnActualizarJugadorActionPerformed
 

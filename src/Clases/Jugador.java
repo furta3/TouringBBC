@@ -70,7 +70,7 @@ public class Jugador extends Socio implements Serializable {
         this.plantel = Plantel;
     }
     
-
+    
     @Override
     public String toString() {
         return super.getNombre();//en la tabla socios me muestra este toString, siendo que listo los socios para llenar la tabla

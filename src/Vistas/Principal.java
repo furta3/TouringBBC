@@ -40,6 +40,7 @@ public class Principal extends javax.swing.JFrame {
     static VerActividades vact;
     static DetallesActividad da;
     static DetallesSocio dju;
+    static VerCategorias vc;
     
     public static List<Cuota> cuotas;
     public static List<Actividad> actividades;
@@ -80,7 +81,7 @@ public class Principal extends javax.swing.JFrame {
         socios = Conexion.getInstance().getSocios();
         categorias = Conexion.getInstance().getCategorias();
         tiposSocios = Conexion.getInstance().getTiposSocios();
-        
+        jugadores = Conexion.getInstance().getJugadores();
     }
 
     @SuppressWarnings("unchecked")
@@ -220,8 +221,18 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.add(mCuotas);
 
         mCategoria.setText("Categorias");
+        mCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mCategoriaActionPerformed(evt);
+            }
+        });
 
         mCItem.setText("Reportes");
+        mCItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mCItemActionPerformed(evt);
+            }
+        });
         mCategoria.add(mCItem);
 
         jMenuBar1.add(mCategoria);
@@ -298,6 +309,24 @@ public class Principal extends javax.swing.JFrame {
         vact=new VerActividades(this);
         AbrirVerActividades();
     }//GEN-LAST:event_mAVerActionPerformed
+
+    private void mCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mCategoriaActionPerformed
+        // TODO add your handling code here:
+        AbrirVerCategorias(new VerCategorias(this));
+    }//GEN-LAST:event_mCategoriaActionPerformed
+
+    private void mCItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mCItemActionPerformed
+        // TODO add your handling code here:
+        AbrirVerCategorias(new VerCategorias(this));
+    }//GEN-LAST:event_mCItemActionPerformed
+    
+    public static void AbrirVerCategorias(VerCategorias vcv){
+        vc = vcv;
+        jPanel1.removeAll();
+        jPanel1.add(vc);
+        jPanel1.repaint();
+        jPanel1.revalidate();
+    }
     
     public static void AbrirDetallesJugador(DetallesSocio djv){
         dju = djv;

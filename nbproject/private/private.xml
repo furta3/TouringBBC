@@ -4,19 +4,24 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/AsociarActividad.java</file>
+            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/VerCategorias.java</file>
+            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/MiRender.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/DetallesSocio.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Actividad.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Socio.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/AltaSocio.java</file>
+            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/SocioActividad.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/VerActividades.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/BD/Conexion.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Categoria.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/VerSocios.java</file>
+            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/VencimientosRender.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Cuota.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/Principal.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/DetallesActividad.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/AltaCuota.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/AbmTipoSocios.java</file>
+            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Jugador.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/AltaActividad.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/AbmCategorias.java</file>
         </group>
