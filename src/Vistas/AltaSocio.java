@@ -645,6 +645,7 @@ public class AltaSocio extends javax.swing.JPanel {
                     j.setRol(true);
                     Conexion.getInstance().persist(j);
                     main.socios = Conexion.getInstance().getSocios();
+                    main.jugadores.add(j);
                     JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
@@ -658,6 +659,7 @@ public class AltaSocio extends javax.swing.JPanel {
                         cuota.getSocios().add(j);
                         Conexion.getInstance().merge(cuota);
                         main.socios = Conexion.getInstance().getSocios();
+                        main.jugadores.add(j);
                         JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                     }
                     else{
@@ -665,6 +667,7 @@ public class AltaSocio extends javax.swing.JPanel {
                         cuota.getSocios().add(j);
                         Conexion.getInstance().merge(cuota);
                         main.socios = Conexion.getInstance().getSocios();
+                        main.jugadores.add(j);
                         JOptionPane.showMessageDialog(this, "Socio "+j.getNombre()+" "+j.getApellido()+" agregado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                     }
                 }

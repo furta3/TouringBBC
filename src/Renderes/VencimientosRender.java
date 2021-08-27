@@ -1,6 +1,7 @@
-package Vistas;
+package Renderes;
 
 import BD.Conexion;
+import Clases.Jugador;
 import java.awt.Color;
 import java.awt.Component;
 import java.text.SimpleDateFormat;
@@ -16,39 +17,34 @@ public static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                                    boolean hasFocus, 
                                                    int row, 
                                                    int column) {
+        
+        Jugador j = (Jugador) table.getValueAt(row, 0);
  
-        Date VenCarnet = (Date) table.getValueAt(row, 3);
-        Date VenCi = (Date) table.getValueAt(row, 4);
+        Date VenCarnet = j.getCarnetHabilitante();
+        Date VenCi = j.getVenCi();
         Date hoy = new Date();
         
         long difCi = diasEntreDosFechas(hoy,VenCi);
         long difCarnet = diasEntreDosFechas(hoy,VenCarnet);
         
-        if((difCi <= 10 && difCi >0) || (difCarnet <= 10 && difCarnet >0)){
-            //setBackground(Color.YELLOW);
-            setBackground(new Color(255,255,153));
-            setForeground(Color.BLACK);
-        }
-        else if(difCi <= 0 && difCarnet <=0){
+        if(difCi <= 0 || difCarnet <=0){
             //setBackground(Color.RED);
             setBackground(new Color(255,153,153));
             setForeground(Color.BLACK);
+            //System.out.println("ROJO:: nombre: "+j.getNombre()+" venCi: "+difCi+", venCarnet: "+difCarnet);
         }
-        
-        table.setValueAt(sdf.format(VenCarnet), row, 3);
-        table.setValueAt(sdf.format(VenCi), row, 4);
-        
-        /*if (numero >= 10) {
-            setBackground(Color.GREEN);
+        else if((difCi <= 10 && difCi >0) || (difCarnet <= 10 && difCarnet >0)){//(difCi <= 10 && difCi >0) || (difCarnet <= 10 && difCarnet >0)
+            //setBackground(Color.YELLOW);
+            setBackground(new Color(255,255,153));
             setForeground(Color.BLACK);
-        } else if (numero >= 5 && numero < 10) {
-            setBackground(Color.YELLOW);
+            //System.out.println("AMARILLO: nombre: "+j.getNombre()+" venCi: "+difCi+", venCarnet: "+difCarnet);
+        }
+        else{
+            setBackground(Color.white);
             setForeground(Color.BLACK);
-        } else {
-            setBackground(Color.RED);
-            setForeground(Color.BLACK);
-        }*/
- 
+            //System.out.println("BLANCO: nombre: "+j.getNombre()+" venCi: "+difCi+", venCarnet: "+difCarnet);
+        }
+
         return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
     }
     

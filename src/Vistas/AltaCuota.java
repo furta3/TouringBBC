@@ -48,7 +48,7 @@ public class AltaCuota extends javax.swing.JPanel {
             Cuota s = it.next();
             if (s.isVigente()) {  
                 Object[] fila = new Object[5];
-                fila[0] = Conexion.sdf.format(s.getFecha());
+                fila[0] = main.sdf.format(s.getFecha());
                 fila[1] = s;
                 fila[2] = s.getMonto();
                 fila[3] = s.getDescripcion();
@@ -83,7 +83,6 @@ public class AltaCuota extends javax.swing.JPanel {
         lCarnet1 = new javax.swing.JLabel();
         dcFecha = new com.toedter.calendar.JDateChooser();
         lPlantel1 = new javax.swing.JLabel();
-        tfMonto = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         taDesc = new javax.swing.JTextArea();
         lPlantel2 = new javax.swing.JLabel();
@@ -99,6 +98,7 @@ public class AltaCuota extends javax.swing.JPanel {
         tfBuscar = new javax.swing.JTextField();
         lPlantel4 = new javax.swing.JLabel();
         cbActividades = new javax.swing.JComboBox<>();
+        sMonto = new javax.swing.JSpinner();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -116,8 +116,6 @@ public class AltaCuota extends javax.swing.JPanel {
 
         lPlantel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lPlantel1.setText("Monto:");
-
-        tfMonto.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
         taDesc.setColumns(20);
         taDesc.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -214,11 +212,6 @@ public class AltaCuota extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lPlantel4)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(429, 429, 429)
                         .addComponent(btnModificar)
@@ -226,26 +219,36 @@ public class AltaCuota extends javax.swing.JPanel {
                         .addComponent(btnBorrar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnAgregar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCancelar)
+                                .addGap(122, 122, 122))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lCarnet1)
-                                    .addComponent(lPlantel)
-                                    .addComponent(lPlantel1)
-                                    .addComponent(lPlantel2)
-                                    .addComponent(lPlantel3))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(tfNombre)
-                                        .addComponent(dcFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(tfMonto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(cbFrec, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbActividades, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(82, 82, 82)
-                                .addComponent(lMod)))
-                        .addGap(25, 25, 25)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lCarnet1)
+                                            .addComponent(lPlantel)
+                                            .addComponent(lPlantel1)
+                                            .addComponent(lPlantel2)
+                                            .addComponent(lPlantel3))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cbFrec, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(sMonto, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(tfNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(dcFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(82, 82, 82)
+                                        .addComponent(lMod))
+                                    .addComponent(lPlantel4)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(83, 83, 83)
+                                        .addComponent(cbActividades, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(25, 25, 25)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -261,80 +264,96 @@ public class AltaCuota extends javax.swing.JPanel {
                     .addComponent(lMod)
                     .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lCarnet1)
-                        .addGap(18, 18, 18)
-                        .addComponent(lPlantel)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lPlantel1))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lCarnet1)
+                                .addGap(18, 18, 18)
+                                .addComponent(lPlantel))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(dcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lPlantel2)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lPlantel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lPlantel2)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lPlantel3)
+                                    .addComponent(cbFrec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(sMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lPlantel3)
-                            .addComponent(cbFrec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(dcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lPlantel4)
+                            .addComponent(cbActividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lPlantel4)
-                    .addComponent(cbActividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnBorrar)
-                        .addComponent(btnModificar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAgregar)
-                        .addComponent(btnCancelar)))
-                .addGap(28, 28, 28))
+                    .addComponent(btnBorrar)
+                    .addComponent(btnModificar)
+                    .addComponent(btnAgregar)
+                    .addComponent(btnCancelar))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         if(btnAgregar.getText().equals("Agregar")){
-            Cuota c = new Cuota();
-            c.setMonto(Integer.parseInt(tfMonto.getText()));
-            c.setNombre(tfNombre.getText());
-            c.setFecha(dcFecha.getDate());
-            c.setDescripcion(taDesc.getText());
-            c.setFrecuencia(cbFrec.getSelectedItem().toString());
-            c.setVigente(true);
-            if(cbActividades.getSelectedIndex()!=0)
-                c.setActividad((Actividad)  cbActividades.getSelectedItem());
-            Conexion.getInstance().persist(c);
-            main.cuotas.add(c);
-            cargarCuotas();
-            JOptionPane.showMessageDialog(this, "Cuota agregada con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
-            limpiar();
+            if((int)sMonto.getValue() <=0)
+                JOptionPane.showMessageDialog(this, "El monto no puede ser menor o igual a 0.", "Error", JOptionPane.ERROR_MESSAGE);
+            else if(tfNombre.getText().equals(""))
+                JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+            else if(dcFecha.getDate()==null)
+                JOptionPane.showMessageDialog(this, "La fecha no puede estar vacía.", "Error", JOptionPane.ERROR_MESSAGE);
+            else{
+                Cuota c = new Cuota();
+                c.setMonto((int)sMonto.getValue());
+                c.setNombre(tfNombre.getText());
+                c.setFecha(dcFecha.getDate());
+                c.setDescripcion(taDesc.getText());
+                c.setFrecuencia(cbFrec.getSelectedItem().toString());
+                c.setVigente(true);
+                if(cbActividades.getSelectedIndex()!=0)
+                    c.setActividad((Actividad)  cbActividades.getSelectedItem());
+                Conexion.getInstance().persist(c);
+                main.cuotas.add(c);
+                cargarCuotas();
+                JOptionPane.showMessageDialog(this, "Cuota agregada con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
+                limpiar();
+            }
         }
         else{
-            sel.setMonto(Integer.parseInt(tfMonto.getText()));
-            sel.setNombre(tfNombre.getText());
-            sel.setFecha(dcFecha.getDate());
-            sel.setDescripcion(taDesc.getText());
-            sel.setFrecuencia(cbFrec.getSelectedItem().toString());
-            if(cbActividades.getSelectedIndex()!=0)
-                sel.setActividad((Actividad)cbActividades.getSelectedItem());
-            else
-                sel.setActividad(null);
-            Conexion.getInstance().merge(sel);
-            btnAgregar.setText("Agregar");
-            main.cuotas.set(main.cuotas.indexOf(sel),sel);
-            cargarCuotas();
-            tfNombre.setEditable(true);
-            JOptionPane.showMessageDialog(this, "Cuota "+sel.getNombre()+" modificada.", "Información", JOptionPane.INFORMATION_MESSAGE);
-            sel = null;
-            limpiar();
+            if((int)sMonto.getValue() <=0)
+                JOptionPane.showMessageDialog(this, "El monto no puede ser menor o igual a 0.", "Error", JOptionPane.ERROR_MESSAGE);
+            else if(tfNombre.getText().equals(""))
+                JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+            else if(dcFecha.getDate()==null)
+                JOptionPane.showMessageDialog(this, "La fecha no puede estar vacía.", "Error", JOptionPane.ERROR_MESSAGE);
+            else{
+                sel.setMonto((int)sMonto.getValue());
+                sel.setNombre(tfNombre.getText());
+                sel.setFecha(dcFecha.getDate());
+                sel.setDescripcion(taDesc.getText());
+                sel.setFrecuencia(cbFrec.getSelectedItem().toString());
+                if(cbActividades.getSelectedIndex()!=0)
+                    sel.setActividad((Actividad)cbActividades.getSelectedItem());
+                else
+                    sel.setActividad(null);
+                Conexion.getInstance().merge(sel);
+                main.cuotas.set(main.cuotas.indexOf(sel),sel);
+                cargarCuotas();
+                tfNombre.setEditable(true);
+                JOptionPane.showMessageDialog(this, "Cuota "+sel.getNombre()+" modificada.", "Información", JOptionPane.INFORMATION_MESSAGE);
+                limpiar();
+            }
+            
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -353,7 +372,7 @@ public class AltaCuota extends javax.swing.JPanel {
             lMod.setVisible(true);
             btnCancelar.setVisible(true);
             btnAgregar.setText("Confirmar");
-            tfMonto.setText(Integer.toString(sel.getMonto()));
+            sMonto.setValue(sel.getMonto());
             tfNombre.setText(sel.getNombre());
             tfNombre.setEditable(false);
             taDesc.setText(sel.getDescripcion());
@@ -372,11 +391,6 @@ public class AltaCuota extends javax.swing.JPanel {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        btnCancelar.setVisible(false);
-        btnAgregar.setText("Agregar");
-        lMod.setVisible(false);
-        tfNombre.setEditable(true);
-        sel = null;
         limpiar();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -422,9 +436,16 @@ public class AltaCuota extends javax.swing.JPanel {
     public void limpiar(){
         dcFecha.setDate(new Date());
         tfNombre.setText("");
-        tfMonto.setText("");
+        sMonto.setValue(0);
         taDesc.setText("");
         tCuotas.clearSelection();
+        cbActividades.setSelectedIndex(0);
+        cbFrec.setSelectedIndex(0);
+        btnCancelar.setVisible(false);
+        btnAgregar.setText("Agregar");
+        lMod.setVisible(false);
+        tfNombre.setEditable(true);
+        sel = null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -445,10 +466,10 @@ public class AltaCuota extends javax.swing.JPanel {
     private javax.swing.JLabel lPlantel2;
     private javax.swing.JLabel lPlantel3;
     private javax.swing.JLabel lPlantel4;
+    private javax.swing.JSpinner sMonto;
     private javax.swing.JTable tCuotas;
     private javax.swing.JTextArea taDesc;
     private javax.swing.JTextField tfBuscar;
-    private javax.swing.JTextField tfMonto;
     private javax.swing.JTextField tfNombre;
     // End of variables declaration//GEN-END:variables
 }

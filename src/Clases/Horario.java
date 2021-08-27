@@ -31,7 +31,7 @@ public class Horario implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String dia;
-    private String hora;
+    private int hora;
     private int duracion;
     private boolean vigente;
 
@@ -78,11 +78,11 @@ public class Horario implements Serializable {
         this.dia = dia;
     }
 
-    public String getHora() {
+    public int getHora() {
         return hora;
     }
 
-    public void setHora(String hora) {
+    public void setHora(int hora) {
         this.hora = hora;
     }
 

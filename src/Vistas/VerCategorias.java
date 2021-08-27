@@ -5,14 +5,23 @@
  */
 package Vistas;
 
+import Renderes.VencimientosRender;
 import BD.Conexion;
 import Clases.Categoria;
 import Clases.Jugador;
+import java.awt.print.PrinterException;
+import java.text.MessageFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import static java.util.concurrent.TimeUnit.DAYS;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.attribute.standard.OrientationRequested;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -67,18 +76,20 @@ public class VerCategorias extends javax.swing.JPanel {
         }
         
         if(lista!=null && lista.size()>0){
+
             Iterator<Jugador> it = lista.iterator();
             DefaultTableModel mdl = (DefaultTableModel) tCat.getModel();
             mdl.setRowCount(0);
             while (it.hasNext()) {
                 Jugador s = it.next();
                 if (s.isVigente()) {  
-                    Object[] fila = new Object[5];
-                    fila[0] = s.getNombre()+" "+s.getApellido();
-                    fila[1] = s.getEdad();
-                    fila[2] = s.getPlantel();
-                    fila[3] = s.getCarnetHabilitante() ;
-                    fila[4] = s.getVenCi();
+                    Object[] fila = new Object[6];
+                    fila[0] = s;
+                    fila[1] = s.getApellido();
+                    fila[2] = s.getEdad();
+                    fila[3] = s.getPlantel();
+                    fila[4] = main.sdf.format(s.getCarnetHabilitante()) ;
+                    fila[5] = main.sdf.format(s.getVenCi());
                     mdl.addRow(fila); 
                 }
             }
@@ -103,6 +114,8 @@ public class VerCategorias extends javax.swing.JPanel {
         tCat = new javax.swing.JTable();
         cbCat = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        checkColor = new javax.swing.JCheckBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -113,15 +126,20 @@ public class VerCategorias extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Jugador", "Edad", "Categoría", "Ven. Carnet", "Ven. Cédula"
+                "Nombre", "Apellido", "Edad", "Categoría", "Ven. Carnet", "Ven. Cédula"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tCat.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tCatFocusLost(evt);
             }
         });
         jScrollPane1.setViewportView(tCat);
@@ -137,6 +155,22 @@ public class VerCategorias extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel1.setText("Categoría:");
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jButton1.setText("Imprimir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        checkColor.setBackground(new java.awt.Color(255, 255, 255));
+        checkColor.setText("Sin color");
+        checkColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkColorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,24 +178,32 @@ public class VerCategorias extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(60, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 747, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73))
+                .addContainerGap(73, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(363, 363, 363)
+                .addContainerGap(363, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(119, 119, 119)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkColor)
+                    .addComponent(jButton1))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(checkColor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -170,9 +212,37 @@ public class VerCategorias extends javax.swing.JPanel {
         cargarTabla();
     }//GEN-LAST:event_cbCatActionPerformed
 
+    private void tCatFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tCatFocusLost
+        // TODO add your handling code here:
+        tCat.clearSelection();
+    }//GEN-LAST:event_tCatFocusLost
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            boolean print = tCat.print();
+            if (!print) {
+                JOptionPane.showMessageDialog(null, "Unable To Print !!..");
+            }
+        } catch (PrinterException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void checkColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkColorActionPerformed
+        // TODO add your handling code here:
+        if(checkColor.isSelected())
+            tCat.setDefaultRenderer(Object.class, new DefaultTableCellRenderer());
+        else
+            tCat.setDefaultRenderer(Object.class, new VencimientosRender());
+        cargarTabla();
+    }//GEN-LAST:event_checkColorActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbCat;
+    private javax.swing.JCheckBox checkColor;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tCat;

@@ -30,14 +30,14 @@ public class VerActividades extends javax.swing.JPanel {
     public void cargarAct(){
         DefaultTableModel mdl = (DefaultTableModel) tActividades.getModel();
         mdl.setRowCount(0);
-        Iterator<Actividad> it = Conexion.getInstance().getActividades().iterator();
+        Iterator<Actividad> it = main.actividades.iterator();
         while (it.hasNext()) {
             Actividad s = it.next();
             if (s.isVigente()) {  
                 Object[] fila = new Object[3];
                 fila[0] = s;
                 fila[1] = s.getCupos();
-                fila[2] = s.getHorarios();
+                fila[2] = s.showHorarios();
                 mdl.addRow(fila); 
             }
         }
@@ -121,7 +121,7 @@ public class VerActividades extends javax.swing.JPanel {
                         .addGap(115, 115, 115)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(194, 194, 194)
+                        .addContainerGap(194, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -135,13 +135,13 @@ public class VerActividades extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

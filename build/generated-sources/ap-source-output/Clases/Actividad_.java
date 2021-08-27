@@ -10,8 +10,9 @@ import javax.persistence.metamodel.StaticMetamodel;
 public abstract class Actividad_ {
 
 	public static volatile ListAttribute<Actividad, Horario> horarios;
-	public static volatile SingularAttribute<Actividad, Integer> costo;
 	public static volatile SingularAttribute<Actividad, Boolean> vigente;
+	public static volatile SingularAttribute<Actividad, Integer> cupos;
+	public static volatile ListAttribute<Actividad, Cuota> cuotas;
 	public static volatile SingularAttribute<Actividad, String> nombre;
 	public static volatile ListAttribute<Actividad, SocioActividad> socios;
 

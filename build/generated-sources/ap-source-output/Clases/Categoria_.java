@@ -13,6 +13,8 @@ public abstract class Categoria_ {
 	public static volatile SingularAttribute<Categoria, Long> id;
 	public static volatile ListAttribute<Categoria, Jugador> jugadores;
 	public static volatile SingularAttribute<Categoria, String> nombre;
+	public static volatile SingularAttribute<Categoria, Integer> edadMax;
+	public static volatile SingularAttribute<Categoria, Integer> edadMin;
 
 }
 

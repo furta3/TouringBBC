@@ -84,6 +84,17 @@ public class Actividad implements Serializable {
         this.horarios = horarios;
     }
     
+    public String showHorarios(){
+        String dias  = "";
+        for(int f = 0; f<horarios.size();f++){
+            if(f>0 && f!=horarios.size())
+                dias += ",";
+            if(horarios.get(f).isVigente())
+                dias += horarios.get(f).getDia();
+        }
+        return dias;
+    }
+    
     @Override
     public String toString() {
         return nombre;

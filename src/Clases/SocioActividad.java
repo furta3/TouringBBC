@@ -78,6 +78,7 @@ public class SocioActividad implements Serializable {
         this.id = id;
     }
 
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -102,7 +103,7 @@ public class SocioActividad implements Serializable {
     public String toString() {
         String dias  = "";
         for(int f = 0; f<horarios.size();f++){
-            if(dias == "" && f>0)
+            if(f>0 && f!=horarios.size())
                 dias += ",";
             if(horarios.get(f).isVigente())
                 dias += horarios.get(f).getDia();

@@ -1,4 +1,4 @@
-package Vistas;
+package Renderes;
 
 import java.awt.Color;
 import java.awt.Component;

@@ -9,7 +9,7 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(Horario.class)
 public abstract class Horario_ {
 
-	public static volatile SingularAttribute<Horario, String> hora;
+	public static volatile SingularAttribute<Horario, Integer> hora;
 	public static volatile ListAttribute<Horario, SocioActividad> socioActividadHorario;
 	public static volatile SingularAttribute<Horario, Integer> duracion;
 	public static volatile SingularAttribute<Horario, Boolean> vigente;

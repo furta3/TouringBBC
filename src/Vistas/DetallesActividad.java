@@ -36,6 +36,7 @@ public class DetallesActividad extends javax.swing.JPanel {
     
     public void load(){
         tfNombre.setText(act.getNombre());
+        tfNombre.setEditable(false);
         sCupos.setValue(act.getCupos());
         cargarHorarios();
         cargarCuotas();
@@ -46,23 +47,23 @@ public class DetallesActividad extends javax.swing.JPanel {
         DefaultTableModel mdl = (DefaultTableModel) tHorarios.getModel();
         mdl.setRowCount(0);
         while (it.hasNext()) {
-                Horario h = it.next();
-                if (h.isVigente()) {  
-                        Object[] fila = new Object[5];
-                        fila[0] = h;
-                        fila[1] = h.getHora();
-                        fila[2] = h.getDuracion();
-                        mdl.addRow(fila);
-                }
+            Horario h = it.next();
+            if (h.isVigente()) {  
+                Object[] fila = new Object[5];
+                fila[0] = h;
+                fila[1] = h.getHora();
+                fila[2] = h.getDuracion();
+                mdl.addRow(fila);
+            }
         }
     }
     public void cargarCuotas(){
         List<Cuota> ts = main.cuotas;
         DefaultComboBoxModel dcm = new DefaultComboBoxModel();
         for(Cuota tipo: ts){
-                if(tipo.isVigente()){
-                        dcm.addElement(tipo);
-                }
+            if(tipo.isVigente()&& tipo.getActividad()==null){
+                dcm.addElement(tipo);
+            }
         }
         cbCuotas.setModel(dcm);
         
@@ -71,7 +72,7 @@ public class DetallesActividad extends javax.swing.JPanel {
         mdl.setRowCount(0);
         while (it.hasNext()) {
                 Cuota h = it.next();
-                if (h.isVigente()) {  
+                if (h.isVigente() ) {  
                     Object[] fila = new Object[5];
                     fila[0] = h;
                     fila[1] = h.getMonto();
@@ -99,7 +100,6 @@ public class DetallesActividad extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        tfHora = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         sDuracion = new javax.swing.JSpinner();
         btnAgregar = new javax.swing.JButton();
@@ -108,6 +108,7 @@ public class DetallesActividad extends javax.swing.JPanel {
         tHorarios = new javax.swing.JTable();
         cbDia = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        sHora = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tCuotas = new javax.swing.JTable();
@@ -154,13 +155,6 @@ public class DetallesActividad extends javax.swing.JPanel {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel5.setText("Hora:");
-
-        tfHora.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        tfHora.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfHoraActionPerformed(evt);
-            }
-        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel6.setText("Duración:");
@@ -231,9 +225,9 @@ public class DetallesActividad extends javax.swing.JPanel {
                             .addComponent(jLabel6))
                         .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfHora)
                             .addComponent(cbDia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(sDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(sDuracion, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                            .addComponent(sHora))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                 .addContainerGap())
@@ -252,7 +246,7 @@ public class DetallesActividad extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(tfHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -261,7 +255,7 @@ public class DetallesActividad extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregar)
                     .addComponent(btnQuitar))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -417,16 +411,15 @@ public class DetallesActividad extends javax.swing.JPanel {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         // TODO add your handling code here:
-        if(tCuotas.getRowCount()<=0)
-            JOptionPane.showMessageDialog(this, "La actividad  debe tener al menos una cuota.", "Error", JOptionPane.ERROR_MESSAGE);
-        else if(tHorarios.getRowCount()<=0)
-            JOptionPane.showMessageDialog(this, "La actividad  debe tener al menos un horario.", "Error", JOptionPane.ERROR_MESSAGE);
-        else if((int)sCupos.getValue() <= 0)
-            JOptionPane.showMessageDialog(this, "La cantidad de cupos no puede ser menor o igual a 0.", "Error", JOptionPane.ERROR_MESSAGE);
-        else if(tfNombre.getText().equals(""))
+        if(tfNombre.getText().equals(""))
             JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        else if((int)sCupos.getValue() <= 0)
+            JOptionPane.showMessageDialog(this, "Los cupos no pueden ser 0.", "Error", JOptionPane.ERROR_MESSAGE);
+        else if(tHorarios.getRowCount()<=0)
+            JOptionPane.showMessageDialog(this, "La actividad tiene que tener por lo menos un horario.", "Error", JOptionPane.ERROR_MESSAGE);
+        else if(tCuotas.getRowCount()<=0)
+            JOptionPane.showMessageDialog(this, "La actividad tiene que tener por lo menos una cuota.", "Error", JOptionPane.ERROR_MESSAGE);
         else{
-            act.setNombre(tfNombre.getText());
             act.setCupos((int)sCupos.getValue());
             act.setVigente(true);
             Conexion.getInstance().merge(act);
@@ -440,16 +433,12 @@ public class DetallesActividad extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNombreActionPerformed
 
-    private void tfHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfHoraActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfHoraActionPerformed
-
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
-        if(cbDia.getSelectedItem()!=null && (int) sDuracion.getValue() > 0 && !tfHora.equals("")){//verificar que no se pisen horas y demás
+        if(cbDia.getSelectedItem()!=null && (int) sDuracion.getValue() > 0 && (int)sHora.getValue()>0){//verificar que no se pisen horas y demás
             Horario h = new Horario();
             h.setDia(cbDia.getSelectedItem().toString());
-            h.setHora(tfHora.getText());
+            h.setHora((int)sHora.getValue());
             h.setDuracion((int) sDuracion.getValue());
             h.setVigente(true);
             act.getHorarios().add(h);
@@ -462,7 +451,7 @@ public class DetallesActividad extends javax.swing.JPanel {
             fila[2] = h.getDuracion();
             mdl.addRow(fila);
             sDuracion.setValue(0);
-            tfHora.setText("");
+            sHora.setValue(0);
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -506,6 +495,12 @@ public class DetallesActividad extends javax.swing.JPanel {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(this, "¿Seguro de que quiere eliminar esta actividad?", "Consulta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+            act.setVigente(false);
+            Conexion.getInstance().merge(act);
+            main.actividades.set(main.actividades.indexOf(act), act);
+            main.AbrirVerActividades(new VerActividades(main));
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
 
@@ -532,9 +527,9 @@ public class DetallesActividad extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner sCupos;
     private javax.swing.JSpinner sDuracion;
+    private javax.swing.JSpinner sHora;
     private javax.swing.JTable tCuotas;
     private javax.swing.JTable tHorarios;
-    private javax.swing.JTextField tfHora;
     private javax.swing.JTextField tfNombre;
     // End of variables declaration//GEN-END:variables
 }

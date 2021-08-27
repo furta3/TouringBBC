@@ -188,32 +188,42 @@ public class AbmCategorias extends javax.swing.JPanel {
     }//GEN-LAST:event_tCategoriasMousePressed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        if(btnAgregar.getText().equals("Agregar")){
-            Categoria ts = new Categoria();
-            ts.setNombre(tfNombre.getText());
-            ts.setEdadMin((int) sMin.getValue());
-            ts.setEdadMax((int) sMax.getValue());
-            ts.setVigente(true);
-            if(verificarEdades(ts)){
-                Conexion.getInstance().persist(ts);
-                tfNombre.setText("");
-                sMin.setValue(0);
-                sMax.setValue(0);
-                main.categorias  = Conexion.getInstance().getCategorias();
+        if(tfNombre.getText().equals(""))
+            JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        else if((int) sMin.getValue()<=0 || (int) sMax.getValue()<=0)
+            JOptionPane.showMessageDialog(this, "Las edades no pueden ser menores a 0.", "Error", JOptionPane.ERROR_MESSAGE);
+        else{
+            if(btnAgregar.getText().equals("Agregar")){
+                
+                Categoria ts = new Categoria();
+                ts.setNombre(tfNombre.getText());
+                ts.setEdadMin((int) sMin.getValue());
+                ts.setEdadMax((int) sMax.getValue());
+                ts.setVigente(true);
+                
+                if(main.categorias.contains(ts))
+                    JOptionPane.showMessageDialog(this, "Ya existe una categoria con este nombre.", "Error", JOptionPane.ERROR_MESSAGE);
+                else if(verificarEdades(ts)){
+                    Conexion.getInstance().persist(ts);
+                    tfNombre.setText("");
+                    sMin.setValue(0);
+                    sMax.setValue(0);
+                    main.categorias  = Conexion.getInstance().getCategorias();
+                    cargarCat();
+                    limpiar();
+                }
+            }
+            else{
+                cat.setNombre(tfNombre.getText());
+                cat.setEdadMin((int)sMin.getValue());
+                cat.setEdadMax((int)sMax.getValue());
+                btnAgregar.setText("Agregar");
+                btnEliminar.setText("Eliminar");
+                Conexion.getInstance().merge(cat);
+                main.categorias = Conexion.getInstance().getCategorias();
                 cargarCat();
                 limpiar();
             }
-        }
-        else{
-            cat.setNombre(tfNombre.getText());
-            cat.setEdadMin((int)sMin.getValue());
-            cat.setEdadMax((int)sMax.getValue());
-            btnAgregar.setText("Agregar");
-            btnEliminar.setText("Eliminar");
-            Conexion.getInstance().merge(cat);
-            main.categorias = Conexion.getInstance().getCategorias();
-            cargarCat();
-            limpiar();
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -225,8 +235,10 @@ public class AbmCategorias extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Error con las edad, verificar que no haya incompatibilidad con otras categorias.", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
-            if((int)sMin.getValue() <= (int)sMax.getValue())
-                JOptionPane.showMessageDialog(this, "Error con las edad, la edad máxima no puede ser menor o igual a la mínima.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        if((int)sMin.getValue() > (int)sMax.getValue()){
+            JOptionPane.showMessageDialog(this, "Error con las edad, la edad máxima no puede ser menor a la mínima.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
         return true;
     }

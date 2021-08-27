@@ -183,9 +183,9 @@
                           </Group>
                           <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="tfHora" max="32767" attributes="0"/>
                               <Component id="cbDia" max="32767" attributes="0"/>
-                              <Component id="sDuracion" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
+                              <Component id="sDuracion" alignment="0" pref="94" max="32767" attributes="0"/>
+                              <Component id="sHora" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -211,7 +211,7 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfHora" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="sHora" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -236,16 +236,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Hora:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfHora">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="12" style="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfHoraActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
@@ -357,6 +347,8 @@
             </Property>
             <Property name="text" type="java.lang.String" value="D&#xed;a:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="sHora">
         </Component>
       </SubComponents>
     </Container>
