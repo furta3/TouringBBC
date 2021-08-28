@@ -4,8 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/AsociarActividad.java</file>
+            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Renderes/VencimientosRender.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/VerCategorias.java</file>
-            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/MiRender.java</file>
+            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Horario.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/DetallesSocio.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Actividad.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Socio.java</file>
@@ -15,7 +16,7 @@
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/BD/Conexion.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Categoria.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/VerSocios.java</file>
-            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/VencimientosRender.java</file>
+            <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Renderes/MiRender.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Clases/Cuota.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/Principal.java</file>
             <file>file:/C:/Users/nacho/OneDrive/Escritorio/TouringBBC/src/Vistas/DetallesActividad.java</file>

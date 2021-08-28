@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -35,6 +36,16 @@ public class Actividad implements Serializable {
     private boolean vigente;
     @OneToMany(mappedBy = "actividad",cascade = CascadeType.ALL)
     private List<Horario> horarios;
+    @ManyToOne
+    private Funcionario funcionario;
+
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
 
     public List<Cuota> getCuotas() {
         return cuotas;

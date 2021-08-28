@@ -10,6 +10,7 @@ import Clases.Actividad;
 import Clases.Cuota;
 import Clases.Horario;
 import Clases.SocioActividad;
+import Renderes.RenderIntercalado;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -38,6 +39,8 @@ public class DetallesActividad extends javax.swing.JPanel {
         tfNombre.setText(act.getNombre());
         tfNombre.setEditable(false);
         sCupos.setValue(act.getCupos());
+        tHorarios.setDefaultRenderer(Object.class, new RenderIntercalado());
+        tCuotas.setDefaultRenderer(Object.class, new RenderIntercalado());
         cargarHorarios();
         cargarCuotas();
     }

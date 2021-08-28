@@ -8,6 +8,7 @@ package Vistas;
 import BD.Conexion;
 import Clases.Actividad;
 import Clases.Cuota;
+import Renderes.RenderIntercalado;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +33,7 @@ public class AltaCuota extends javax.swing.JPanel {
         dcFecha.setDate(new Date());
         lMod.setVisible(false);
         btnCancelar.setVisible(false);
+        tCuotas.setDefaultRenderer(Object.class, new RenderIntercalado());
         //cuotas = Conexion.getInstance().getCuotas();
         this.main = main;
         cargarCuotas();

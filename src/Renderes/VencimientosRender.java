@@ -27,23 +27,61 @@ public static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         long difCi = diasEntreDosFechas(hoy,VenCi);
         long difCarnet = diasEntreDosFechas(hoy,VenCarnet);
         
-        if(difCi <= 0 || difCarnet <=0){
-            //setBackground(Color.RED);
+        if(row==0){//cuando la row es la 0 no se puede dividir para hacer el modulo
+            if(difCi <= 0 || difCarnet <=0){//ROJO
+                setBackground(new Color(255,153,153));
+                setForeground(Color.BLACK);
+            }
+            else if((difCi <= 10 && difCi >0) || (difCarnet <= 10 && difCarnet >0)){//AMARILLO
+                setBackground(new Color(255,255,153));
+                setForeground(Color.BLACK);
+            }
+            else{//BLANCO
+                setBackground(Color.white);
+                setForeground(Color.BLACK);
+            }
+        }
+        else if(row%2!=0){//CUANDO ES IMPAR
+            if(difCi <= 0 || difCarnet <=0){//ROJO OSCURO
+                setBackground(new Color(255,132,132));
+                setForeground(Color.BLACK);
+            }
+            else if((difCi <= 10 && difCi >0) || (difCarnet <= 10 && difCarnet >0)){//AMARILLO OSCURO
+                setBackground(new Color(255,255,132));
+                setForeground(Color.BLACK);
+            }
+            else{//GRIS
+                setBackground(new  Color(224,224,224));
+                setForeground(Color.BLACK);
+            }
+        }
+        else{//CUANDO ES PAR
+            if(difCi <= 0 || difCarnet <=0){//ROJO
+                setBackground(new Color(255,153,153));
+                setForeground(Color.BLACK);
+            }
+            else if((difCi <= 10 && difCi >0) || (difCarnet <= 10 && difCarnet >0)){//AMARILLO 
+                setBackground(new Color(255,255,153));
+                setForeground(Color.BLACK);
+            }
+            else{//BLANCO
+                setBackground(Color.white);
+                setForeground(Color.BLACK);
+            }
+        }
+        
+        /*if(difCi <= 0 || difCarnet <=0){
             setBackground(new Color(255,153,153));
             setForeground(Color.BLACK);
-            //System.out.println("ROJO:: nombre: "+j.getNombre()+" venCi: "+difCi+", venCarnet: "+difCarnet);
         }
-        else if((difCi <= 10 && difCi >0) || (difCarnet <= 10 && difCarnet >0)){//(difCi <= 10 && difCi >0) || (difCarnet <= 10 && difCarnet >0)
-            //setBackground(Color.YELLOW);
+        else if((difCi <= 10 && difCi >0) || (difCarnet <= 10 && difCarnet >0)){
             setBackground(new Color(255,255,153));
             setForeground(Color.BLACK);
-            //System.out.println("AMARILLO: nombre: "+j.getNombre()+" venCi: "+difCi+", venCarnet: "+difCarnet);
         }
         else{
             setBackground(Color.white);
             setForeground(Color.BLACK);
-            //System.out.println("BLANCO: nombre: "+j.getNombre()+" venCi: "+difCi+", venCarnet: "+difCarnet);
-        }
+        }*/
 
         return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
     }

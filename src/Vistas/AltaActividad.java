@@ -9,6 +9,7 @@ import BD.Conexion;
 import Clases.Actividad;
 import Clases.Cuota;
 import Clases.Horario;
+import Renderes.RenderIntercalado;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -29,7 +30,8 @@ public class AltaActividad extends javax.swing.JPanel {
         initComponents();
         System.out.println("en el init");
         this.main = main;
-        
+        tHorarios.setDefaultRenderer(Object.class, new RenderIntercalado());
+        tCuotas.setDefaultRenderer(Object.class, new RenderIntercalado());
         DefaultComboBoxModel dcm = new DefaultComboBoxModel();
         for(Cuota tipo: main.cuotas){
                 if(tipo.isVigente() && tipo.getActividad()==null){

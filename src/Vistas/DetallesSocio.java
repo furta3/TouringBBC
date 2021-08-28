@@ -15,6 +15,7 @@ import Clases.PagoBBC;
 import Clases.Socio;
 import Clases.SocioActividad;
 import Clases.TipoSocio;
+import Renderes.RenderIntercalado;
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +42,9 @@ public class DetallesSocio extends javax.swing.JPanel {
         initComponents();
         this.main = main;
         this.s  = s;
+        tActividades.setDefaultRenderer(Object.class, new RenderIntercalado());
+        tCuotas.setDefaultRenderer(Object.class, new RenderIntercalado());
+        tPagos.setDefaultRenderer(Object.class, new RenderIntercalado());
         load();
     }
     
@@ -55,7 +59,7 @@ public class DetallesSocio extends javax.swing.JPanel {
         tfTelefono.setText(s.getTelefono());
         tfDireccion.setText(s.getDireccion());
         dcFechaNac.setDate(s.getFechaNac());
-        
+
         cargarTipos();
         cbTipoSocio.setSelectedItem(s.getTipo());
 
@@ -561,7 +565,7 @@ public class DetallesSocio extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1150,7 +1154,7 @@ public class DetallesSocio extends javax.swing.JPanel {
     private void btnDetallesFamiliarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesFamiliarActionPerformed
         // TODO add your handling code here:
         if(tFamiliares.getSelectedRowCount()==1){
-            Socio so = (Socio)tFamiliares.getValueAt(tFamiliares.getSelectedRow(), 1);
+            Socio so = (Socio)tFamiliares.getValueAt(tFamiliares.getSelectedRow(), 0);
             DetallesSocio dj = new DetallesSocio(main,so);
             main.AbrirDetallesJugador(dj);
         }

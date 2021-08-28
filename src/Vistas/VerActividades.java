@@ -7,6 +7,7 @@ package Vistas;
 
 import BD.Conexion;
 import Clases.Actividad;
+import Renderes.RenderIntercalado;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,6 +24,7 @@ public class VerActividades extends javax.swing.JPanel {
     public VerActividades(Principal main) {
         initComponents();
         this.main=main;
+        tActividades.setDefaultRenderer(Object.class, new RenderIntercalado());
         cargarAct();
         tfBuscar.setText("Buscar");
     }

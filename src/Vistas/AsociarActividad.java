@@ -12,6 +12,7 @@ import Clases.Horario;
 import Clases.Jugador;
 import Clases.Socio;
 import Clases.SocioActividad;
+import Renderes.RenderIntercalado;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -36,6 +37,7 @@ public class AsociarActividad extends javax.swing.JPanel {
         this.main = main;
         this.s = s;
         this.sa  = sa;
+        tHorarios.setDefaultRenderer(Object.class, new RenderIntercalado());
         if(sa==null)
             Load();
         else{

@@ -12,6 +12,9 @@
     <class>Clases.TipoSocio</class>
     <class>Clases.PagoBBC</class>
     <class>Clases.Categoria</class>
+    <class>Clases.Espacio</class>
+    <class>Clases.Reserva</class>
+    <class>Clases.Sueldo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/TouringBBC?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

@@ -9,6 +9,7 @@ import Renderes.VencimientosRender;
 import BD.Conexion;
 import Clases.Categoria;
 import Clases.Jugador;
+import Renderes.RenderIntercalado;
 import java.awt.print.PrinterException;
 import java.text.MessageFormat;
 import java.util.Date;
@@ -232,7 +233,7 @@ public class VerCategorias extends javax.swing.JPanel {
     private void checkColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkColorActionPerformed
         // TODO add your handling code here:
         if(checkColor.isSelected())
-            tCat.setDefaultRenderer(Object.class, new DefaultTableCellRenderer());
+            tCat.setDefaultRenderer(Object.class, new RenderIntercalado());//tCat.setDefaultRenderer(Object.class, new DefaultTableCellRenderer());
         else
             tCat.setDefaultRenderer(Object.class, new VencimientosRender());
         cargarTabla();

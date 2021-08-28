@@ -104,7 +104,6 @@ public class Principal extends javax.swing.JFrame {
         mSVer = new javax.swing.JMenuItem();
         mSASocio = new javax.swing.JMenuItem();
         mSTipos = new javax.swing.JMenuItem();
-        mSCategorias = new javax.swing.JMenuItem();
         mActividades = new javax.swing.JMenu();
         mAVer = new javax.swing.JMenuItem();
         mAAgregar = new javax.swing.JMenuItem();
@@ -112,6 +111,7 @@ public class Principal extends javax.swing.JFrame {
         mCAgregar = new javax.swing.JMenuItem();
         mCategoria = new javax.swing.JMenu();
         mCItem = new javax.swing.JMenuItem();
+        mCGestionar = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -179,14 +179,6 @@ public class Principal extends javax.swing.JFrame {
         });
         mSocios.add(mSTipos);
 
-        mSCategorias.setText("Categorías");
-        mSCategorias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mSCategoriasActionPerformed(evt);
-            }
-        });
-        mSocios.add(mSCategorias);
-
         jMenuBar1.add(mSocios);
 
         mActividades.setBackground(new java.awt.Color(255, 255, 255));
@@ -241,6 +233,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         mCategoria.add(mCItem);
+
+        mCGestionar.setText("Gestionar");
+        mCGestionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mCGestionarActionPerformed(evt);
+            }
+        });
+        mCategoria.add(mCGestionar);
 
         jMenuBar1.add(mCategoria);
 
@@ -306,10 +306,10 @@ public class Principal extends javax.swing.JFrame {
         AbrirAbmTiposSocios(new AbmTipoSocios(this));
     }//GEN-LAST:event_mSTiposActionPerformed
 
-    private void mSCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mSCategoriasActionPerformed
+    private void mCGestionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mCGestionarActionPerformed
         // TODO add your handling code here:
         AbrirAbmCategorias(new AbmCategorias(this));
-    }//GEN-LAST:event_mSCategoriasActionPerformed
+    }//GEN-LAST:event_mCGestionarActionPerformed
 
     private void mAVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAVerActionPerformed
         // TODO add your handling code here:
@@ -478,13 +478,13 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mAVer;
     private javax.swing.JMenu mActividades;
     private javax.swing.JMenuItem mCAgregar;
+    private javax.swing.JMenuItem mCGestionar;
     private javax.swing.JMenuItem mCItem;
     private javax.swing.JMenu mCategoria;
     private javax.swing.JMenu mCuotas;
     private javax.swing.JMenuItem mIInicio;
     private javax.swing.JMenu mPrincipal;
     private javax.swing.JMenuItem mSASocio;
-    private javax.swing.JMenuItem mSCategorias;
     private javax.swing.JMenuItem mSTipos;
     private javax.swing.JMenuItem mSVer;
     private javax.swing.JMenu mSocios;
