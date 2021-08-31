@@ -7,9 +7,12 @@ package Vistas;
 
 import BD.Conexion;
 import Clases.Categoria;
+import Clases.Jugador;
 import Clases.TipoSocio;
 import Renderes.RenderIntercalado;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,12 +27,17 @@ public class AbmCategorias extends javax.swing.JPanel {
      */
     Categoria cat;
     Principal main;
+    List<Categoria> mods= new ArrayList<Categoria>();
+    List<Jugador> sinCat= new ArrayList<Jugador>();
+    List<Jugador> jmods = new ArrayList<Jugador>();
     public AbmCategorias(Principal main) {
         initComponents();
         this.main = main;
-        cargarCat();
+        modificando(true);
         tCategorias.setDefaultRenderer(Object.class, new RenderIntercalado());
+        cargarCat();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,6 +61,12 @@ public class AbmCategorias extends javax.swing.JPanel {
         sMin = new javax.swing.JSpinner();
         sMax = new javax.swing.JSpinner();
         btnLimpiar = new javax.swing.JButton();
+        lEstado = new javax.swing.JLabel();
+        panelMod = new javax.swing.JPanel();
+        btnCancelarMod = new javax.swing.JButton();
+        btnConfirmarMod = new javax.swing.JButton();
+        lJSC = new javax.swing.JLabel();
+        lSinCat = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -129,41 +143,108 @@ public class AbmCategorias extends javax.swing.JPanel {
             }
         });
 
+        lEstado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lEstado.setText("Alta");
+
+        panelMod.setBackground(new java.awt.Color(255, 255, 255));
+        panelMod.setBorder(javax.swing.BorderFactory.createTitledBorder("Modificación"));
+
+        btnCancelarMod.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnCancelarMod.setText("Cancelar");
+        btnCancelarMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarModActionPerformed(evt);
+            }
+        });
+
+        btnConfirmarMod.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnConfirmarMod.setText("Confirmar");
+        btnConfirmarMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmarModActionPerformed(evt);
+            }
+        });
+
+        lJSC.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lJSC.setText("Jugadores sin categoría:");
+
+        lSinCat.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lSinCat.setText("Num");
+
+        javax.swing.GroupLayout panelModLayout = new javax.swing.GroupLayout(panelMod);
+        panelMod.setLayout(panelModLayout);
+        panelModLayout.setHorizontalGroup(
+            panelModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelModLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(btnConfirmarMod)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(btnCancelarMod)
+                .addGap(30, 30, 30))
+            .addGroup(panelModLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lJSC)
+                .addGap(18, 18, 18)
+                .addComponent(lSinCat)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelModLayout.setVerticalGroup(
+            panelModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelModLayout.createSequentialGroup()
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addGroup(panelModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lJSC)
+                    .addComponent(lSinCat))
+                .addGap(33, 33, 33)
+                .addGroup(panelModLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelarMod)
+                    .addComponent(btnConfirmarMod))
+                .addGap(23, 23, 23))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(150, 150, 150)
+                .addContainerGap(134, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addContainerGap(562, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(301, 301, 301))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(85, 85, 85)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(sMax, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                                        .addComponent(sMin, javax.swing.GroupLayout.Alignment.LEADING))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnEliminar))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(30, 30, 30)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel3))
+                                        .addGap(85, 85, 85)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(sMax, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+                                                .addComponent(sMin, javax.swing.GroupLayout.Alignment.LEADING))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(49, 49, 49)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(106, 106, 106)
+                                        .addComponent(lEstado)))
+                                .addGap(30, 30, 30))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(panelMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(70, 70, 70)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,11 +252,11 @@ public class AbmCategorias extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
+                        .addGap(23, 23, 23)
+                        .addComponent(lEstado)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -194,8 +275,10 @@ public class AbmCategorias extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnEliminar)
-                            .addComponent(btnLimpiar))))
-                .addContainerGap(37, Short.MAX_VALUE))
+                            .addComponent(btnLimpiar))
+                        .addGap(18, 18, 18)
+                        .addComponent(panelMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -203,16 +286,16 @@ public class AbmCategorias extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(tCategorias.getSelectedRowCount()==1){
             cat = (Categoria) tCategorias.getValueAt(tCategorias.getSelectedRow(), 0);
-            tfNombre.setText(cat.getNombre());
+            /*tfNombre.setText(cat.getNombre());
             sMin.setValue(cat.getEdadMin());
-            sMax.setValue(cat.getEdadMax());
+            sMax.setValue(cat.getEdadMax());*/
         }
     }//GEN-LAST:event_tCategoriasMousePressed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         if(tfNombre.getText().equals(""))
             JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
-        else if((int) sMin.getValue()<=0 || (int) sMax.getValue()<=0)
+        else if((int) sMin.getValue()<0 || (int) sMax.getValue()<=0)
             JOptionPane.showMessageDialog(this, "Las edades no pueden ser menores a 0.", "Error", JOptionPane.ERROR_MESSAGE);
         else{
             Categoria ts = new Categoria();
@@ -266,13 +349,7 @@ public class AbmCategorias extends javax.swing.JPanel {
             }
         }
     }
-    public void limpiar(){
-        tfNombre.setText("");
-        sMin.setValue(0);
-        sMax.setValue(0);
-        cat = null;
-        tCategorias.clearSelection();
-    }
+
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         if(cat != null){
@@ -288,27 +365,132 @@ public class AbmCategorias extends javax.swing.JPanel {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
         if(cat != null){
-            cat.setNombre(tfNombre.getText());
-            cat.setEdadMin((int)sMin.getValue());
-            cat.setEdadMax((int)sMax.getValue());
-            btnAgregar.setText("Agregar");
-            btnEliminar.setText("Eliminar");
-            Conexion.getInstance().merge(cat);
-            main.categorias = Conexion.getInstance().getCategorias();
-            cargarCat();
-            limpiar();
+            if( btnModificar.getText().equals("Modificar")){
+                tfNombre.setText(cat.getNombre());
+                sMin.setValue(cat.getEdadMin());
+                sMax.setValue(cat.getEdadMax());
+                btnModificar.setText("Confirmar");
+            }
+            else{
+                cat.setNombre(tfNombre.getText());
+                cat.setEdadMin((int)sMin.getValue());
+                cat.setEdadMax((int)sMax.getValue());
+                
+                if(cat.getJugadores().size()==0){
+                    btnModificar.setText("Modificar");
+                    Conexion.getInstance().merge(cat);
+                    main.categorias = Conexion.getInstance().getCategorias();
+                    cargarCat();
+                    limpiar();
+                }
+                else{
+                    Iterator<Jugador> itjs = cat.getJugadores().iterator();
+                    List<Jugador> sinCatA = new ArrayList<Jugador>();
+                    while(itjs.hasNext()){
+                        Jugador j  = itjs.next();
+                        if(j.getEdad() < cat.getEdadMin() || j.getEdad() > cat.getEdadMax()){
+                            j.setPlantel(null);
+                            sinCatA.add(j);
+                        }
+                    }
+                    if(sinCatA.size()==0){
+                        btnModificar.setText("Modificar");
+                        Conexion.getInstance().merge(cat);
+                        main.categorias = Conexion.getInstance().getCategorias();
+                        cargarCat();
+                        limpiar();
+                    }
+                    else{
+                        mods.add(cat);
+                        sinCat.addAll(sinCatA);
+                        lSinCat.setText(""+sinCat.size());
+                        acomodarJugadores();
+                        limpiar();
+                    }
+                }
+            }
         }
-
     }//GEN-LAST:event_btnModificarActionPerformed
 
+    public void acomodarJugadores(){
+        for(Jugador ju : sinCat){
+            for(Categoria cate : mods){
+                if(ju.getEdad() >= cate.getEdadMin() && ju.getEdad() <= cate.getEdadMax()){
+                    ju.setPlantel(cate);
+                    sinCat.remove(ju);
+                    jmods.add(ju);
+                }
+            }
+        }
+        lSinCat.setText(""+sinCat.size());
+    }
+    
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
         limpiar();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void btnConfirmarModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarModActionPerformed
+        // TODO add your handling code here:
+        if(sinCat.size()!=0){
+            JOptionPane.showMessageDialog(this, "Para confirmar los cambios tiene que acomodoar a todos los jugadores en una categoría.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            for(Jugador ju : sinCat){
+                Conexion.getInstance().merge(ju);
+            }
+            for(Categoria cate : mods){
+                Conexion.getInstance().merge(cate);
+            }
+            limpiar();
+            modificando(false);
+            main.categorias = Conexion.getInstance().getCategorias();
+            main.jugadores = Conexion.getInstance().getJugadores();
+            JOptionPane.showMessageDialog(this, "Categorías actualizadas.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnConfirmarModActionPerformed
+
+    private void btnCancelarModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarModActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+        modificando(false);
+    }//GEN-LAST:event_btnCancelarModActionPerformed
+
+        
+    public void modificando(boolean b){
+        lJSC.setVisible(b);
+        lSinCat.setVisible(b);
+        btnConfirmarMod.setVisible(b);
+        btnCancelarMod.setVisible(b);
+        btnEliminar.setVisible(b);
+        panelMod.setVisible(b);
+        if(b){
+            lEstado.setText("Modificando");
+            btnAgregar.setEnabled(!b);
+        } 
+        else{
+            lEstado.setText("Alta");
+            btnAgregar.setEnabled(!b);
+            sinCat.clear();
+            mods.clear();
+            jmods.clear();
+        }
+    }
+    
+    public void limpiar(){
+        tfNombre.setText("");
+        sMin.setValue(0);
+        sMax.setValue(0);
+        cat = null;
+        btnModificar.setText("Modificar");
+        tCategorias.clearSelection();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnCancelarMod;
+    private javax.swing.JButton btnConfirmarMod;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnModificar;
@@ -317,6 +499,10 @@ public class AbmCategorias extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lEstado;
+    private javax.swing.JLabel lJSC;
+    private javax.swing.JLabel lSinCat;
+    private javax.swing.JPanel panelMod;
     private javax.swing.JSpinner sMax;
     private javax.swing.JSpinner sMin;
     private javax.swing.JTable tCategorias;
