@@ -18,7 +18,7 @@ public static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                                    int row, 
                                                    int column) {
         
-        Jugador j = (Jugador) table.getValueAt(row, 0);
+        Jugador j = (Jugador) table.getValueAt(row, 1);
  
         Date VenCarnet = j.getCarnetHabilitante();
         Date VenCi = j.getVenCi();

@@ -72,8 +72,12 @@ public class DetallesSocio extends javax.swing.JPanel {
             jTabbedPane1.setSelectedIndex(1);
             loadAct();
         }
-        else
+        else{
             loadJugador();
+            btnPasarJ.setVisible(false);
+            btnCancelarPasarJ.setVisible(false);
+        }
+            
     }
     
 
@@ -128,6 +132,8 @@ public class DetallesSocio extends javax.swing.JPanel {
         jScrollPane5 = new javax.swing.JScrollPane();
         taDesc = new javax.swing.JTextArea();
         jLabel19 = new javax.swing.JLabel();
+        btnPasarJ = new javax.swing.JButton();
+        btnCancelarPasarJ = new javax.swing.JButton();
         pActividades = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         btnAgregarActividad = new javax.swing.JButton();
@@ -278,6 +284,22 @@ public class DetallesSocio extends javax.swing.JPanel {
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jLabel19.setText("Información:");
 
+        btnPasarJ.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnPasarJ.setText("Pasar a jugador");
+        btnPasarJ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPasarJActionPerformed(evt);
+            }
+        });
+
+        btnCancelarPasarJ.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnCancelarPasarJ.setText("Cancelar");
+        btnCancelarPasarJ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarPasarJActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pJugadorLayout = new javax.swing.GroupLayout(pJugador);
         pJugador.setLayout(pJugadorLayout);
         pJugadorLayout.setHorizontalGroup(
@@ -285,8 +307,12 @@ public class DetallesSocio extends javax.swing.JPanel {
             .addGroup(pJugadorLayout.createSequentialGroup()
                 .addGroup(pJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pJugadorLayout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addComponent(btnActualizarJugador))
+                        .addGap(92, 92, 92)
+                        .addComponent(btnPasarJ)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnActualizarJugador)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelarPasarJ))
                     .addGroup(pJugadorLayout.createSequentialGroup()
                         .addGap(104, 104, 104)
                         .addGroup(pJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -308,7 +334,7 @@ public class DetallesSocio extends javax.swing.JPanel {
                     .addGroup(pJugadorLayout.createSequentialGroup()
                         .addGap(91, 91, 91)
                         .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         pJugadorLayout.setVerticalGroup(
             pJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,7 +361,10 @@ public class DetallesSocio extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addComponent(btnActualizarJugador)
+                .addGroup(pJugadorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActualizarJugador)
+                    .addComponent(btnPasarJ)
+                    .addComponent(btnCancelarPasarJ))
                 .addGap(29, 29, 29))
         );
 
@@ -754,11 +783,11 @@ public class DetallesSocio extends javax.swing.JPanel {
                             .addGroup(pPagosLayout.createSequentialGroup()
                                 .addGap(44, 44, 44)
                                 .addGroup(pPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lCarnet2)
                                     .addGroup(pPagosLayout.createSequentialGroup()
-                                        .addComponent(yc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(mc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(mc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(yc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lCarnet2))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -776,11 +805,14 @@ public class DetallesSocio extends javax.swing.JPanel {
                         .addGap(60, 60, 60)
                         .addComponent(lCarnet2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(mc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(yc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(pPagosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pPagosLayout.createSequentialGroup()
+                                .addComponent(mc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pPagosLayout.createSequentialGroup()
+                                .addComponent(yc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap(175, Short.MAX_VALUE))
         );
 
@@ -1076,8 +1108,30 @@ public class DetallesSocio extends javax.swing.JPanel {
 
     private void cbCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCatActionPerformed
         // TODO add your handling code here:
+        selecCat();
     }//GEN-LAST:event_cbCatActionPerformed
 
+    public boolean selecCat(){
+        if(dcFechaNac.getDate() != null){
+            Date hoy = new Date();
+            int edad = hoy.getYear() - dcFechaNac.getDate().getYear();
+            for(int f=1; f<cbCat.getItemCount();f++){
+                Categoria  cate = (Categoria) cbCat.getItemAt(f);
+                if(edad >= cate.getEdadMin() && edad <= cate.getEdadMax()){
+                    cbCat.setSelectedIndex(f);
+                    return true;
+                }
+            }
+            cbCat.setSelectedIndex(0);
+            JOptionPane.showMessageDialog(this, "No existe una categoría para esta edad.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        else{
+            cbCat.setSelectedIndex(0);
+            return false;
+        }
+    }
+    
     private void cbTipoCarnetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoCarnetActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbTipoCarnetActionPerformed
@@ -1193,6 +1247,46 @@ public class DetallesSocio extends javax.swing.JPanel {
         // TODO add your handling code here:
         cargarPagos();
     }//GEN-LAST:event_ycPropertyChange
+
+    public void jugador(boolean b){
+        for(Component component : pJugador.getComponents()) {
+                component.setEnabled(b);
+            }
+        taDesc.setEditable(b);
+        if(b){
+            btnPasarJ.setVisible(b);
+            btnCancelarPasarJ.setVisible(b);
+        }
+        else{
+            btnPasarJ.setVisible(!b);
+            btnCancelarPasarJ.setVisible(!b);
+        }
+    }
+
+    private void btnPasarJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarJActionPerformed
+        // TODO add your handling code here:
+        if(btnPasarJ.getText().equals("Confirmar")){
+            selecCat();
+            Jugador ju = (Jugador) s;
+            ju.setPlantel((Categoria)cbCat.getSelectedItem());
+            ju.setCarnetHabilitante(dcVenCarnet.getDate());
+            ju.setTipoCarnet(cbTipoCarnet.getSelectedIndex());
+            ju.setVenCi(dcVenCi.getDate());
+            ju.setDetalles(taDesc.getText());
+            Conexion.getInstance().merge(ju);
+            JOptionPane.showMessageDialog(this, "Jugador actualizado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            btnPasarJ.setVisible(false);
+            btnCancelarPasarJ.setVisible(false);
+        }
+        else{
+            btnPasarJ.setText("Confirmar");
+            jugador(true);
+        }
+    }//GEN-LAST:event_btnPasarJActionPerformed
+
+    private void btnCancelarPasarJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarPasarJActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarPasarJActionPerformed
     
     public void addFamiliar(Socio s3){
         DefaultTableModel mdl = (DefaultTableModel) tFamiliares.getModel();
@@ -1365,13 +1459,15 @@ public class DetallesSocio extends javax.swing.JPanel {
     private javax.swing.JButton btnAgregarExistente;
     private javax.swing.JButton btnAgregarNuevoF;
     private javax.swing.JButton btnBorrarActividad;
+    private javax.swing.JButton btnCancelarPasarJ;
     private javax.swing.JButton btnDetallesFamiliar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarCuotaDeSocio;
     private javax.swing.JButton btnEliminarFamiliar;
     private javax.swing.JButton btnEliminarSocio;
     private javax.swing.JButton btnModificarActividad;
-    private javax.swing.JComboBox<String> cbCat;
+    private javax.swing.JButton btnPasarJ;
+    private javax.swing.JComboBox<Object> cbCat;
     private javax.swing.JComboBox<String> cbCuotas;
     private javax.swing.JComboBox<String> cbTipoCarnet;
     private javax.swing.JComboBox<String> cbTipoSocio;

@@ -10,6 +10,7 @@ import Clases.Categoria;
 import Clases.Jugador;
 import Clases.TipoSocio;
 import Renderes.RenderIntercalado;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,13 +28,15 @@ public class AbmCategorias extends javax.swing.JPanel {
      */
     Categoria cat;
     Principal main;
+    List<Categoria> listaCat;
     List<Categoria> mods= new ArrayList<Categoria>();
     List<Jugador> sinCat= new ArrayList<Jugador>();
     List<Jugador> jmods = new ArrayList<Jugador>();
     public AbmCategorias(Principal main) {
         initComponents();
         this.main = main;
-        modificando(true);
+        modificando(false);
+        listaCat = main.categorias;
         tCategorias.setDefaultRenderer(Object.class, new RenderIntercalado());
         cargarCat();
     }
@@ -67,6 +70,7 @@ public class AbmCategorias extends javax.swing.JPanel {
         btnConfirmarMod = new javax.swing.JButton();
         lJSC = new javax.swing.JLabel();
         lSinCat = new javax.swing.JLabel();
+        btnActualizar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -80,9 +84,16 @@ public class AbmCategorias extends javax.swing.JPanel {
                 "Nombre", "Edad Min.", "Edad Max."
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, false
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -202,6 +213,14 @@ public class AbmCategorias extends javax.swing.JPanel {
                 .addGap(23, 23, 23))
         );
 
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -213,8 +232,11 @@ public class AbmCategorias extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addGap(301, 301, 301))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(panelMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(70, 70, 70))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,9 +251,9 @@ public class AbmCategorias extends javax.swing.JPanel {
                                                 .addComponent(sMin, javax.swing.GroupLayout.Alignment.LEADING))))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(49, 49, 49)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(btnAgregar)
+                                            .addComponent(btnEliminar))
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -239,11 +261,12 @@ public class AbmCategorias extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(106, 106, 106)
                                         .addComponent(lEstado)))
-                                .addGap(30, 30, 30))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(panelMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(70, 70, 70)))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(30, 30, 30)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(63, 63, 63)
+                                .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -252,7 +275,10 @@ public class AbmCategorias extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnActualizar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(lEstado)
@@ -270,12 +296,12 @@ public class AbmCategorias extends javax.swing.JPanel {
                             .addComponent(sMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAgregar)
-                            .addComponent(btnModificar))
+                            .addComponent(btnModificar)
+                            .addComponent(btnAgregar))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnEliminar)
-                            .addComponent(btnLimpiar))
+                            .addComponent(btnLimpiar)
+                            .addComponent(btnEliminar))
                         .addGap(18, 18, 18)
                         .addComponent(panelMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(36, Short.MAX_VALUE))
@@ -303,6 +329,7 @@ public class AbmCategorias extends javax.swing.JPanel {
             ts.setEdadMin((int) sMin.getValue());
             ts.setEdadMax((int) sMax.getValue());
             ts.setVigente(true);
+            ts.setJugadores(new ArrayList<Jugador>());
 
             if(main.categorias.contains(ts))
                 JOptionPane.showMessageDialog(this, "Ya existe una categoria con este nombre.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -311,18 +338,22 @@ public class AbmCategorias extends javax.swing.JPanel {
                 tfNombre.setText("");
                 sMin.setValue(0);
                 sMax.setValue(0);
-                main.categorias  = Conexion.getInstance().getCategorias();
+                //main.categorias  = Conexion.getInstance().getCategorias();
+                listaCat.add(ts); //= main.categorias;
+                main.categorias.add(ts);
                 cargarCat();
+                if(sinCat.size()>0)
+                    acomodarJugadores();
                 limpiar();
             }
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     public boolean verificarEdades(Categoria nueva){
-        Iterator<Categoria> it = main.categorias.iterator();
+        Iterator<Categoria> it = listaCat.iterator();
         while (it.hasNext()) {
             Categoria s = it.next();
-            if(s.isVigente() && ((s.getEdadMax()>= nueva.getEdadMin() && s.getEdadMin() <= nueva.getEdadMin()) || (s.getEdadMax()>= nueva.getEdadMax() && s.getEdadMin() <= nueva.getEdadMax()))) {
+            if(s.isVigente() && s != nueva && ((s.getEdadMax()>= nueva.getEdadMin() && s.getEdadMin() <= nueva.getEdadMin()) || (s.getEdadMax()>= nueva.getEdadMax() && s.getEdadMin() <= nueva.getEdadMax()))) {
                 JOptionPane.showMessageDialog(this, "Error con las edad, verificar que no haya incompatibilidad con otras categorias.", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
@@ -335,7 +366,7 @@ public class AbmCategorias extends javax.swing.JPanel {
     }
     
     public void cargarCat(){
-        Iterator<Categoria> it = main.categorias.iterator();
+        Iterator<Categoria> it = listaCat.iterator();
         DefaultTableModel mdl = (DefaultTableModel) tCategorias.getModel();
         mdl.setRowCount(0);
         while (it.hasNext()) {
@@ -352,60 +383,106 @@ public class AbmCategorias extends javax.swing.JPanel {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        if(cat != null){
-            cat.setVigente(false);
-            Conexion.getInstance().merge(cat);
-            main.categorias = Conexion.getInstance().getCategorias();
-            cargarCat();
-            limpiar();
+        List<Jugador> sinCatActual  =new ArrayList<Jugador>();
+        if(tCategorias.getSelectedRowCount()==1){
+            if (JOptionPane.showConfirmDialog(this, "¿Seguro de que quiere eliminar esta categoría?", "Consulta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                cat = (Categoria) tCategorias.getValueAt(tCategorias.getSelectedRow(),0);
+                cat.setVigente(false);
+                if(cat.getJugadores()!=null && cat.getJugadores().size()>0){
+                    System.out.println("en el if de null && >0");
+                    
+                    //sinCatActual = cat.getJugadores();
+                    Iterator<Jugador> it = cat.getJugadores().iterator();
+                    while(it.hasNext()){
+                        Jugador j = it.next();
+                        j.setPlantel(null);
+                        sinCatActual.add(j);
+                    }
+                    if(sinCatActual.size()==0){
+                        Conexion.getInstance().delete(cat);
+                        main.categorias.remove(cat);
+                        listaCat.remove(cat);
+                        cargarCat();
+                    }
+                    else{
+                        sinCat.addAll(sinCatActual);
+                        acomodarJugadores();
+                        mods.add(cat);
+                        listaCat.remove(cat);
+                        cargarCat();
+                        modificando(true);
+                    }
+                }
+                else{
+                    System.out.println("en el else");
+                    Conexion.getInstance().delete(cat);
+                    main.categorias.remove(cat);
+                    listaCat.remove(cat);
+                    cargarCat();
+                }
+                    
+            }
         }
-
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        if(cat != null){
+        if(cat != null ){
+            
             if( btnModificar.getText().equals("Modificar")){
                 tfNombre.setText(cat.getNombre());
                 sMin.setValue(cat.getEdadMin());
                 sMax.setValue(cat.getEdadMax());
                 btnModificar.setText("Confirmar");
             }
-            else{
-                cat.setNombre(tfNombre.getText());
-                cat.setEdadMin((int)sMin.getValue());
-                cat.setEdadMax((int)sMax.getValue());
-                
-                if(cat.getJugadores().size()==0){
-                    btnModificar.setText("Modificar");
-                    Conexion.getInstance().merge(cat);
-                    main.categorias = Conexion.getInstance().getCategorias();
-                    cargarCat();
-                    limpiar();
-                }
-                else{
-                    Iterator<Jugador> itjs = cat.getJugadores().iterator();
-                    List<Jugador> sinCatA = new ArrayList<Jugador>();
-                    while(itjs.hasNext()){
-                        Jugador j  = itjs.next();
-                        if(j.getEdad() < cat.getEdadMin() || j.getEdad() > cat.getEdadMax()){
-                            j.setPlantel(null);
-                            sinCatA.add(j);
-                        }
-                    }
-                    if(sinCatA.size()==0){
-                        btnModificar.setText("Modificar");
-                        Conexion.getInstance().merge(cat);
-                        main.categorias = Conexion.getInstance().getCategorias();
-                        cargarCat();
-                        limpiar();
-                    }
-                    else{
+            else{// si el botón dice CONFIRMAR
+                if (JOptionPane.showConfirmDialog(this, "¿Seguro de que quiere modificar está categoría?", "Consulta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                    modificando(true);
+                    cat.setNombre(tfNombre.getText());
+                    cat.setEdadMin((int)sMin.getValue());
+                    cat.setEdadMax((int)sMax.getValue());
+                    
+                    if(verificarEdades(cat)){
                         mods.add(cat);
-                        sinCat.addAll(sinCatA);
-                        lSinCat.setText(""+sinCat.size());
+
                         acomodarJugadores();
-                        limpiar();
+
+                        if(cat.getJugadores().size()==0){
+                            btnModificar.setText("Modificar");
+                            Conexion.getInstance().merge(cat);
+                            main.categorias = Conexion.getInstance().getCategorias();
+                            cargarCat();
+                            limpiar();
+                        }
+                        else{
+                            Iterator<Jugador> itjs = cat.getJugadores().iterator();
+                            List<Jugador> sinCatA = new ArrayList<Jugador>();
+                            while(itjs.hasNext()){
+                                Jugador j  = itjs.next();
+                                if(j.getEdad() < cat.getEdadMin() || j.getEdad() > cat.getEdadMax()){
+                                    j.setPlantel(null);
+                                    j.setPlantel(null);
+                                    sinCatA.add(j);
+                                }
+                            }
+                            if(sinCatA.isEmpty()){
+                                btnModificar.setText("Modificar");
+                                Conexion.getInstance().merge(cat);
+                                main.categorias = Conexion.getInstance().getCategorias();
+                                listaCat = main.categorias;
+                                cargarCat();
+                                limpiar();
+                            }
+                            else{
+                                mods.add(cat);
+                                sinCat.addAll(sinCatA);
+                                lSinCat.setText(""+sinCat.size());
+                                listaCat.set(listaCat.indexOf(cat), cat);
+                                acomodarJugadores();
+                                modificando(true);
+                                limpiar();
+                            }
+                        }
                     }
                 }
             }
@@ -413,16 +490,58 @@ public class AbmCategorias extends javax.swing.JPanel {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     public void acomodarJugadores(){
-        for(Jugador ju : sinCat){
-            for(Categoria cate : mods){
-                if(ju.getEdad() >= cate.getEdadMin() && ju.getEdad() <= cate.getEdadMax()){
-                    ju.setPlantel(cate);
-                    sinCat.remove(ju);
-                    jmods.add(ju);
+        
+        int edadMin, edadMax;//LAS EDADES  DE LOS JUGADRES SIN CATEGORIA
+        
+        List<Jugador> temp = new ArrayList<Jugador>();
+        
+        Iterator<Categoria> itC = listaCat.iterator();
+        while(itC.hasNext()){
+            Categoria ca = itC.next();
+            System.out.println("ca: "+ca);
+            if(ca.isVigente()){
+                Iterator<Jugador> itJ = sinCat.iterator();
+                while(itJ.hasNext()){
+                    Jugador ju = itJ.next();
+                    System.out.println("ju: "+ju.getCi()+" - "+ju.getApellido());
+                    if(ca.isVigente() && ju.getEdad() >= ca.getEdadMin() && ju.getEdad() <= ca.getEdadMax()){
+                        ju.setPlantel(ca);
+                        temp.add(ju);
+                        jmods.add(ju);
+                    }
                 }
             }
         }
+        Iterator<Categoria> itMC = mods.iterator();
+        while(itMC.hasNext()){
+            Categoria ca = itMC.next();
+            System.out.println("ca: "+ca);
+            if(ca.isVigente()){
+                Iterator<Jugador> itJ2 = sinCat.iterator();
+                while(itJ2.hasNext()){
+                    Jugador ju = itJ2.next();
+                    System.out.println("ju: "+ju.getCi()+" - "+ju.getApellido());
+                    if(ca.isVigente() && ju.getEdad() >= ca.getEdadMin() && ju.getEdad() <= ca.getEdadMax()){
+                        ju.setPlantel(ca);
+                        temp.add(ju);
+                        jmods.add(ju);
+                    }
+                }
+            }
+        }
+        
+        if(!temp.isEmpty()){
+            sinCat.removeAll(temp);
+        }
+        
         lSinCat.setText(""+sinCat.size());
+        if(!sinCat.isEmpty()){
+            panelMod.setBackground(new Color(255,153,153));//ROJO
+        }
+        else{
+            panelMod.setBackground(new Color(156,204,101));//VERDE
+        }
+        System.out.println("mods: "+mods.size()+" jmods: "+jmods.size()+" sinCat: "+sinCat.size());
     }
     
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -436,26 +555,36 @@ public class AbmCategorias extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Para confirmar los cambios tiene que acomodoar a todos los jugadores en una categoría.", "Error", JOptionPane.ERROR_MESSAGE);
         }
         else{
-            for(Jugador ju : sinCat){
+            for(Jugador ju : jmods){
                 Conexion.getInstance().merge(ju);
             }
             for(Categoria cate : mods){
-                Conexion.getInstance().merge(cate);
+                if(!cate.isVigente())
+                    Conexion.getInstance().delete(cate);
+                else
+                    Conexion.getInstance().merge(cate);
             }
             limpiar();
             modificando(false);
             main.categorias = Conexion.getInstance().getCategorias();
             main.jugadores = Conexion.getInstance().getJugadores();
+            listaCat = main.categorias;
+            cargarCat();
             JOptionPane.showMessageDialog(this, "Categorías actualizadas.", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
-        
     }//GEN-LAST:event_btnConfirmarModActionPerformed
 
     private void btnCancelarModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarModActionPerformed
         // TODO add your handling code here:
+        listaCat = main.categorias;
         limpiar();
         modificando(false);
     }//GEN-LAST:event_btnCancelarModActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        modificando(true);
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
         
     public void modificando(boolean b){
@@ -463,15 +592,14 @@ public class AbmCategorias extends javax.swing.JPanel {
         lSinCat.setVisible(b);
         btnConfirmarMod.setVisible(b);
         btnCancelarMod.setVisible(b);
-        btnEliminar.setVisible(b);
+        //btnEliminar.setVisible(b);
         panelMod.setVisible(b);
         if(b){
             lEstado.setText("Modificando");
-            btnAgregar.setEnabled(!b);
+            
         } 
         else{
             lEstado.setText("Alta");
-            btnAgregar.setEnabled(!b);
             sinCat.clear();
             mods.clear();
             jmods.clear();
@@ -488,6 +616,7 @@ public class AbmCategorias extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelarMod;
     private javax.swing.JButton btnConfirmarMod;

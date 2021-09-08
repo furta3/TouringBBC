@@ -205,12 +205,13 @@ public class VerSocios extends javax.swing.JPanel {
         mdl.setRowCount(0);
         while (it.hasNext()) {
             Socio s = it.next();
-            if (s.isVigente() && (s.getNombre().toUpperCase().contains(buscar.toUpperCase()) || s.getApellido().toUpperCase().contains(buscar.toUpperCase()) || Integer.toString(s.getCi()).contains(buscar))) {  
-                Object[] fila = new Object[4];
+            if (s.isVigente() && (s.getNombre().toUpperCase().contains(buscar.toUpperCase()) || s.getApellido().toUpperCase().contains(buscar.toUpperCase()) || s.getDireccion().toUpperCase().contains(buscar.toUpperCase()) || Integer.toString(s.getCi()).contains(buscar))) {  
+                Object[] fila = new Object[5];
                 fila[0] = s.getCi();
                 fila[1] = s;
                 fila[2] = s.getApellido();
                 fila[3] = s.getTelefono();
+                fila[4] = s.getDireccion();
                 mdl.addRow(fila); 
             }
         }

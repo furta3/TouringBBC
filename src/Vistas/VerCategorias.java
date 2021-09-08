@@ -70,6 +70,7 @@ public class VerCategorias extends javax.swing.JPanel {
         List<Jugador> lista;
         if(cbCat.getSelectedIndex()!=0){
             Categoria cat  = (Categoria) cbCat.getSelectedItem();
+            Conexion.getInstance().refresh(cat);
             lista = cat.getJugadores();
         }
         else{
@@ -84,13 +85,14 @@ public class VerCategorias extends javax.swing.JPanel {
             while (it.hasNext()) {
                 Jugador s = it.next();
                 if (s.isVigente()) {  
-                    Object[] fila = new Object[6];
-                    fila[0] = s;
-                    fila[1] = s.getApellido();
-                    fila[2] = s.getEdad();
-                    fila[3] = s.getPlantel();
-                    fila[4] = main.sdf.format(s.getCarnetHabilitante()) ;
-                    fila[5] = main.sdf.format(s.getVenCi());
+                    Object[] fila = new Object[7];
+                    fila[0] = s.getCi();
+                    fila[1] = s;
+                    fila[2] = s.getApellido();
+                    fila[3] = s.getEdad();
+                    fila[4] = s.getPlantel();
+                    fila[5] = main.sdf.format(s.getCarnetHabilitante()) ;
+                    fila[6] = main.sdf.format(s.getVenCi());
                     mdl.addRow(fila); 
                 }
             }
@@ -127,11 +129,11 @@ public class VerCategorias extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Nombre", "Apellido", "Edad", "Categoría", "Ven. Carnet", "Ven. Cédula"
+                "Cédula", "Nombre", "Apellido", "Edad", "Categoría", "Ven. Carnet", "Ven. Cédula"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -176,20 +178,19 @@ public class VerCategorias extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 747, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(363, Short.MAX_VALUE)
+                .addContainerGap(60, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(119, 119, 119)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkColor)
-                    .addComponent(jButton1))
-                .addContainerGap(207, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 747, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbCat, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(119, 119, 119)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkColor)
+                            .addComponent(jButton1))))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

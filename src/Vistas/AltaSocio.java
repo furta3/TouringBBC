@@ -206,6 +206,12 @@ public class AltaSocio extends javax.swing.JPanel {
 
         tfDireccion.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
 
+        dcFechaNac.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dcFechaNacPropertyChange(evt);
+            }
+        });
+
         cbTipoSocio.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         cbTipoSocio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Común", "Jugador", "Vitalicio", "Contribuyente", " " }));
         cbTipoSocio.addActionListener(new java.awt.event.ActionListener() {
@@ -533,11 +539,9 @@ public class AltaSocio extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addGap(15, 15, 15))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelJugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                            .addComponent(jLabel5)))
+                    .addComponent(panelJugador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -582,12 +586,24 @@ public class AltaSocio extends javax.swing.JPanel {
             evt.consume();
     }//GEN-LAST:event_tfCIKeyPressed
 
+    public int tryParseInt(String value, int defaultVal) {
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return defaultVal;
+        }
+    }
+    
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         //Socio p = new Socio();
         //p.setCi(parseInt(tfCI.getText()));
-        
-        if(!esCIValida(tfCI.getText())){
+        String ci = tfCI.getText().trim();
+
+        if(tryParseInt(ci,0)==0){
+            JOptionPane.showMessageDialog(this, "Ingresar cédula sin puntos ni guiones", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(!esCIValida(ci)){
             JOptionPane.showMessageDialog(this, "Cédula invalida", "Error", JOptionPane.ERROR_MESSAGE);
         }
         else if(tfNombre.getText().equals("") || tfApellido.getText().equals("")){
@@ -607,22 +623,27 @@ public class AltaSocio extends javax.swing.JPanel {
         }
         else if(checkF.isSelected() && tFamiliares.getRowCount()>=4)
             JOptionPane.showMessageDialog(this, "Familia completa.", "Error", JOptionPane.ERROR_MESSAGE);
-        else if(Conexion.getInstance().findSocio(parseInt(tfCI.getText()))!=null){
-            if (JOptionPane.showConfirmDialog(this, "Ya existe el socio en el sistema ¿Desea activarlo de nuevo?", "Consulta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-                Socio v = Conexion.getInstance().findSocio(parseInt(tfCI.getText()));
+        else if(Conexion.getInstance().findSocio(parseInt(ci))!=null){
+            Socio v = Conexion.getInstance().findSocio(parseInt(ci));
+            if(!v.isVigente()){
+                if (JOptionPane.showConfirmDialog(this, "Ya existe el socio en el sistema ¿Desea activarlo de nuevo?", "Consulta", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                 v.setVigente(true);
                 Conexion.getInstance().merge(v);
                 limpiar();
                 JOptionPane.showMessageDialog(this, "Socio reactivado: ci: "+v.getCi()+", nombre: "+v.getNombre()+", apellido: "+v.getApellido()+".", "Información", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
-            
+            else{
+                JOptionPane.showMessageDialog(this, "El socio ya existe en el sistema.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
         }
         else{
             if(checkJ.isSelected()){
                 Jugador j = new Jugador();
-                j.setNombre(tfNombre.getText());
-                j.setApellido(tfApellido.getText());
-                j.setCi(parseInt(tfCI.getText()));
+                j.setNombre(tfNombre.getText().trim());
+                j.setApellido(tfApellido.getText().trim());
+                j.setCi(parseInt(ci));
                 j.setDireccion(tfDireccion.getText());
                 j.setFechaNac(dcFechaNac.getDate());
                 j.setTelefono(tfTelefono.getText());
@@ -674,9 +695,9 @@ public class AltaSocio extends javax.swing.JPanel {
             }
             else{
                 Socio j = new Socio();
-                j.setNombre(tfNombre.getText());
-                j.setApellido(tfApellido.getText());
-                j.setCi(parseInt(tfCI.getText()));
+                j.setNombre(tfNombre.getText().trim());
+                j.setApellido(tfApellido.getText().trim());
+                j.setCi(parseInt(ci));
                 j.setDireccion(tfDireccion.getText());
                 j.setFechaNac(dcFechaNac.getDate());
                 j.setTelefono(tfTelefono.getText());
@@ -772,6 +793,7 @@ public class AltaSocio extends javax.swing.JPanel {
 
     private void cbCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCatActionPerformed
         // TODO add your handling code here:
+        selecCat();
     }//GEN-LAST:event_cbCatActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
@@ -865,6 +887,11 @@ public class AltaSocio extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCuotas2ActionPerformed
 
+    private void dcFechaNacPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dcFechaNacPropertyChange
+        // TODO add your handling code here:
+        selecCat();
+    }//GEN-LAST:event_dcFechaNacPropertyChange
+
     public void Jugador(boolean b){
         for(Component component : panelJugador.getComponents()) {
             component.setEnabled(b);
@@ -898,10 +925,10 @@ public class AltaSocio extends javax.swing.JPanel {
     public void limpiar(){
         tfNombre.setText("");
         tfApellido.setText("");
-        tfDireccion.setText("");
-        tfTelefono.setText("");
+        //tfDireccion.setText("");
+        //tfTelefono.setText("");
         tfCI.setText("");
-        dcFechaNac.setDate(null);
+        //dcFechaNac.setDate(null);
         dcCarnetHab.setDate(null);
         dcVenCi.setDate(null);
     }
@@ -912,10 +939,30 @@ public class AltaSocio extends javax.swing.JPanel {
         DefaultTableModel mdl = (DefaultTableModel) tFamiliares.getModel();
         mdl.setRowCount(0);
     }
-    public boolean CiValida(int ci){
-        return true;
+
+    public boolean selecCat(){
+        if(dcFechaNac.getDate() != null){
+            Date hoy = new Date();
+            int edad = hoy.getYear() - dcFechaNac.getDate().getYear();
+            for(int f=1; f<cbCat.getItemCount();f++){
+                Categoria  cate = (Categoria) cbCat.getItemAt(f);
+                if(edad >= cate.getEdadMin() && edad <= cate.getEdadMax()){
+                    cbCat.setSelectedIndex(f);
+                    return true;
+                }
+            }
+            cbCat.setSelectedIndex(0);
+            JOptionPane.showMessageDialog(this, "No existe una categoría para esta edad.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        else{
+            cbCat.setSelectedIndex(0);
+            return false;
+        }
     }
+    
     public static boolean esCIValida(String ci) {
+        ci= ci.trim();
         if(ci.length() != 7 && ci.length() != 8){
             return false;
         }
@@ -982,7 +1029,7 @@ public class AltaSocio extends javax.swing.JPanel {
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
-    private javax.swing.JComboBox<String> cbCat;
+    private javax.swing.JComboBox<Object> cbCat;
     private javax.swing.JComboBox<String> cbCuotas;
     private javax.swing.JComboBox<String> cbCuotas2;
     private javax.swing.JComboBox<String> cbTipoCarnet;
