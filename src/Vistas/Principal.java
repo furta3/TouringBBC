@@ -65,6 +65,7 @@ public class Principal extends javax.swing.JFrame {
         this.padre = this;
         AbrirInicio();
         cargarDatos();
+        verificarCategorias();
         //ImageIcon icono = new ImageIcon("src/Images/ico.png");
         //this.setIconImage(icono.getImage());
     }

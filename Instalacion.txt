@@ -1,0 +1,11 @@
+///////////////////INSTALACIÓN//////////////////////////
+
+-Instalar Xampp
+-ejecutar como admin
+-setear como servicio mysql
+-start mysql para probarlo sin reiniciar
+
+-Descargar el jre https://www.oracle.com/java/technologies/javase-jre8-downloads.html
+-Descargar el TouringBBC.jar
+
+Reiniciar

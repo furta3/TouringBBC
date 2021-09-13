@@ -46,6 +46,30 @@ public class Socio extends PersonaBBC implements Serializable {
     @OneToMany(mappedBy = "socio")
     private List<PagoBBC> pagos;
 
+    public Socio(Familia familia, List<Cuota> cuotas, List<SocioActividad> actividades, Date fechaIngreso, boolean rol, TipoSocio tipo, List<PagoBBC> pagos) {
+        this.familia = familia;
+        this.cuotas = cuotas;
+        this.actividades = actividades;
+        this.fechaIngreso = fechaIngreso;
+        this.rol = rol;
+        this.tipo = tipo;
+        this.pagos = pagos;
+    }
+
+    public Socio(Familia familia, List<Cuota> cuotas, List<SocioActividad> actividades, Date fechaIngreso, boolean rol, TipoSocio tipo, List<PagoBBC> pagos, int ci, String nombre, String apellido, String telefono, String direccion, boolean vigente, Date fechaNac) {
+        super(ci, nombre, apellido, telefono, direccion, vigente, fechaNac);
+        this.familia = familia;
+        this.cuotas = cuotas;
+        this.actividades = actividades;
+        this.fechaIngreso = fechaIngreso;
+        this.rol = rol;
+        this.tipo = tipo;
+        this.pagos = pagos;
+    }
+    
+
+    public Socio() {}
+    
     public List<PagoBBC> getPagos() {
         return pagos;
     }

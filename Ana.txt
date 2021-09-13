@@ -1,0 +1,11 @@
+socios: (En qué se diferecian? pagos, precios, cuotas?)
+	Becado
+	Becado parcial
+	Vitalicios
+	Contribuyentes
+
+	Jugador
+
+Tipo_socio(id_Socio, nombre, descuento)
+
+pedirle ejempldo de como se trabajan los datos actualmente, documentos

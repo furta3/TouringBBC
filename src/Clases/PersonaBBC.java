@@ -32,6 +32,16 @@ public class PersonaBBC implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaNac;
 
+    public PersonaBBC(int ci, String nombre, String apellido, String telefono, String direccion, boolean vigente, Date fechaNac) {
+        this.ci = ci;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.vigente = vigente;
+        this.fechaNac = fechaNac;
+    }
+
     public boolean isVigente() {
         return vigente;
     }

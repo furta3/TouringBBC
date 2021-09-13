@@ -7,6 +7,7 @@ package Clases;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +31,16 @@ public class Jugador extends Socio implements Serializable {
     private int tipoCarnet;
     private String detalles;
 
+    public Jugador(Familia familia, List<Cuota> cuotas, List<SocioActividad> actividades, Date fechaIngreso, boolean rol, TipoSocio tipo, List<PagoBBC> pagos) {
+        super(familia, cuotas, actividades, fechaIngreso, rol, tipo, pagos);
+    }
+
+    public Jugador(Familia familia, List<Cuota> cuotas, List<SocioActividad> actividades, Date fechaIngreso, boolean rol, TipoSocio tipo, List<PagoBBC> pagos, int ci, String nombre, String apellido, String telefono, String direccion, boolean vigente, Date fechaNac) {
+        super(familia, cuotas, actividades, fechaIngreso, rol, tipo, pagos, ci, nombre, apellido, telefono, direccion, vigente, fechaNac);
+    }
+
+    public Jugador() {}
+    
     public String getDetalles() {
         return detalles;
     }

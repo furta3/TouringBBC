@@ -1,0 +1,5 @@
+cuando se elimina una categoria los jugadores pasan a la siguente superior
+
+regularizar categorias automaticamente
+
+ordenar tabla de reportes segun sus datos

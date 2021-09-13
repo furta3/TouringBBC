@@ -63,6 +63,16 @@ public class DetallesSocio extends javax.swing.JPanel {
         cargarTipos();
         cbTipoSocio.setSelectedItem(s.getTipo());
 
+        List<Categoria> ts;
+        ts = main.categorias;
+        DefaultComboBoxModel dcm = new DefaultComboBoxModel();
+        for(Categoria tipo: ts){
+            if(tipo.isVigente()){
+                dcm.addElement(tipo);
+            }
+        }
+        cbCat.setModel(dcm);
+        selecCat();
         j = Conexion.getInstance().findJugador(s.getCi());
         if(j == null){
             for(Component component : pJugador.getComponents()) {
@@ -70,6 +80,9 @@ public class DetallesSocio extends javax.swing.JPanel {
             }
             taDesc.setEditable(false);
             jTabbedPane1.setSelectedIndex(1);
+            btnPasarJ.setEnabled(true);
+            btnCancelarPasarJ.setEnabled(true);
+            btnActualizar.setVisible(false);
             loadAct();
         }
         else{
@@ -1250,42 +1263,72 @@ public class DetallesSocio extends javax.swing.JPanel {
 
     public void jugador(boolean b){
         for(Component component : pJugador.getComponents()) {
-                component.setEnabled(b);
-            }
+            component.setEnabled(b);
+        }
         taDesc.setEditable(b);
-        if(b){
+        if(!b){
+            jTabbedPane1.setSelectedIndex(1);
             btnPasarJ.setVisible(b);
-            btnCancelarPasarJ.setVisible(b);
+            btnPasarJ.setEnabled(b);
+            btnActualizar.setVisible(!b);
+            List<Categoria> ts;
+            ts = main.categorias;
+            DefaultComboBoxModel dcm = new DefaultComboBoxModel();
+            for(Categoria tipo: ts){
+                    if(tipo.isVigente()){
+                            dcm.addElement(tipo);
+                    }
+            }
         }
         else{
-            btnPasarJ.setVisible(!b);
-            btnCancelarPasarJ.setVisible(!b);
+            btnActualizar.setVisible(b);
         }
+        
+        btnCancelarPasarJ.setEnabled(b);
     }
 
     private void btnPasarJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarJActionPerformed
         // TODO add your handling code here:
         if(btnPasarJ.getText().equals("Confirmar")){
-            selecCat();
-            Jugador ju = (Jugador) s;
-            ju.setPlantel((Categoria)cbCat.getSelectedItem());
-            ju.setCarnetHabilitante(dcVenCarnet.getDate());
-            ju.setTipoCarnet(cbTipoCarnet.getSelectedIndex());
-            ju.setVenCi(dcVenCi.getDate());
-            ju.setDetalles(taDesc.getText());
-            Conexion.getInstance().merge(ju);
-            JOptionPane.showMessageDialog(this, "Jugador actualizado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
-            btnPasarJ.setVisible(false);
-            btnCancelarPasarJ.setVisible(false);
+            if(dcVenCi.getDate()==null || dcVenCarnet==null){
+                JOptionPane.showMessageDialog(this, "Las fecha de vencimiento de la ci y del carnet de salud no pueden estar vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                selecCat();
+                Jugador ju = new Jugador(s.getFamilia(),s.getCuotas(),s.getActividades(),s.getFechaIngreso(),s.getRol(),s.getTipo(),s.getPagos(),s.getCi(),s.getNombre(),s.getApellido(),s.getTelefono(),s.getDireccion(),s.isVigente(),s.getFechaNac());
+                ju.setPlantel((Categoria)cbCat.getSelectedItem());
+                ju.setCarnetHabilitante(dcVenCarnet.getDate());
+                ju.setTipoCarnet(cbTipoCarnet.getSelectedIndex());
+                ju.setVenCi(dcVenCi.getDate());
+                ju.setDetalles(taDesc.getText());
+                Conexion.getInstance().persist(ju);
+                main.jugadores = Conexion.getInstance().getJugadores();
+                JOptionPane.showMessageDialog(this, "Jugador actualizado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
+                btnPasarJ.setVisible(false);
+                btnCancelarPasarJ.setVisible(false);
+                btnActualizar.setVisible(true);
+            }
         }
         else{
             btnPasarJ.setText("Confirmar");
-            jugador(true);
+            
+            for(Component component : pJugador.getComponents()) {
+                component.setEnabled(true);
+            }
+            taDesc.setEditable(true);
         }
     }//GEN-LAST:event_btnPasarJActionPerformed
 
     private void btnCancelarPasarJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarPasarJActionPerformed
         // TODO add your handling code here:
+        for(Component component : pJugador.getComponents()) {
+            component.setEnabled(false);
+        }
+        taDesc.setEditable(false);
+        jTabbedPane1.setSelectedIndex(1);
+        btnPasarJ.setEnabled(true);
+        btnCancelarPasarJ.setEnabled(true);
+        btnActualizar.setVisible(false);
     }//GEN-LAST:event_btnCancelarPasarJActionPerformed
     
     public void addFamiliar(Socio s3){
