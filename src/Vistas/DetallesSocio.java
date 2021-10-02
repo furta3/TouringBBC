@@ -1301,7 +1301,9 @@ public class DetallesSocio extends javax.swing.JPanel {
                 ju.setTipoCarnet(cbTipoCarnet.getSelectedIndex());
                 ju.setVenCi(dcVenCi.getDate());
                 ju.setDetalles(taDesc.getText());
-                Conexion.getInstance().persist(ju);
+                
+                Conexion.getInstance().merge(ju);
+                
                 main.jugadores = Conexion.getInstance().getJugadores();
                 JOptionPane.showMessageDialog(this, "Jugador actualizado con éxito.", "Información", JOptionPane.INFORMATION_MESSAGE);
                 btnPasarJ.setVisible(false);
@@ -1366,7 +1368,8 @@ public class DetallesSocio extends javax.swing.JPanel {
                 Object[] fila = new Object[4];
                 fila[0] = sa.getActividades();
                 fila[1] = sa;
-                fila[2] = sa.getActividades().getCupos();
+                //fila[2] = sa.getActividades().getCupos();
+                fila[2] = sa.getCuota().getMonto();
                 mdl.addRow(fila); 
             //}
         }

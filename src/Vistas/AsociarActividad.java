@@ -99,6 +99,18 @@ public class AsociarActividad extends javax.swing.JPanel {
                 mdl.addRow(fila); 
             }
         }
+        if(sa.getActividades().getCuotas().size()>0){
+            DefaultComboBoxModel dcm2 = new DefaultComboBoxModel();
+            for(Cuota c: sa.getActividades().getCuotas()){
+                if(c.isVigente()){
+                    dcm2.addElement(c);
+                }
+            }
+            cbCuotas.setModel(dcm2);
+        }
+        else
+            cbCuotas.setModel(new DefaultComboBoxModel());
+        lCupos.setText(""+(sa.getActividades().getCupos()- sa.getActividades().getSocios().size()));
         cbActividades.enable(false);
         btnEliminar.setVisible(true);
     }

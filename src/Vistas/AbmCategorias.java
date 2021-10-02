@@ -36,7 +36,7 @@ public class AbmCategorias extends javax.swing.JPanel {
         initComponents();
         this.main = main;
         modificando(false);
-        listaCat = main.categorias;
+        listaCat = Conexion.getInstance().getCategorias();
         tCategorias.setDefaultRenderer(Object.class, new RenderIntercalado());
         cargarCat();
     }
@@ -400,7 +400,7 @@ public class AbmCategorias extends javax.swing.JPanel {
                     }
                     if(sinCatActual.size()==0){
                         Conexion.getInstance().delete(cat);
-                        main.categorias.remove(cat);
+                        //main.categorias.remove(cat);
                         listaCat.remove(cat);
                         cargarCat();
                     }
@@ -416,7 +416,7 @@ public class AbmCategorias extends javax.swing.JPanel {
                 else{
                     System.out.println("en el else");
                     Conexion.getInstance().delete(cat);
-                    main.categorias.remove(cat);
+                    //main.categorias.remove(cat);
                     listaCat.remove(cat);
                     cargarCat();
                 }
@@ -450,7 +450,7 @@ public class AbmCategorias extends javax.swing.JPanel {
                         if(cat.getJugadores().size()==0){
                             btnModificar.setText("Modificar");
                             Conexion.getInstance().merge(cat);
-                            main.categorias = Conexion.getInstance().getCategorias();
+                            //main.categorias = Conexion.getInstance().getCategorias();
                             cargarCat();
                             limpiar();
                         }
@@ -468,8 +468,8 @@ public class AbmCategorias extends javax.swing.JPanel {
                             if(sinCatA.isEmpty()){
                                 btnModificar.setText("Modificar");
                                 Conexion.getInstance().merge(cat);
-                                main.categorias = Conexion.getInstance().getCategorias();
-                                listaCat = main.categorias;
+                                //main.categorias = Conexion.getInstance().getCategorias();
+                                listaCat = Conexion.getInstance().getCategorias();;
                                 cargarCat();
                                 limpiar();
                             }
